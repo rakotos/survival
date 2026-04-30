@@ -1,0 +1,27 @@
+.dart_tool/
+.idea/
+.vscode/
+
+build/
+.DS_Store
+Thumbs.db
+
+# Flutter legacy generated files
+app/.dart_tool/
+app/.idea/
+app/build/
+app/.flutter-plugins
+app/.flutter-plugins-dependencies
+app/.metadata
+app/android/.gradle/
+app/ios/Flutter/ephemeral/
+app/macos/Flutter/ephemeral/
+
+# Root legacy Flutter generated files
+pubspec.lock
+
+# Legacy Flutter prototype kept only locally
+app/
+lib/
+pubspec.yaml
+analysis_options.yaml

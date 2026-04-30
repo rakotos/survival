@@ -1,0 +1,1186 @@
+{
+  "languages": [
+    { "id": "ru", "short": "RU" },
+    { "id": "en", "short": "EN" },
+    { "id": "et", "short": "ET" },
+    { "id": "fi", "short": "FI" },
+    { "id": "lv", "short": "LV" },
+    { "id": "lt", "short": "LT" }
+  ],
+  "ui": {
+    "ru": {
+      "appName": "Выживальщик",
+      "appSubtitle": "Просто. Быстро. Офлайн.",
+      "homeTagline": "Режим стресса",
+      "homeTitle": "Первое действие за 3 секунды",
+      "homeText": "Без длинных статей. Только простые шаги, когда страшно и времени мало.",
+      "homeButton": "Что происходит?",
+      "homeButtonNote": "Выбери место и проблему",
+      "languageLabel": "Язык",
+      "offlineNote": "Работает офлайн после первого открытия.",
+      "placeTitle": "Где ты?",
+      "placeHint": "Выбери место. Потом выбери проблему.",
+      "problemTitle": "Что случилось?",
+      "problemHint": "Открой сценарий и делай шаги по одному.",
+      "speakButton": "Повторить голосом",
+      "nextButton": "Дальше",
+      "finishButton": "Готово",
+      "backButton": "Назад",
+      "sosButton": "SOS",
+      "sosTitle": "SOS",
+      "sosHint": "Позвони, отправь координаты или скопируй короткое сообщение.",
+      "coordsLabel": "Координаты",
+      "coordsUnknown": "Координаты ещё не получены",
+      "messageLabel": "Сообщение",
+      "callButton": "Позвонить 112",
+      "locationButton": "Получить координаты",
+      "loadingCoords": "Определяю координаты...",
+      "copyButton": "Скопировать",
+      "shareButton": "Поделиться",
+      "sosMessagePrefix": "Мне нужна помощь. Я нахожусь здесь:",
+      "sosMessageNoCoords": "Мне нужна помощь. Координаты пока не получены.",
+      "copyDone": "Сообщение скопировано.",
+      "copyFailed": "Не удалось скопировать.",
+      "locationUnavailable": "Геолокация недоступна в этом браузере.",
+      "locationDenied": "Не удалось получить координаты.",
+      "timerLabel": "Слушай",
+      "lowPowerButton": "Режим низкого заряда",
+      "installButton": "Установить приложение"
+    },
+    "en": {
+      "appName": "Survival Mode",
+      "appSubtitle": "Simple. Fast. Offline.",
+      "homeTagline": "Stress mode",
+      "homeTitle": "First useful action in 3 seconds",
+      "homeText": "No long articles. Only short steps for panic or danger.",
+      "homeButton": "What is happening?",
+      "homeButtonNote": "Choose place and problem",
+      "languageLabel": "Language",
+      "offlineNote": "Works offline after the first open.",
+      "placeTitle": "Where are you?",
+      "placeHint": "Choose a place. Then choose a problem.",
+      "problemTitle": "What happened?",
+      "problemHint": "Open a scenario and do one step at a time.",
+      "speakButton": "Repeat by voice",
+      "nextButton": "Next",
+      "finishButton": "Done",
+      "backButton": "Back",
+      "sosButton": "SOS",
+      "sosTitle": "SOS",
+      "sosHint": "Call, send coordinates, or copy a short message.",
+      "coordsLabel": "Coordinates",
+      "coordsUnknown": "Coordinates not received yet",
+      "messageLabel": "Message",
+      "callButton": "Call 112",
+      "locationButton": "Get coordinates",
+      "loadingCoords": "Getting coordinates...",
+      "copyButton": "Copy",
+      "shareButton": "Share",
+      "sosMessagePrefix": "I need help. I am here:",
+      "sosMessageNoCoords": "I need help. Coordinates are not available yet.",
+      "copyDone": "Message copied.",
+      "copyFailed": "Could not copy the message.",
+      "locationUnavailable": "Geolocation is not available in this browser.",
+      "locationDenied": "Could not get your location.",
+      "timerLabel": "Listen",
+      "lowPowerButton": "Low power mode",
+      "installButton": "Install app"
+    },
+    "et": {
+      "appName": "Ellujäämisrežiim",
+      "appSubtitle": "Lihtne. Kiire. Offline.",
+      "homeTagline": "Stressirežiim",
+      "homeTitle": "Esimene kasulik samm 3 sekundiga",
+      "homeText": "Pikki artikleid ei ole. Ainult lühikesed sammud paanika või ohu jaoks.",
+      "homeButton": "Mis toimub?",
+      "homeButtonNote": "Vali koht ja probleem",
+      "languageLabel": "Keel",
+      "offlineNote": "Töötab võrguühenduseta pärast esimest avamist.",
+      "placeTitle": "Kus sa oled?",
+      "placeHint": "Vali koht. Siis vali probleem.",
+      "problemTitle": "Mis juhtus?",
+      "problemHint": "Ava stsenaarium ja tee üks samm korraga.",
+      "speakButton": "Korda häälega",
+      "nextButton": "Edasi",
+      "finishButton": "Valmis",
+      "backButton": "Tagasi",
+      "sosButton": "SOS",
+      "sosTitle": "SOS",
+      "sosHint": "Helista, saada koordinaadid või kopeeri lühike sõnum.",
+      "coordsLabel": "Koordinaadid",
+      "coordsUnknown": "Koordinaate veel ei ole",
+      "messageLabel": "Sõnum",
+      "callButton": "Helista 112",
+      "locationButton": "Hangi koordinaadid",
+      "loadingCoords": "Koordinaadid laaditakse...",
+      "copyButton": "Kopeeri",
+      "shareButton": "Jaga",
+      "sosMessagePrefix": "Vajan abi. Olen siin:",
+      "sosMessageNoCoords": "Vajan abi. Koordinaate veel ei ole.",
+      "copyDone": "Sõnum kopeeritud.",
+      "copyFailed": "Sõnumit ei saanud kopeerida.",
+      "locationUnavailable": "Geolokatsioon ei ole selles brauseris saadaval.",
+      "locationDenied": "Asukohta ei saanud kätte.",
+      "timerLabel": "Kuula",
+      "lowPowerButton": "Madala aku režiim",
+      "installButton": "Paigalda rakendus"
+    },
+    "fi": {
+      "appName": "Selviytymistila",
+      "appSubtitle": "Yksinkertainen. Nopea. Offline.",
+      "homeTagline": "Stressitila",
+      "homeTitle": "Ensimmäinen hyödyllinen teko 3 sekunnissa",
+      "homeText": "Ei pitkiä artikkeleita. Vain lyhyet vaiheet paniikkiin tai vaaraan.",
+      "homeButton": "Mitä tapahtuu?",
+      "homeButtonNote": "Valitse paikka ja ongelma",
+      "languageLabel": "Kieli",
+      "offlineNote": "Toimii offline-tilassa ensimmäisen avauksen jälkeen.",
+      "placeTitle": "Missä olet?",
+      "placeHint": "Valitse paikka. Valitse sitten ongelma.",
+      "problemTitle": "Mitä tapahtui?",
+      "problemHint": "Avaa skenaario ja tee yksi askel kerrallaan.",
+      "speakButton": "Toista äänellä",
+      "nextButton": "Seuraava",
+      "finishButton": "Valmis",
+      "backButton": "Takaisin",
+      "sosButton": "SOS",
+      "sosTitle": "SOS",
+      "sosHint": "Soita, lähetä koordinaatit tai kopioi lyhyt viesti.",
+      "coordsLabel": "Koordinaatit",
+      "coordsUnknown": "Koordinaatteja ei vielä ole",
+      "messageLabel": "Viesti",
+      "callButton": "Soita 112",
+      "locationButton": "Hae koordinaatit",
+      "loadingCoords": "Haetaan koordinaatteja...",
+      "copyButton": "Kopioi",
+      "shareButton": "Jaa",
+      "sosMessagePrefix": "Tarvitsen apua. Olen täällä:",
+      "sosMessageNoCoords": "Tarvitsen apua. Koordinaatteja ei vielä ole.",
+      "copyDone": "Viesti kopioitu.",
+      "copyFailed": "Viestiä ei voitu kopioida.",
+      "locationUnavailable": "Sijainti ei ole saatavilla tässä selaimessa.",
+      "locationDenied": "Sijaintia ei saatu.",
+      "timerLabel": "Kuuntele",
+      "lowPowerButton": "Virransäästötila",
+      "installButton": "Asenna sovellus"
+    },
+    "lv": {
+      "appName": "Izdzīvošanas režīms",
+      "appSubtitle": "Vienkārši. Ātri. Bezsaistē.",
+      "homeTagline": "Stresa režīms",
+      "homeTitle": "Pirmais noderīgais solis 3 sekundēs",
+      "homeText": "Nav garu rakstu. Tikai īsi soļi panikai vai briesmām.",
+      "homeButton": "Kas notiek?",
+      "homeButtonNote": "Izvēlies vietu un problēmu",
+      "languageLabel": "Valoda",
+      "offlineNote": "Darbojas bezsaistē pēc pirmās atvēršanas.",
+      "placeTitle": "Kur tu esi?",
+      "placeHint": "Izvēlies vietu. Pēc tam izvēlies problēmu.",
+      "problemTitle": "Kas notika?",
+      "problemHint": "Atver scenāriju un dari vienu soli vienlaikus.",
+      "speakButton": "Atkārtot balsī",
+      "nextButton": "Tālāk",
+      "finishButton": "Gatavs",
+      "backButton": "Atpakaļ",
+      "sosButton": "SOS",
+      "sosTitle": "SOS",
+      "sosHint": "Zvani, sūti koordinātas vai kopē īsu ziņu.",
+      "coordsLabel": "Koordinātas",
+      "coordsUnknown": "Koordinātas vēl nav iegūtas",
+      "messageLabel": "Ziņa",
+      "callButton": "Zvanīt 112",
+      "locationButton": "Iegūt koordinātas",
+      "loadingCoords": "Iegūstu koordinātas...",
+      "copyButton": "Kopēt",
+      "shareButton": "Koplietot",
+      "sosMessagePrefix": "Man vajag palīdzību. Es atrodos šeit:",
+      "sosMessageNoCoords": "Man vajag palīdzību. Koordinātas vēl nav pieejamas.",
+      "copyDone": "Ziņa nokopēta.",
+      "copyFailed": "Neizdevās nokopēt ziņu.",
+      "locationUnavailable": "Ģeolokācija šajā pārlūkā nav pieejama.",
+      "locationDenied": "Neizdevās iegūt atrašanās vietu.",
+      "timerLabel": "Klausies",
+      "lowPowerButton": "Zema akumulatora režīms",
+      "installButton": "Instalēt lietotni"
+    },
+    "lt": {
+      "appName": "Išgyvenimo režimas",
+      "appSubtitle": "Paprasta. Greita. Be interneto.",
+      "homeTagline": "Streso režimas",
+      "homeTitle": "Pirmas naudingas veiksmas per 3 sekundes",
+      "homeText": "Jokių ilgų straipsnių. Tik trumpi žingsniai panikai ar pavojui.",
+      "homeButton": "Kas vyksta?",
+      "homeButtonNote": "Pasirink vietą ir problemą",
+      "languageLabel": "Kalba",
+      "offlineNote": "Veikia be interneto po pirmo atidarymo.",
+      "placeTitle": "Kur esi?",
+      "placeHint": "Pasirink vietą. Tada pasirink problemą.",
+      "problemTitle": "Kas nutiko?",
+      "problemHint": "Atidaryk scenarijų ir daryk po vieną žingsnį.",
+      "speakButton": "Pakartoti balsu",
+      "nextButton": "Toliau",
+      "finishButton": "Baigta",
+      "backButton": "Atgal",
+      "sosButton": "SOS",
+      "sosTitle": "SOS",
+      "sosHint": "Skambink, siųsk koordinates arba kopijuok trumpą žinutę.",
+      "coordsLabel": "Koordinatės",
+      "coordsUnknown": "Koordinatės dar negautos",
+      "messageLabel": "Žinutė",
+      "callButton": "Skambinti 112",
+      "locationButton": "Gauti koordinates",
+      "loadingCoords": "Gaunamos koordinatės...",
+      "copyButton": "Kopijuoti",
+      "shareButton": "Dalintis",
+      "sosMessagePrefix": "Man reikia pagalbos. Aš esu čia:",
+      "sosMessageNoCoords": "Man reikia pagalbos. Koordinatės dar negautos.",
+      "copyDone": "Žinutė nukopijuota.",
+      "copyFailed": "Nepavyko nukopijuoti žinutės.",
+      "locationUnavailable": "Geolokacija šiame naršyklėje neprieinama.",
+      "locationDenied": "Nepavyko gauti vietos.",
+      "timerLabel": "Klausyk",
+      "lowPowerButton": "Mažos baterijos režimas",
+      "installButton": "Įdiegti programą"
+    }
+  },
+  "places": [
+    {
+      "id": "forest",
+      "icon": "🌲",
+      "problemIds": ["lost", "night", "cold_forest", "water_forest"],
+      "title": {
+        "ru": "Я в лесу",
+        "en": "I am in the forest",
+        "et": "Ma olen metsas",
+        "fi": "Olen metsässä",
+        "lv": "Es esmu mežā",
+        "lt": "Aš esu miške"
+      },
+      "hint": {
+        "ru": "Лес, ночь, холод, вода",
+        "en": "Forest, night, cold, water",
+        "et": "Mets, öö, külm, vesi",
+        "fi": "Metsä, yö, kylmä, vesi",
+        "lv": "Mežs, nakts, aukstums, ūdens",
+        "lt": "Miškas, naktis, šaltis, vanduo"
+      }
+    },
+    {
+      "id": "car",
+      "icon": "🚗",
+      "problemIds": ["stuck", "crash", "cold_car", "no_signal_car"],
+      "title": {
+        "ru": "Я в машине",
+        "en": "I am in the car",
+        "et": "Ma olen autos",
+        "fi": "Olen autossa",
+        "lv": "Es esmu mašīnā",
+        "lt": "Aš esu automobilyje"
+      },
+      "hint": {
+        "ru": "Застрял, авария, холод, нет связи",
+        "en": "Stuck, crash, cold, no signal",
+        "et": "Kinni, avarii, külm, pole levi",
+        "fi": "Jumissa, kolari, kylmä, ei verkkoa",
+        "lv": "Iestrēdzis, avārija, auksti, nav sakaru",
+        "lt": "Įstrigau, avarija, šalta, nėra ryšio"
+      }
+    },
+    {
+      "id": "home",
+      "icon": "🏠",
+      "problemIds": ["power_home", "water_home", "fire_home", "evacuate_home"],
+      "title": {
+        "ru": "Я дома",
+        "en": "I am at home",
+        "et": "Ma olen kodus",
+        "fi": "Olen kotona",
+        "lv": "Es esmu mājās",
+        "lt": "Aš esu namuose"
+      },
+      "hint": {
+        "ru": "Свет, вода, пожар, эвакуация",
+        "en": "Power, water, fire, evacuate",
+        "et": "Elekter, vesi, tulekahju, evakuatsioon",
+        "fi": "Sähkö, vesi, tuli, evakuointi",
+        "lv": "Elektrība, ūdens, ugunsgrēks, evakuācija",
+        "lt": "Elektra, vanduo, gaisras, evakuacija"
+      }
+    },
+    {
+      "id": "city",
+      "icon": "🏙️",
+      "problemIds": ["crowd_city", "no_signal_city", "danger_city", "shelter_city"],
+      "title": {
+        "ru": "Я в городе",
+        "en": "I am in the city",
+        "et": "Ma olen linnas",
+        "fi": "Olen kaupungissa",
+        "lv": "Es esmu pilsētā",
+        "lt": "Aš esu mieste"
+      },
+      "hint": {
+        "ru": "Толпа, нет связи, опасность, укрытие",
+        "en": "Crowd, no signal, danger, shelter",
+        "et": "Rahvahulk, pole levi, oht, varjend",
+        "fi": "Väkijoukko, ei verkkoa, vaara, suoja",
+        "lv": "Pūlis, nav sakaru, briesmas, patvērums",
+        "lt": "Minia, nėra ryšio, pavojus, prieglobstis"
+      }
+    }
+  ],
+  "problems": [
+    {
+      "id": "lost",
+      "icon": "🧭",
+      "title": {
+        "ru": "Я потерялся",
+        "en": "I am lost",
+        "et": "Ma eksisin ära",
+        "fi": "Olen eksynyt",
+        "lv": "Es apmaldījos",
+        "lt": "Pasiklydau"
+      },
+      "hint": {
+        "ru": "Стоп. Слушай. Экономь заряд.",
+        "en": "Stop. Listen. Save battery.",
+        "et": "Peatu. Kuula. Hoia akut.",
+        "fi": "Pysähdy. Kuuntele. Säästä akkua.",
+        "lv": "Apstājies. Klausies. Taupi akumulatoru.",
+        "lt": "Sustok. Klausyk. Taupyk bateriją."
+      }
+    },
+    {
+      "id": "night",
+      "icon": "🌙",
+      "title": {
+        "ru": "Наступает ночь",
+        "en": "Night is coming",
+        "et": "Öö tuleb",
+        "fi": "Yö tulee",
+        "lv": "Tuvojas nakts",
+        "lt": "Artėja naktis"
+      },
+      "hint": {
+        "ru": "Ищи укрытие. Готовь тепло.",
+        "en": "Find shelter. Prepare warmth.",
+        "et": "Leia varjualune. Hoia sooja.",
+        "fi": "Etsi suoja. Valmistaudu lämpöön.",
+        "lv": "Meklē patvērumu. Gatavo siltumu.",
+        "lt": "Rask prieglobstį. Ruošk šilumą."
+      }
+    },
+    {
+      "id": "cold_forest",
+      "icon": "🥶",
+      "title": {
+        "ru": "Мне холодно",
+        "en": "I am cold",
+        "et": "Mul on külm",
+        "fi": "Minulla on kylmä",
+        "lv": "Man ir auksti",
+        "lt": "Man šalta"
+      },
+      "hint": {
+        "ru": "Сохрани тепло. Не стой на ветру.",
+        "en": "Keep warmth. Stay out of wind.",
+        "et": "Hoia sooja. Mine tuule eest ära.",
+        "fi": "Säilytä lämpö. Mene pois tuulesta.",
+        "lv": "Saglabā siltumu. Ej prom no vēja.",
+        "lt": "Saugok šilumą. Eik nuo vėjo."
+      }
+    },
+    {
+      "id": "water_forest",
+      "icon": "💧",
+      "title": {
+        "ru": "Нет воды",
+        "en": "No water",
+        "et": "Vett ei ole",
+        "fi": "Ei vettä",
+        "lv": "Nav ūdens",
+        "lt": "Nėra vandens"
+      },
+      "hint": {
+        "ru": "Сохрани силы. Ищи источник.",
+        "en": "Save strength. Find a source.",
+        "et": "Hoia jõudu. Otsi allikat.",
+        "fi": "Säästä voimia. Etsi vesilähde.",
+        "lv": "Taupi spēkus. Meklē avotu.",
+        "lt": "Taupyk jėgas. Ieškok šaltinio."
+      }
+    },
+    {
+      "id": "stuck",
+      "icon": "🛞",
+      "title": {
+        "ru": "Я застрял",
+        "en": "I am stuck",
+        "et": "Jäin kinni",
+        "fi": "Olen jumissa",
+        "lv": "Es iestrēgu",
+        "lt": "Įstrigau"
+      },
+      "hint": {
+        "ru": "Останься в машине. Дай сигнал.",
+        "en": "Stay in the car. Signal for help.",
+        "et": "Jää autosse. Anna märku.",
+        "fi": "Pysy autossa. Anna merkki.",
+        "lv": "Paliec mašīnā. Dod signālu.",
+        "lt": "Lik automobilyje. Duok signalą."
+      }
+    },
+    {
+      "id": "crash",
+      "icon": "🚨",
+      "title": {
+        "ru": "Авария",
+        "en": "Crash",
+        "et": "Avarii",
+        "fi": "Kolari",
+        "lv": "Avārija",
+        "lt": "Avarija"
+      },
+      "hint": {
+        "ru": "Безопасность. Травмы. Вызов помощи.",
+        "en": "Safety. Injuries. Call help.",
+        "et": "Ohutus. Vigastused. Kutsu abi.",
+        "fi": "Turvallisuus. Vammat. Soita apua.",
+        "lv": "Drošība. Traumas. Saukt palīdzību.",
+        "lt": "Saugumas. Sužalojimai. Kviesti pagalbą."
+      }
+    },
+    {
+      "id": "cold_car",
+      "icon": "🧥",
+      "title": {
+        "ru": "Холодно",
+        "en": "Cold",
+        "et": "Külm",
+        "fi": "Kylmä",
+        "lv": "Auksti",
+        "lt": "Šalta"
+      },
+      "hint": {
+        "ru": "Сохрани тепло. Не трать заряд.",
+        "en": "Keep warm. Save battery.",
+        "et": "Hoia sooja. Hoia akut.",
+        "fi": "Pysy lämpimänä. Säästä akkua.",
+        "lv": "Saglabā siltumu. Taupi akumulatoru.",
+        "lt": "Išlaikyk šilumą. Taupyk bateriją."
+      }
+    },
+    {
+      "id": "no_signal_car",
+      "icon": "📵",
+      "title": {
+        "ru": "Нет связи",
+        "en": "No signal",
+        "et": "Pole levi",
+        "fi": "Ei verkkoa",
+        "lv": "Nav sakaru",
+        "lt": "Nėra ryšio"
+      },
+      "hint": {
+        "ru": "Экономь заряд. Пытайся SMS.",
+        "en": "Save battery. Try SMS.",
+        "et": "Hoia akut. Proovi SMS-i.",
+        "fi": "Säästä akkua. Kokeile tekstiviestiä.",
+        "lv": "Taupi akumulatoru. Mēģini SMS.",
+        "lt": "Taupyk bateriją. Bandyk SMS."
+      }
+    },
+    {
+      "id": "power_home",
+      "icon": "⚡",
+      "title": {
+        "ru": "Нет электричества",
+        "en": "No power",
+        "et": "Elektrit ei ole",
+        "fi": "Ei sähköä",
+        "lv": "Nav elektrības",
+        "lt": "Nėra elektros"
+      },
+      "hint": {
+        "ru": "Фонарик. Холодильник. Заряд.",
+        "en": "Flashlight. Fridge. Battery.",
+        "et": "Taskulamp. Külmik. Aku.",
+        "fi": "Taskulamppu. Jääkaappi. Akku.",
+        "lv": "Lukturis. Ledusskapis. Akumulators.",
+        "lt": "Žibintuvėlis. Šaldytuvas. Baterija."
+      }
+    },
+    {
+      "id": "water_home",
+      "icon": "🚰",
+      "title": {
+        "ru": "Нет воды",
+        "en": "No water",
+        "et": "Vett ei ole",
+        "fi": "Ei vettä",
+        "lv": "Nav ūdens",
+        "lt": "Nėra vandens"
+      },
+      "hint": {
+        "ru": "Собери запас. Закрой краны.",
+        "en": "Collect water. Close taps.",
+        "et": "Kogu vesi. Sule kraanid.",
+        "fi": "Kerää vesi. Sulje hanat.",
+        "lv": "Savāc ūdeni. Aizgriez krānus.",
+        "lt": "Surink vandenį. Užsuk čiaupus."
+      }
+    },
+    {
+      "id": "fire_home",
+      "icon": "🔥",
+      "title": {
+        "ru": "Пожар",
+        "en": "Fire",
+        "et": "Tulekahju",
+        "fi": "Tulipalo",
+        "lv": "Ugunsgrēks",
+        "lt": "Gaisras"
+      },
+      "hint": {
+        "ru": "Выходи. Не дыши дымом.",
+        "en": "Leave. Avoid smoke.",
+        "et": "Mine välja. Väldi suitsu.",
+        "fi": "Poistu. Vältä savua.",
+        "lv": "Ej ārā. Izvairies no dūmiem.",
+        "lt": "Išeik. Venk dūmų."
+      }
+    },
+    {
+      "id": "evacuate_home",
+      "icon": "🎒",
+      "title": {
+        "ru": "Нужно эвакуироваться",
+        "en": "Need to evacuate",
+        "et": "Tuleb evakueeruda",
+        "fi": "On evakuoitava",
+        "lv": "Jāevakuējas",
+        "lt": "Reikia evakuotis"
+      },
+      "hint": {
+        "ru": "Возьми минимум. Выходи быстро.",
+        "en": "Take essentials. Leave fast.",
+        "et": "Võta hädavajalik. Lahku kiiresti.",
+        "fi": "Ota tärkeimmät. Poistu nopeasti.",
+        "lv": "Paņem svarīgāko. Ej ātri ārā.",
+        "lt": "Pasiimk svarbiausia. Greitai išeik."
+      }
+    },
+    {
+      "id": "crowd_city",
+      "icon": "😰",
+      "title": {
+        "ru": "Паника / толпа",
+        "en": "Panic / crowd",
+        "et": "Paanika / rahvahulk",
+        "fi": "Paniikki / väkijoukko",
+        "lv": "Panika / pūlis",
+        "lt": "Panika / minia"
+      },
+      "hint": {
+        "ru": "Не спорь. Уходи в сторону.",
+        "en": "Do not argue. Move aside.",
+        "et": "Ära vaidle. Liigu kõrvale.",
+        "fi": "Älä väittele. Siirry sivuun.",
+        "lv": "Nestrīdies. Virzies malā.",
+        "lt": "Nesiginčyk. Traukis į šoną."
+      }
+    },
+    {
+      "id": "no_signal_city",
+      "icon": "📡",
+      "title": {
+        "ru": "Нет связи",
+        "en": "No signal",
+        "et": "Pole levi",
+        "fi": "Ei verkkoa",
+        "lv": "Nav sakaru",
+        "lt": "Nėra ryšio"
+      },
+      "hint": {
+        "ru": "Экономь заряд. Ищи SMS.",
+        "en": "Save battery. Try SMS.",
+        "et": "Hoia akut. Proovi SMS-i.",
+        "fi": "Säästä akkua. Kokeile viestiä.",
+        "lv": "Taupi akumulatoru. Mēģini SMS.",
+        "lt": "Taupyk bateriją. Bandyk SMS."
+      }
+    },
+    {
+      "id": "danger_city",
+      "icon": "⚠️",
+      "title": {
+        "ru": "Опасность на улице",
+        "en": "Danger outside",
+        "et": "Oht tänaval",
+        "fi": "Vaara ulkona",
+        "lv": "Briesmas uz ielas",
+        "lt": "Pavojus lauke"
+      },
+      "hint": {
+        "ru": "Уйди с улицы. Найди укрытие.",
+        "en": "Leave the street. Find shelter.",
+        "et": "Lahku tänavalt. Leia varju.",
+        "fi": "Poistu kadulta. Etsi suoja.",
+        "lv": "Ej prom no ielas. Meklē patvērumu.",
+        "lt": "Palik gatvę. Rask prieglobstį."
+      }
+    },
+    {
+      "id": "shelter_city",
+      "icon": "🛡️",
+      "title": {
+        "ru": "Нужно укрытие",
+        "en": "Need shelter",
+        "et": "Vajan varju",
+        "fi": "Tarvitsen suojaa",
+        "lv": "Vajag patvērumu",
+        "lt": "Reikia prieglobsčio"
+      },
+      "hint": {
+        "ru": "Ищи здание. Закрой двери.",
+        "en": "Find a building. Close doors.",
+        "et": "Leia hoone. Sule uksed.",
+        "fi": "Etsi rakennus. Sulje ovet.",
+        "lv": "Meklē ēku. Aizver durvis.",
+        "lt": "Rask pastatą. Užverk duris."
+      }
+    }
+  ],
+  "actions": {
+    "stop": {
+      "icon": "🛑",
+      "text": {
+        "ru": "Остановись",
+        "en": "Stop",
+        "et": "Peatu",
+        "fi": "Pysähdy",
+        "lv": "Apstājies",
+        "lt": "Sustok"
+      },
+      "voice": {
+        "ru": "Остановись. Не иди дальше.",
+        "en": "Stop. Do not go farther.",
+        "et": "Peatu. Ära mine edasi.",
+        "fi": "Pysähdy. Älä mene pidemmälle.",
+        "lv": "Apstājies. Neej tālāk.",
+        "lt": "Sustok. Neik toliau."
+      }
+    },
+    "listen_60": {
+      "icon": "👂",
+      "text": {
+        "ru": "Слушай 60 секунд",
+        "en": "Listen for 60 seconds",
+        "et": "Kuula 60 sekundit",
+        "fi": "Kuuntele 60 sekuntia",
+        "lv": "Klausies 60 sekundes",
+        "lt": "Klausyk 60 sekundžių"
+      },
+      "voice": {
+        "ru": "Останься на месте и слушай звуки вокруг.",
+        "en": "Stay still and listen to the sounds around you.",
+        "et": "Jää paigale ja kuula ümbrust.",
+        "fi": "Pysy paikallasi ja kuuntele ympäristöä.",
+        "lv": "Paliec uz vietas un klausies apkārtni.",
+        "lt": "Lik vietoje ir klausykis aplinkos."
+      },
+      "timerSec": 60
+    },
+    "save_battery": {
+      "icon": "🔋",
+      "text": {
+        "ru": "Экономь заряд",
+        "en": "Save battery",
+        "et": "Hoia akut",
+        "fi": "Säästä akkua",
+        "lv": "Taupi akumulatoru",
+        "lt": "Taupyk bateriją"
+      }
+    },
+    "mark_place": {
+      "icon": "📍",
+      "text": {
+        "ru": "Запомни место",
+        "en": "Mark the place",
+        "et": "Jäta koht meelde",
+        "fi": "Merkitse paikka",
+        "lv": "Iegaumē vietu",
+        "lt": "Įsimink vietą"
+      }
+    },
+    "send_coords": {
+      "icon": "🆘",
+      "text": {
+        "ru": "Отправь координаты",
+        "en": "Send coordinates",
+        "et": "Saada koordinaadid",
+        "fi": "Lähetä koordinaatit",
+        "lv": "Nosūti koordinātas",
+        "lt": "Siųsk koordinates"
+      }
+    },
+    "find_shelter": {
+      "icon": "⛺",
+      "text": {
+        "ru": "Ищи укрытие",
+        "en": "Find shelter",
+        "et": "Leia varjualune",
+        "fi": "Etsi suoja",
+        "lv": "Meklē patvērumu",
+        "lt": "Rask prieglobstį"
+      }
+    },
+    "prepare_night": {
+      "icon": "🌙",
+      "text": {
+        "ru": "Готовься к ночи",
+        "en": "Prepare for night",
+        "et": "Valmistu ööks",
+        "fi": "Valmistaudu yöhön",
+        "lv": "Gatavojies naktij",
+        "lt": "Ruoškis nakčiai"
+      }
+    },
+    "collect_dry": {
+      "icon": "🍂",
+      "text": {
+        "ru": "Собери сухие вещи",
+        "en": "Collect dry material",
+        "et": "Kogu kuiva materjali",
+        "fi": "Kerää kuivaa materiaalia",
+        "lv": "Savāc sausu materiālu",
+        "lt": "Surink sausą medžiagą"
+      }
+    },
+    "keep_warm": {
+      "icon": "🧥",
+      "text": {
+        "ru": "Сохрани тепло",
+        "en": "Keep warm",
+        "et": "Hoia sooja",
+        "fi": "Säilytä lämpö",
+        "lv": "Saglabā siltumu",
+        "lt": "Saugok šilumą"
+      }
+    },
+    "out_of_wind": {
+      "icon": "🌬️",
+      "text": {
+        "ru": "Уйди от ветра",
+        "en": "Get out of the wind",
+        "et": "Mine tuule eest ära",
+        "fi": "Mene pois tuulesta",
+        "lv": "Ej prom no vēja",
+        "lt": "Eik nuo vėjo"
+      }
+    },
+    "insulate_ground": {
+      "icon": "🪵",
+      "text": {
+        "ru": "Не сиди на земле",
+        "en": "Do not sit on the ground",
+        "et": "Ära istu maas",
+        "fi": "Älä istu maassa",
+        "lv": "Nesēdi uz zemes",
+        "lt": "Nesėdėk ant žemės"
+      }
+    },
+    "find_water_source": {
+      "icon": "💧",
+      "text": {
+        "ru": "Ищи источник воды",
+        "en": "Find water source",
+        "et": "Otsi veeallikat",
+        "fi": "Etsi vesilähde",
+        "lv": "Meklē ūdens avotu",
+        "lt": "Ieškok vandens šaltinio"
+      }
+    },
+    "rest_and_save_strength": {
+      "icon": "🪫",
+      "text": {
+        "ru": "Береги силы",
+        "en": "Save your strength",
+        "et": "Hoia jõudu",
+        "fi": "Säästä voimia",
+        "lv": "Taupi spēkus",
+        "lt": "Taupyk jėgas"
+      }
+    },
+    "clean_water": {
+      "icon": "🫗",
+      "text": {
+        "ru": "Очищай воду",
+        "en": "Clean the water",
+        "et": "Puhasta vett",
+        "fi": "Puhdista vesi",
+        "lv": "Attīri ūdeni",
+        "lt": "Valyk vandenį"
+      }
+    },
+    "stay_in_car": {
+      "icon": "🚗",
+      "text": {
+        "ru": "Останься в машине",
+        "en": "Stay in the car",
+        "et": "Jää autosse",
+        "fi": "Pysy autossa",
+        "lv": "Paliec mašīnā",
+        "lt": "Lik automobilyje"
+      }
+    },
+    "turn_on_hazard": {
+      "icon": "💡",
+      "text": {
+        "ru": "Включи аварийку",
+        "en": "Turn on hazard lights",
+        "et": "Pane ohutuled sisse",
+        "fi": "Laita hätävilkut päälle",
+        "lv": "Ieslēdz avārijas gaismas",
+        "lt": "Įjunk avarines šviesas"
+      }
+    },
+    "dig_clear_path": {
+      "icon": "🪏",
+      "text": {
+        "ru": "Очисти колёса",
+        "en": "Clear the wheels",
+        "et": "Puhasta rattad",
+        "fi": "Puhdista renkaat",
+        "lv": "Atbrīvo riteņus",
+        "lt": "Išvalyk ratus"
+      }
+    },
+    "signal_help": {
+      "icon": "📣",
+      "text": {
+        "ru": "Подай сигнал",
+        "en": "Signal for help",
+        "et": "Anna märku",
+        "fi": "Anna merkki",
+        "lv": "Dod signālu",
+        "lt": "Duok signalą"
+      }
+    },
+    "move_from_traffic": {
+      "icon": "↘️",
+      "text": {
+        "ru": "Уйди с дороги",
+        "en": "Move off the road",
+        "et": "Mine teelt ära",
+        "fi": "Siirry pois tieltä",
+        "lv": "Ej nost no ceļa",
+        "lt": "Pasitrauk nuo kelio"
+      }
+    },
+    "check_injuries": {
+      "icon": "🩹",
+      "text": {
+        "ru": "Проверь травмы",
+        "en": "Check injuries",
+        "et": "Kontrolli vigastusi",
+        "fi": "Tarkista vammat",
+        "lv": "Pārbaudi traumas",
+        "lt": "Patikrink sužalojimus"
+      }
+    },
+    "call_help": {
+      "icon": "📞",
+      "text": {
+        "ru": "Вызови помощь",
+        "en": "Call for help",
+        "et": "Kutsu abi",
+        "fi": "Soita apua",
+        "lv": "Sauc palīdzību",
+        "lt": "Kviesk pagalbą"
+      }
+    },
+    "use_blankets": {
+      "icon": "🧣",
+      "text": {
+        "ru": "Накройся",
+        "en": "Cover yourself",
+        "et": "Kata ennast",
+        "fi": "Peitä itsesi",
+        "lv": "Apsedzies",
+        "lt": "Užsidenk"
+      }
+    },
+    "try_sms": {
+      "icon": "📩",
+      "text": {
+        "ru": "Пробуй SMS",
+        "en": "Try SMS",
+        "et": "Proovi SMS-i",
+        "fi": "Kokeile tekstiviestiä",
+        "lv": "Mēģini SMS",
+        "lt": "Bandyk SMS"
+      }
+    },
+    "find_flashlight": {
+      "icon": "🔦",
+      "text": {
+        "ru": "Найди фонарик",
+        "en": "Find a flashlight",
+        "et": "Leia taskulamp",
+        "fi": "Etsi taskulamppu",
+        "lv": "Atrodi lukturīti",
+        "lt": "Rask žibintuvėlį"
+      }
+    },
+    "close_fridge": {
+      "icon": "🧊",
+      "text": {
+        "ru": "Не открывай холодильник",
+        "en": "Keep the fridge closed",
+        "et": "Ära ava külmikut",
+        "fi": "Pidä jääkaappi kiinni",
+        "lv": "Neatver ledusskapi",
+        "lt": "Neatidaryk šaldytuvo"
+      }
+    },
+    "unplug_devices": {
+      "icon": "🔌",
+      "text": {
+        "ru": "Выключи технику",
+        "en": "Unplug devices",
+        "et": "Lülita seadmed välja",
+        "fi": "Irrota laitteet",
+        "lv": "Atvieno ierīces",
+        "lt": "Atjunk prietaisus"
+      }
+    },
+    "check_neighbors": {
+      "icon": "🏘️",
+      "text": {
+        "ru": "Проверь, есть ли свет у соседей",
+        "en": "Check if neighbors have power",
+        "et": "Vaata, kas naabritel on elekter",
+        "fi": "Katso onko naapureilla sähköä",
+        "lv": "Pārbaudi, vai kaimiņiem ir elektrība",
+        "lt": "Patikrink, ar kaimynai turi elektrą"
+      }
+    },
+    "collect_home_water": {
+      "icon": "🫙",
+      "text": {
+        "ru": "Собери всю воду дома",
+        "en": "Collect all water at home",
+        "et": "Kogu kogu vesi kodus",
+        "fi": "Kerää kaikki vesi kotona",
+        "lv": "Savāc visu ūdeni mājās",
+        "lt": "Surink visą vandenį namuose"
+      }
+    },
+    "close_taps": {
+      "icon": "🚿",
+      "text": {
+        "ru": "Закрой краны",
+        "en": "Close taps",
+        "et": "Sulge kraanid",
+        "fi": "Sulje hanat",
+        "lv": "Aizgriez krānus",
+        "lt": "Užsuk čiaupus"
+      }
+    },
+    "prepare_containers": {
+      "icon": "🪣",
+      "text": {
+        "ru": "Подготовь ёмкости",
+        "en": "Prepare containers",
+        "et": "Valmista anumad",
+        "fi": "Valmistele astiat",
+        "lv": "Sagatavo traukus",
+        "lt": "Paruošk talpas"
+      }
+    },
+    "leave_now": {
+      "icon": "🚪",
+      "text": {
+        "ru": "Выходи сейчас",
+        "en": "Leave now",
+        "et": "Mine kohe välja",
+        "fi": "Poistu nyt",
+        "lv": "Ej ārā tagad",
+        "lt": "Išeik dabar"
+      }
+    },
+    "stay_low": {
+      "icon": "⬇️",
+      "text": {
+        "ru": "Держись ниже дыма",
+        "en": "Stay below the smoke",
+        "et": "Püsi suitsust allpool",
+        "fi": "Pysy savun alapuolella",
+        "lv": "Turies zem dūmiem",
+        "lt": "Lik žemiau dūmų"
+      }
+    },
+    "do_not_use_lift": {
+      "icon": "🛗",
+      "text": {
+        "ru": "Не пользуйся лифтом",
+        "en": "Do not use the elevator",
+        "et": "Ära kasuta lifti",
+        "fi": "Älä käytä hissiä",
+        "lv": "Nelieto liftu",
+        "lt": "Nesinaudok liftu"
+      }
+    },
+    "take_documents": {
+      "icon": "🪪",
+      "text": {
+        "ru": "Возьми документы",
+        "en": "Take documents",
+        "et": "Võta dokumendid",
+        "fi": "Ota asiakirjat",
+        "lv": "Paņem dokumentus",
+        "lt": "Pasiimk dokumentus"
+      }
+    },
+    "take_go_bag": {
+      "icon": "🎒",
+      "text": {
+        "ru": "Возьми рюкзак",
+        "en": "Take the bag",
+        "et": "Võta kott",
+        "fi": "Ota reppu",
+        "lv": "Paņem somu",
+        "lt": "Pasiimk kuprinę"
+      }
+    },
+    "leave_safe_route": {
+      "icon": "🧭",
+      "text": {
+        "ru": "Иди по безопасному пути",
+        "en": "Use a safe route",
+        "et": "Liigu turvalist teed",
+        "fi": "Käytä turvallista reittiä",
+        "lv": "Ej pa drošu maršrutu",
+        "lt": "Eik saugiu keliu"
+      }
+    },
+    "move_aside": {
+      "icon": "↔️",
+      "text": {
+        "ru": "Уйди в сторону",
+        "en": "Move aside",
+        "et": "Liigu kõrvale",
+        "fi": "Siirry sivuun",
+        "lv": "Virzies malā",
+        "lt": "Traukis į šoną"
+      }
+    },
+    "do_not_push": {
+      "icon": "✋",
+      "text": {
+        "ru": "Не толкайся",
+        "en": "Do not push",
+        "et": "Ära trügi",
+        "fi": "Älä työnnä",
+        "lv": "Nestumies",
+        "lt": "Nestumdyk"
+      }
+    },
+    "find_exit": {
+      "icon": "🚩",
+      "text": {
+        "ru": "Ищи выход",
+        "en": "Find an exit",
+        "et": "Otsi väljapääsu",
+        "fi": "Etsi uloskäynti",
+        "lv": "Meklē izeju",
+        "lt": "Ieškok išėjimo"
+      }
+    },
+    "breathe_slow": {
+      "icon": "🫁",
+      "text": {
+        "ru": "Дыши медленно",
+        "en": "Breathe slowly",
+        "et": "Hinga aeglaselt",
+        "fi": "Hengitä hitaasti",
+        "lv": "Elpo lēni",
+        "lt": "Kvėpuok lėtai"
+      }
+    },
+    "leave_street": {
+      "icon": "🏃",
+      "text": {
+        "ru": "Уйди с улицы",
+        "en": "Leave the street",
+        "et": "Lahku tänavalt",
+        "fi": "Poistu kadulta",
+        "lv": "Ej prom no ielas",
+        "lt": "Palik gatvę"
+      }
+    },
+    "enter_safe_building": {
+      "icon": "🏢",
+      "text": {
+        "ru": "Зайди в безопасное место",
+        "en": "Enter a safe building",
+        "et": "Mine turvalisse hoonesse",
+        "fi": "Mene turvalliseen rakennukseen",
+        "lv": "Ieej drošā ēkā",
+        "lt": "Eik į saugų pastatą"
+      }
+    },
+    "watch_surroundings": {
+      "icon": "👀",
+      "text": {
+        "ru": "Смотри по сторонам",
+        "en": "Watch around you",
+        "et": "Vaata ringi",
+        "fi": "Katso ympärillesi",
+        "lv": "Skaties apkārt",
+        "lt": "Apsižvalgyk"
+      }
+    },
+    "lock_door": {
+      "icon": "🔒",
+      "text": {
+        "ru": "Закрой дверь",
+        "en": "Lock the door",
+        "et": "Pane uks lukku",
+        "fi": "Lukitse ovi",
+        "lv": "Aizslēdz durvis",
+        "lt": "Užrakink duris"
+      }
+    },
+    "move_inside": {
+      "icon": "🧱",
+      "text": {
+        "ru": "Уйди глубже внутрь",
+        "en": "Move deeper inside",
+        "et": "Liigu sügavamale sisse",
+        "fi": "Siirry syvemmälle sisään",
+        "lv": "Ej dziļāk iekšā",
+        "lt": "Eik giliau į vidų"
+      }
+    }
+  },
+  "scenarios": {
+    "forest.lost": { "steps": ["stop", "listen_60", "save_battery", "mark_place", "send_coords"] },
+    "forest.night": { "steps": ["stop", "find_shelter", "prepare_night", "collect_dry", "keep_warm"] },
+    "forest.cold_forest": { "steps": ["stop", "out_of_wind", "keep_warm", "insulate_ground", "find_shelter"] },
+    "forest.water_forest": { "steps": ["stop", "rest_and_save_strength", "find_water_source", "clean_water", "send_coords"] },
+    "car.stuck": { "steps": ["stay_in_car", "turn_on_hazard", "dig_clear_path", "signal_help", "save_battery"] },
+    "car.crash": { "steps": ["move_from_traffic", "check_injuries", "call_help", "turn_on_hazard", "send_coords"] },
+    "car.cold_car": { "steps": ["stay_in_car", "use_blankets", "save_battery", "signal_help", "call_help"] },
+    "car.no_signal_car": { "steps": ["save_battery", "try_sms", "send_coords", "stay_in_car", "signal_help"] },
+    "home.power_home": { "steps": ["find_flashlight", "close_fridge", "unplug_devices", "save_battery", "check_neighbors"] },
+    "home.water_home": { "steps": ["collect_home_water", "close_taps", "prepare_containers", "clean_water", "save_battery"] },
+    "home.fire_home": { "steps": ["leave_now", "stay_low", "do_not_use_lift", "call_help", "send_coords"] },
+    "home.evacuate_home": { "steps": ["take_documents", "take_go_bag", "leave_now", "leave_safe_route", "send_coords"] },
+    "city.crowd_city": { "steps": ["move_aside", "do_not_push", "find_exit", "breathe_slow", "enter_safe_building"] },
+    "city.no_signal_city": { "steps": ["save_battery", "try_sms", "find_exit", "enter_safe_building", "send_coords"] },
+    "city.danger_city": { "steps": ["leave_street", "enter_safe_building", "watch_surroundings", "lock_door", "call_help"] },
+    "city.shelter_city": { "steps": ["find_shelter", "enter_safe_building", "move_inside", "lock_door", "send_coords"] }
+  }
+}
