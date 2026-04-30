@@ -19,6 +19,15 @@ const MANUAL_LOCATION_KEY = "survival_manual_location";
 const MAX_FRESH_MS = 10 * 60 * 1000;
 const SpeechRecognitionApi =
   window.SpeechRecognition || window.webkitSpeechRecognition || null;
+const RECOMMENDED_LANGUAGE_IDS = ["ru", "en", "et", "fi", "lv", "lt"];
+const LANGUAGE_META = {
+  ru: { nativeName: "Русский", englishName: "Russian" },
+  en: { nativeName: "English", englishName: "English" },
+  et: { nativeName: "Eesti", englishName: "Estonian" },
+  fi: { nativeName: "Suomi", englishName: "Finnish" },
+  lv: { nativeName: "Latviešu", englishName: "Latvian" },
+  lt: { nativeName: "Lietuvių", englishName: "Lithuanian" }
+};
 
 function getInitialLanguage() {
   const saved = localStorage.getItem("survival_lang");
@@ -69,6 +78,7 @@ const state = {
   placeId: null,
   problemId: null,
   stepIndex: 0,
+  langSearch: "",
   lowPower: localStorage.getItem("survival_low_power") === "1",
   voiceEnabled: localStorage.getItem("survival_voice") !== "0",
   speechSupported:
@@ -347,6 +357,9 @@ function render() {
     case "place":
       screenHtml = renderPlaceScreen();
       break;
+    case "language":
+      screenHtml = renderLanguageScreen();
+      break;
     case "problem":
       screenHtml = renderProblemScreen();
       break;
@@ -497,19 +510,9 @@ function renderHomeScreen() {
         <span class="button-note">${u("homeButtonNote")}</span>
       </button>
 
-      <div class="language-row" aria-label="${u("languageLabel")}">
-        ${state.data.languages
-          .map(
-            (lang) => `
-              <button class="language-pill ${
-                lang.id === state.lang ? "active" : ""
-              }" data-lang="${lang.id}">
-                ${lang.short}
-              </button>
-            `
-          )
-          .join("")}
-      </div>
+      <button class="ghost-button" data-action="open-language">
+        <span class="button-label">Language: ${getLanguageDisplayName(state.lang)} ▾</span>
+      </button>
     </section>
   `;
 }
@@ -549,6 +552,53 @@ function renderPlaceScreen() {
           .join("")}
       </div>
     </section>
+  `;
+}
+
+function renderLanguageScreen() {
+  const recommended = RECOMMENDED_LANGUAGE_IDS.map(findLanguageById).filter(Boolean);
+  const filtered = getFilteredLanguages();
+
+  return `
+    <section class="screen-card">
+      <h2 class="screen-title">${u("languageLabel")}</h2>
+      <input
+        id="language-search"
+        class="manual-location"
+        type="search"
+        placeholder="Search language"
+        value="${escapeHtml(state.langSearch)}"
+        aria-label="Search language"
+      />
+
+      <div>
+        <p class="meta-text">Recommended</p>
+        <div class="choice-grid">
+          ${recommended.map(renderLanguageOption).join("")}
+        </div>
+      </div>
+
+      <div>
+        <p class="meta-text">All languages</p>
+        <div class="choice-grid">
+          ${filtered.map(renderLanguageOption).join("")}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderLanguageOption(language) {
+  const isActive = language.id === state.lang;
+  return `
+    <button
+      class="choice-card ${isActive ? "active" : ""}"
+      data-pick-lang="${language.id}"
+      aria-label="${getLanguageDisplayName(language.id)}"
+    >
+      <h3 class="choice-title">${getLanguageDisplayName(language.id)}</h3>
+      <p class="choice-subtitle">${getLanguageEnglishName(language.id)} · ${language.id.toUpperCase()}</p>
+    </button>
   `;
 }
 
@@ -772,6 +822,19 @@ function renderPersistentSos() {
 }
 
 function bindCommonEvents() {
+  const languageSearch = app.querySelector("#language-search");
+  if (languageSearch) {
+    languageSearch.addEventListener("input", (event) => {
+      state.langSearch = event.target.value;
+      render();
+      const field = app.querySelector("#language-search");
+      if (field) {
+        field.focus();
+        field.setSelectionRange(state.langSearch.length, state.langSearch.length);
+      }
+    });
+  }
+
   const manualLocation = app.querySelector("#manual-location");
   if (manualLocation) {
     manualLocation.addEventListener("input", (event) => {
@@ -789,6 +852,18 @@ function bindCommonEvents() {
       state.lang = button.dataset.lang;
       localStorage.setItem("survival_lang", state.lang);
       document.documentElement.lang = state.lang;
+      render();
+    });
+  });
+
+  app.querySelectorAll("[data-pick-lang]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.lang = button.dataset.pickLang;
+      state.langSearch = "";
+      localStorage.setItem("survival_lang", state.lang);
+      localStorage.setItem("survival_lang_manual", "1");
+      document.documentElement.lang = state.lang;
+      state.screen = "home";
       render();
     });
   });
@@ -821,6 +896,14 @@ function bindCommonEvents() {
         case "go-place":
           state.screen = "place";
           render();
+          break;
+        case "open-language":
+          state.langSearch = "";
+          state.screen = "language";
+          render();
+          requestAnimationFrame(() => {
+            app.querySelector("#language-search")?.focus();
+          });
           break;
         case "go-back":
           handleBack();
@@ -916,7 +999,9 @@ function goHome() {
 }
 
 function handleBack() {
-  if (state.screen === "problem") {
+  if (state.screen === "language") {
+    state.screen = "home";
+  } else if (state.screen === "problem") {
     state.screen = "place";
   } else if (state.screen === "place") {
     state.screen = "home";
@@ -1246,6 +1331,50 @@ function getSpeechLocale() {
     : state.lang === "lt"
     ? "lt-LT"
     : "en-US";
+}
+
+function findLanguageById(languageId) {
+  return state.data?.languages?.find((language) => language.id === languageId) || null;
+}
+
+function getLanguageMeta(languageId) {
+  const language = findLanguageById(languageId);
+  return {
+    ...LANGUAGE_META[languageId],
+    ...language
+  };
+}
+
+function getLanguageDisplayName(languageId) {
+  const meta = getLanguageMeta(languageId);
+  return meta.nativeName || meta.short || meta.id || languageId;
+}
+
+function getLanguageEnglishName(languageId) {
+  const meta = getLanguageMeta(languageId);
+  return meta.englishName || meta.short || meta.id || languageId;
+}
+
+function getFilteredLanguages() {
+  const query = state.langSearch.trim().toLowerCase();
+  const languages = state.data?.languages || [];
+  if (!query) {
+    return languages;
+  }
+
+  return languages.filter((language) => {
+    const meta = getLanguageMeta(language.id);
+    const haystack = [
+      language.id,
+      language.short,
+      meta.nativeName || language.short || language.id,
+      meta.englishName || language.short || language.id
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    return haystack.includes(query);
+  });
 }
 
 function escapeHtml(value) {
