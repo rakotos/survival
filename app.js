@@ -1,17 +1,97 @@
+const CACHE_NAME = "survival-mode-v2";
+const SUPPORTED_LANGUAGES = ["ru", "en", "et", "fi", "lv", "lt"];
+const STARTER_ACTION_IDS = [
+  "universal_stop",
+  "universal_no_run",
+  "universal_check_danger",
+  "universal_check_phone",
+  "universal_use_sos"
+];
+const HOME_SHORTCUTS = [
+  { icon: "🧭", placeId: "forest", problemId: "lost" },
+  { icon: "🥶", placeId: "forest", problemId: "cold_forest" },
+  { icon: "💧", placeId: "home", problemId: "water_home" },
+  { icon: "📡", placeId: "city", problemId: "no_signal_city" },
+  { icon: "⚠️", placeId: "city", problemId: "danger_city" }
+];
+const LAST_COORDS_KEY = "survival_last_coords";
+const MANUAL_LOCATION_KEY = "survival_manual_location";
+const MAX_FRESH_MS = 10 * 60 * 1000;
+const SpeechRecognitionApi =
+  window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+function getInitialLanguage() {
+  const saved = localStorage.getItem("survival_lang");
+  if (SUPPORTED_LANGUAGES.includes(saved)) {
+    return saved;
+  }
+
+  const browserLanguage = navigator.language?.slice(0, 2);
+  if (SUPPORTED_LANGUAGES.includes(browserLanguage)) {
+    return browserLanguage;
+  }
+
+  return "en";
+}
+
+function loadStoredCoords() {
+  try {
+    const raw = localStorage.getItem(LAST_COORDS_KEY);
+    if (!raw) {
+      return null;
+    }
+
+    const parsed = JSON.parse(raw);
+    if (
+      typeof parsed.latitude !== "number" ||
+      typeof parsed.longitude !== "number"
+    ) {
+      return null;
+    }
+
+    return {
+      latitude: parsed.latitude,
+      longitude: parsed.longitude,
+      accuracy: parsed.accuracy,
+      timestamp: parsed.timestamp || Date.now(),
+      source: "cached"
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
 const state = {
   data: null,
-  lang: localStorage.getItem("survival_lang") || "ru",
+  initError: false,
+  lang: getInitialLanguage(),
   screen: "home",
   placeId: null,
   problemId: null,
   stepIndex: 0,
-  lowPower:
-    localStorage.getItem("survival_low_power") === "1" ? true : false,
-  sosCoords: null,
+  lowPower: localStorage.getItem("survival_low_power") === "1",
+  voiceEnabled: localStorage.getItem("survival_voice") !== "0",
+  speechSupported:
+    "speechSynthesis" in window && "SpeechSynthesisUtterance" in window,
+  speechReady: false,
+  placeRecognitionSupported: Boolean(SpeechRecognitionApi),
+  sosCoords: loadStoredCoords(),
   sosLoading: false,
+  sosError: "",
+  sosPlaceDescription: localStorage.getItem(MANUAL_LOCATION_KEY) || "",
+  sosRecognitionActive: false,
+  offline: {
+    phase: "checking",
+    cached: false,
+    isOnline: navigator.onLine
+  },
   timerId: null,
   timerLeft: null,
   deferredPrompt: null,
+  swReg: null,
+  swRefreshing: false,
+  bannerMessage: "",
+  bannerTimeoutId: null
 };
 
 const app = document.getElementById("app");
@@ -19,19 +99,84 @@ const app = document.getElementById("app");
 document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
-  state.data = await fetch("./scenarios.json").then((response) => response.json());
+  state.initError = false;
+  document.documentElement.lang = state.lang;
+
+  try {
+    state.data = await fetch("./scenarios.json").then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      return response.json();
+    });
+  } catch (_) {
+    state.data = null;
+    state.initError = true;
+    renderInitErrorScreen();
+    return;
+  }
+
   bindInstallPrompt();
+  bindConnectionEvents();
+  initSpeechReadiness();
   applyBatteryMode();
-  render();
   registerServiceWorker();
+  render();
+  assessOfflineStatus();
 }
 
 function bindInstallPrompt() {
+  if (bindInstallPrompt.isBound) {
+    return;
+  }
+  bindInstallPrompt.isBound = true;
+
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     state.deferredPrompt = event;
     render();
   });
+}
+
+function bindConnectionEvents() {
+  if (bindConnectionEvents.isBound) {
+    return;
+  }
+  bindConnectionEvents.isBound = true;
+
+  window.addEventListener("online", () => {
+    state.offline.isOnline = true;
+    assessOfflineStatus();
+    render();
+  });
+  window.addEventListener("offline", () => {
+    state.offline.isOnline = false;
+    assessOfflineStatus();
+    render();
+  });
+}
+
+function initSpeechReadiness() {
+  if (!state.speechSupported) {
+    state.speechReady = false;
+    return;
+  }
+
+  const updateSpeechReady = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const nextReady = voices.length > 0;
+    if (state.speechReady !== nextReady) {
+      state.speechReady = nextReady;
+      if (state.data) {
+        render();
+      }
+    }
+  };
+
+  updateSpeechReady();
+  window.speechSynthesis.addEventListener("voiceschanged", updateSpeechReady);
+  setTimeout(updateSpeechReady, 0);
+  setTimeout(updateSpeechReady, 300);
 }
 
 async function applyBatteryMode() {
@@ -58,74 +203,301 @@ async function applyBatteryMode() {
 }
 
 function registerServiceWorker() {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  if (!("serviceWorker" in navigator)) {
+    state.offline.phase = navigator.onLine ? "needs-online" : "checking";
+    return;
+  }
+
+  navigator.serviceWorker
+    .register("./service-worker.js")
+    .then((registration) => {
+      state.swReg = registration;
+
+      if (registration.installing) {
+        state.offline.phase = "updating";
+        render();
+      }
+
+      registration.addEventListener("updatefound", () => {
+        state.offline.phase = "updating";
+        render();
+      });
+
+      navigator.serviceWorker.addEventListener("message", (event) => {
+        if (event.data?.type === "CACHE_READY") {
+          state.offline.phase = "ready";
+          state.offline.cached = true;
+          render();
+        }
+      });
+
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
+        if (state.swRefreshing) {
+          return;
+        }
+        state.swRefreshing = true;
+        window.location.reload();
+      });
+
+      assessOfflineStatus();
+    })
+    .catch(() => {
+      state.offline.phase = navigator.onLine ? "needs-online" : "checking";
+      render();
+    });
+}
+
+async function assessOfflineStatus() {
+  if (!("caches" in window)) {
+    state.offline.phase = navigator.onLine ? "needs-online" : "checking";
+    render();
+    return;
+  }
+
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const keys = await cache.keys();
+    const cached = keys.length >= 6;
+    state.offline.cached = cached;
+
+    if (state.offline.phase === "updating" && cached) {
+      render();
+      return;
+    }
+
+    if (cached) {
+      state.offline.phase = "ready";
+    } else {
+      state.offline.phase = "needs-online";
+    }
+    render();
+  } catch (_) {
+    state.offline.phase = navigator.onLine ? "needs-online" : "checking";
+    render();
   }
 }
 
 function getUi() {
-  return state.data.ui[state.lang] || state.data.ui.ru;
+  return state.data?.ui?.[state.lang] || state.data?.ui?.en || state.data?.ui?.ru || {};
+}
+
+function u(key) {
+  const ui = getUi();
+  return ui[key] ?? state.data?.ui?.en?.[key] ?? state.data?.ui?.ru?.[key] ?? "";
 }
 
 function getPlace(placeId) {
-  return state.data.places.find((item) => item.id === placeId);
+  return state.data?.places?.find((item) => item.id === placeId);
 }
 
 function getProblem(problemId) {
-  return state.data.problems.find((item) => item.id === problemId);
+  return state.data?.problems?.find((item) => item.id === problemId);
+}
+
+function getScenarioKey(placeId = state.placeId, problemId = state.problemId) {
+  if (!placeId || !problemId) {
+    return null;
+  }
+  return `${placeId}.${problemId}`;
 }
 
 function getScenario() {
-  if (!state.placeId || !state.problemId) {
+  const key = getScenarioKey();
+  if (!key) {
     return null;
   }
-  return state.data.scenarios[`${state.placeId}.${state.problemId}`] || null;
+  return state.data?.scenarios?.[key] || null;
+}
+
+function getExpandedSteps(scenario) {
+  const withoutStarter = scenario.steps.filter(
+    (actionId) => !STARTER_ACTION_IDS.includes(actionId)
+  );
+  return [...STARTER_ACTION_IDS, ...withoutStarter];
 }
 
 function getAction(actionId) {
-  return state.data.actions[actionId];
+  return state.data?.actions?.[actionId];
 }
 
 function t(valueMap) {
-  return valueMap[state.lang] || valueMap.en || valueMap.ru || "";
+  return valueMap?.[state.lang] || valueMap?.en || valueMap?.ru || "";
+}
+
+function getScenarioTitle(placeId = state.placeId, problemId = state.problemId) {
+  const place = getPlace(placeId);
+  const problem = getProblem(problemId);
+  if (!place || !problem) {
+    return u("situationUnknown") || "не указано";
+  }
+  return `${place.icon} ${t(problem.title)}`;
 }
 
 function render() {
-  updateLowPowerClass();
-  clearTimer();
+  if (state.initError || !state.data) {
+    renderInitErrorScreen();
+    return;
+  }
 
+  clearTimer();
+  updateLowPowerClass();
+
+  let screenHtml = "";
   switch (state.screen) {
     case "place":
-      renderPlaceScreen();
+      screenHtml = renderPlaceScreen();
       break;
     case "problem":
-      renderProblemScreen();
+      screenHtml = renderProblemScreen();
       break;
     case "action":
-      renderActionScreen();
+      screenHtml = renderActionScreen();
       break;
     case "sos":
-      renderSosScreen();
+      screenHtml = renderSosScreen();
+      break;
+    case "finish":
+      screenHtml = renderFinishScreen();
       break;
     default:
-      renderHomeScreen();
+      screenHtml = renderHomeScreen();
       break;
+  }
+
+  app.innerHTML = `
+    ${renderTopbar()}
+    ${renderBanner()}
+    ${renderOfflineStatus()}
+    ${screenHtml}
+    ${renderPersistentSos()}
+  `;
+
+  bindCommonEvents();
+
+  if (state.screen === "action") {
+    const scenario = getScenario();
+    if (!scenario) {
+      return;
+    }
+    const expandedSteps = getExpandedSteps(scenario);
+    const action = getAction(expandedSteps[state.stepIndex]);
+    if (action?.timerSec) {
+      startTimer(action.timerSec);
+    }
   }
 }
 
-function renderHomeScreen() {
-  const ui = getUi();
+function renderInitErrorScreen() {
   app.innerHTML = `
-    ${renderTopbar(ui)}
     <section class="screen-card hero">
-      <p class="screen-hint">${ui.homeTagline}</p>
-      <h1 class="hero-title">${ui.homeTitle}</h1>
-      <p class="hero-text">${ui.homeText}</p>
-      <button class="main-button" data-action="go-place">
-        <span class="button-label">${ui.homeButton}</span>
-        <span class="button-note">${ui.homeButtonNote}</span>
+      <h1 class="hero-title">Нет соединения</h1>
+      <p class="hero-text">
+        Приложение загрузится после первого онлайн-запуска.
+      </p>
+      <button class="main-button" data-action="retry-init">
+        <span class="button-label">Попробовать снова</span>
       </button>
-      <div class="language-row" aria-label="${ui.languageLabel}">
+    </section>
+  `;
+
+  app.querySelector('[data-action="retry-init"]')?.addEventListener("click", () => {
+    init();
+  });
+}
+
+function renderTopbar() {
+  return `
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">🛟</div>
+        <div>
+          <h1 class="brand-title">${u("appName")}</h1>
+          <p class="brand-subtitle">${u("appSubtitle")}</p>
+        </div>
+      </div>
+      <div class="state-row">
+        ${
+          state.screen !== "home"
+            ? `<button class="icon-button" data-action="go-back" aria-label="${u(
+                "backButton"
+              )}">←</button>`
+            : ""
+        }
+        <button class="icon-button ${
+          state.voiceEnabled ? "active" : ""
+        }" data-action="toggle-voice" aria-label="${state.voiceEnabled ? u("voiceOn") : u("voiceOff")}">
+          ${state.voiceEnabled ? "🔊" : "🔇"}
+        </button>
+        <button class="icon-button ${
+          state.lowPower ? "active" : ""
+        }" data-action="toggle-low-power" aria-label="${u("lowPowerButton")}">
+          🔋
+        </button>
+        ${
+          state.deferredPrompt
+            ? `<button class="icon-button" data-action="install-app" aria-label="${u(
+                "installButton"
+              )}">＋</button>`
+            : ""
+        }
+      </div>
+    </header>
+  `;
+}
+
+function renderBanner() {
+  if (!state.bannerMessage) {
+    return "";
+  }
+
+  return `
+    <section class="offline-status is-warning" data-action="dismiss-banner">
+      ${escapeHtml(state.bannerMessage)}
+    </section>
+  `;
+}
+
+function renderOfflineStatus() {
+  const text =
+    state.offline.phase === "ready"
+      ? u("offlineReady")
+      : state.offline.phase === "updating"
+      ? u("offlineUpdating")
+      : u("offlineNeedOnline");
+  const statusClass =
+    state.offline.phase === "ready"
+      ? "is-ready"
+      : state.offline.phase === "updating"
+      ? "is-updating"
+      : "is-warning";
+
+  return `<section class="offline-status ${statusClass}" aria-live="polite">${text}</section>`;
+}
+
+function renderHomeScreen() {
+  return `
+    <section class="screen-card hero">
+      <p class="screen-hint">${u("homeTagline")}</p>
+      <h2 class="hero-title">${u("homeTitle")}</h2>
+      <p class="hero-text">${u("homeText")}</p>
+
+      <button class="danger-button emergency-hero" data-action="open-sos" aria-label="${u(
+        "sosButton"
+      )}">
+        <span class="button-label">${u("sosButton")}</span>
+        <span class="button-note">${u("sosHint")}</span>
+      </button>
+
+      <div class="quick-grid">
+        ${HOME_SHORTCUTS.map((item) => renderQuickShortcut(item)).join("")}
+      </div>
+
+      <button class="secondary-button" data-action="go-place">
+        <span class="button-label">${u("homeButton")}</span>
+        <span class="button-note">${u("homeButtonNote")}</span>
+      </button>
+
+      <div class="language-row" aria-label="${u("languageLabel")}">
         ${state.data.languages
           .map(
             (lang) => `
@@ -138,19 +510,31 @@ function renderHomeScreen() {
           )
           .join("")}
       </div>
-      <p class="small-note">${ui.offlineNote}</p>
     </section>
   `;
-  bindCommonEvents();
+}
+
+function renderQuickShortcut(shortcut) {
+  const problem = getProblem(shortcut.problemId);
+  return `
+    <button
+      class="choice-card quick-card"
+      data-shortcut-place="${shortcut.placeId}"
+      data-shortcut-problem="${shortcut.problemId}"
+      aria-label="${t(problem.title)}"
+    >
+      <div class="choice-card-icon">${shortcut.icon}</div>
+      <h3 class="choice-title">${t(problem.title)}</h3>
+      <p class="choice-subtitle">${t(problem.hint)}</p>
+    </button>
+  `;
 }
 
 function renderPlaceScreen() {
-  const ui = getUi();
-  app.innerHTML = `
-    ${renderTopbar(ui, true)}
+  return `
     <section class="screen-card">
-      <h2 class="screen-title">${ui.placeTitle}</h2>
-      <p class="screen-hint">${ui.placeHint}</p>
+      <h2 class="screen-title">${u("placeTitle")}</h2>
+      <p class="screen-hint">${u("placeHint")}</p>
       <div class="choice-grid">
         ${state.data.places
           .map(
@@ -166,19 +550,16 @@ function renderPlaceScreen() {
       </div>
     </section>
   `;
-  bindCommonEvents();
 }
 
 function renderProblemScreen() {
-  const ui = getUi();
   const place = getPlace(state.placeId);
   const problems = place.problemIds.map(getProblem);
-  app.innerHTML = `
-    ${renderTopbar(ui, true)}
+  return `
     <section class="screen-card">
       <p class="meta-text">${t(place.title)}</p>
-      <h2 class="screen-title">${ui.problemTitle}</h2>
-      <p class="screen-hint">${ui.problemHint}</p>
+      <h2 class="screen-title">${u("problemTitle")}</h2>
+      <p class="screen-hint">${u("problemHint")}</p>
       <div class="choice-grid">
         ${problems
           .map(
@@ -194,25 +575,27 @@ function renderProblemScreen() {
       </div>
     </section>
   `;
-  bindCommonEvents();
 }
 
 function renderActionScreen() {
-  const ui = getUi();
   const scenario = getScenario();
-  const actionId = scenario.steps[state.stepIndex];
-  const action = getAction(actionId);
+  if (!scenario) {
+    return renderMissingScenarioScreen();
+  }
+
+  const expandedSteps = getExpandedSteps(scenario);
+  const action = getAction(expandedSteps[state.stepIndex]);
   const currentText = t(action.text);
   const currentVoice = action.voice ? t(action.voice) : currentText;
-  const title = `${getPlace(state.placeId).icon} ${t(getProblem(state.problemId).title)}`;
+  const actionDetail = action.detail ? t(action.detail) : "";
 
-  app.innerHTML = `
-    ${renderTopbar(ui, true)}
+  return `
     <section class="screen-card action-screen">
       <div>
-        <p class="meta-text">${title}</p>
+        <p class="meta-text">${getScenarioTitle()}</p>
+        <p class="screen-hint">Шаг ${state.stepIndex + 1} из ${expandedSteps.length}</p>
         <div class="progress">
-          ${scenario.steps
+          ${expandedSteps
             .map(
               (_, index) =>
                 `<span class="progress-dot ${
@@ -227,116 +610,180 @@ function renderActionScreen() {
         <div class="action-display">
           <div class="action-icon" aria-hidden="true">${action.icon}</div>
           <h2 class="action-text">${currentText}</h2>
+          ${actionDetail ? `<p class="action-detail">${actionDetail}</p>` : ""}
           <p class="screen-hint">${currentVoice}</p>
           <p class="timer ${action.timerSec ? "" : "hidden"}" id="timer"></p>
+          <p class="voice-note ${
+            !state.speechSupported || !state.speechReady ? "" : "hidden"
+          }">
+            ${u("voiceUnavailable")}
+          </p>
         </div>
 
         <div class="action-toolbar">
-          <button class="secondary-button" data-action="speak-step">
-            ${ui.speakButton}
-          </button>
-          <button class="secondary-button" data-action="open-sos">
-            ${ui.sosButton}
+          ${
+            state.speechReady
+              ? `
+                <button class="secondary-button" data-action="repeat-step">
+                  ${u("speakButton")}
+                </button>
+              `
+              : ""
+          }
+          <button class="secondary-button" data-action="toggle-voice">
+            ${state.voiceEnabled ? u("voiceOn") : u("voiceOff")}
           </button>
         </div>
       </div>
 
       <div class="footer-actions">
-        <button class="ghost-button" data-action="step-back">${ui.backButton}</button>
+        <button class="ghost-button" data-action="step-back">${u("backButton")}</button>
         <button class="action-button" data-action="step-next">
-          ${state.stepIndex === scenario.steps.length - 1 ? ui.finishButton : ui.nextButton}
+          ${state.stepIndex === expandedSteps.length - 1 ? u("finishButton") : u("nextButton")}
         </button>
-        <button class="danger-button" data-action="open-sos">${ui.sosButton}</button>
+        <button class="danger-button" data-action="open-sos">${u("sosButton")}</button>
       </div>
     </section>
   `;
+}
 
-  bindCommonEvents();
-  if (action.timerSec) {
-    startTimer(action.timerSec);
-  }
-  speak(currentVoice, { interrupt: true });
+function renderMissingScenarioScreen() {
+  return `
+    <section class="screen-card hero">
+      <h2 class="screen-title">Сценарий не найден</h2>
+      <button class="main-button" data-action="go-home">
+        <span class="button-label">На главную</span>
+      </button>
+    </section>
+  `;
+}
+
+function renderFinishScreen() {
+  return `
+    <section class="screen-card hero">
+      <h2 class="screen-title">Сценарий завершён</h2>
+      <button class="secondary-button" data-action="open-sos">
+        <span class="button-label">Открыть SOS</span>
+      </button>
+      <button class="main-button" data-action="go-home">
+        <span class="button-label">Начать сначала</span>
+      </button>
+    </section>
+  `;
 }
 
 function renderSosScreen() {
-  const ui = getUi();
-  const coords = state.sosCoords
-    ? `${state.sosCoords.latitude.toFixed(5)}, ${state.sosCoords.longitude.toFixed(5)}`
-    : ui.coordsUnknown;
-  const message = buildSosMessage();
+  const coords = getCurrentCoords();
+  const coordsText = coords
+    ? `${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}`
+    : u("coordsUnknown");
+  const accuracyText =
+    coords && Number.isFinite(coords.accuracy)
+      ? `±${Math.round(coords.accuracy)} м`
+      : "—";
+  const timeText = coords ? formatTimestamp(coords.timestamp) : "—";
+  const sourceText = coords
+    ? coords.source === "live"
+      ? u("gpsLive")
+      : `${u("gpsLastKnown")} · ${u("gpsMayBeOld")}`
+    : "—";
 
-  app.innerHTML = `
-    ${renderTopbar(ui, true)}
+  return `
     <section class="screen-card sos-panel">
-      <h2 class="screen-title">${ui.sosTitle}</h2>
-      <p class="screen-hint">${ui.sosHint}</p>
+      <h2 class="screen-title">${u("sosTitle")}</h2>
+      <p class="screen-hint">${u("sosHint")}</p>
 
       <div class="sos-box">
-        <p class="meta-text">${ui.coordsLabel}</p>
-        <p class="sos-coords">${coords}</p>
+        <p class="meta-text">${u("coordsLabel")}</p>
+        <p class="sos-coords">${coordsText}</p>
+        <p class="status-line">${u("accuracyLabel")}: ${accuracyText}</p>
+        <p class="status-line">${u("timeLabel")}: ${timeText}</p>
+        <p class="status-line">${u("sourceLabel")}: ${sourceText}</p>
+        ${
+          state.sosError
+            ? `<p class="status-line status-warning">${state.sosError}</p>`
+            : ""
+        }
       </div>
 
       <div class="sos-box">
-        <p class="meta-text">${ui.messageLabel}</p>
-        <p class="sos-message">${message}</p>
+        <label class="meta-text" for="manual-location">${u("manualLocationLabel")}</label>
+        <textarea
+          id="manual-location"
+          class="manual-location"
+          rows="3"
+          placeholder="${u("manualLocationPlaceholder")}"
+        >${escapeHtml(state.sosPlaceDescription)}</textarea>
+        ${
+          state.placeRecognitionSupported
+            ? `
+              <button
+                class="ghost-button"
+                data-action="start-place-dictation"
+                ${state.sosRecognitionActive ? "disabled" : ""}
+              >
+                ${state.sosRecognitionActive ? "🎙️ ..." : "🎙️ Сказать место"}
+              </button>
+            `
+            : ""
+        }
+      </div>
+
+      <div class="sos-box">
+        <p class="meta-text">${u("messageLabel")}</p>
+        <pre class="sos-message">${escapeHtml(buildSosMessage())}</pre>
       </div>
 
       <div class="sos-row">
-        <button class="main-button" data-action="call-112">
-          <span class="button-label">${ui.callButton}</span>
+        <button class="main-button" data-action="call-112" aria-label="${u("callButton")}">
+          <span class="button-label">${u("callButton")}</span>
           <span class="button-note">112</span>
         </button>
         <button class="secondary-button" data-action="get-location">
-          ${state.sosLoading ? ui.loadingCoords : ui.locationButton}
+          ${state.sosLoading ? u("loadingCoords") : u("locationButton")}
         </button>
       </div>
 
       <div class="sos-actions">
-        <button class="ghost-button" data-action="copy-sos">${ui.copyButton}</button>
+        <button class="ghost-button" data-action="copy-sos">${u("copyButton")}</button>
         <button class="ghost-button" data-action="share-sos" ${
           navigator.share ? "" : "disabled"
-        }>${ui.shareButton}</button>
+        }>${u("shareButton")}</button>
       </div>
 
-      <button class="ghost-button" data-action="close-sos">${ui.backButton}</button>
+      <button class="ghost-button" data-action="close-sos">${u("backButton")}</button>
     </section>
   `;
-
-  bindCommonEvents();
 }
 
-function renderTopbar(ui, backVisible = false) {
+function renderPersistentSos() {
   return `
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">🛟</div>
-        <div>
-          <h1 class="brand-title">${ui.appName}</h1>
-          <p class="brand-subtitle">${ui.appSubtitle}</p>
-        </div>
-      </div>
-      <div class="state-row">
-        ${
-          backVisible
-            ? `<button class="icon-button" data-action="go-back" aria-label="${ui.backButton}">←</button>`
-            : ""
-        }
-        <button class="icon-button ${
-          state.lowPower ? "active" : ""
-        }" data-action="toggle-low-power" aria-label="${ui.lowPowerButton}">
-          🔋
-        </button>
-        ${
-          state.deferredPrompt
-            ? `<button class="icon-button" data-action="install-app" aria-label="${ui.installButton}">＋</button>`
-            : ""
-        }
-      </div>
-    </header>
+    <div class="sos-sticky">
+      <button
+        class="sos-sticky-button ${state.screen === "sos" ? "active" : ""}"
+        data-action="open-sos"
+        aria-label="${u("sosButton")}"
+      >
+        <span class="sos-sticky-icon">🆘</span>
+        <span>${u("sosButton")}</span>
+      </button>
+    </div>
   `;
 }
 
 function bindCommonEvents() {
+  const manualLocation = app.querySelector("#manual-location");
+  if (manualLocation) {
+    manualLocation.addEventListener("input", (event) => {
+      state.sosPlaceDescription = event.target.value.trimStart();
+      localStorage.setItem(MANUAL_LOCATION_KEY, state.sosPlaceDescription);
+      const messageNode = app.querySelector(".sos-message");
+      if (messageNode) {
+        messageNode.textContent = buildSosMessage();
+      }
+    });
+  }
+
   app.querySelectorAll("[data-lang]").forEach((button) => {
     button.addEventListener("click", () => {
       state.lang = button.dataset.lang;
@@ -357,10 +804,13 @@ function bindCommonEvents() {
 
   app.querySelectorAll("[data-problem]").forEach((button) => {
     button.addEventListener("click", () => {
-      state.problemId = button.dataset.problem;
-      state.stepIndex = 0;
-      state.screen = "action";
-      render();
+      openScenario(state.placeId, button.dataset.problem);
+    });
+  });
+
+  app.querySelectorAll("[data-shortcut-place]").forEach((button) => {
+    button.addEventListener("click", () => {
+      openScenario(button.dataset.shortcutPlace, button.dataset.shortcutProblem);
     });
   });
 
@@ -381,16 +831,17 @@ function bindCommonEvents() {
         case "step-back":
           handleBackStep();
           break;
-        case "speak-step":
-          speakCurrentStep();
+        case "repeat-step":
+          speakCurrentStep({ interrupt: true, force: true });
           break;
         case "open-sos":
-          state.screen = "sos";
-          render();
-          loadLocation();
+          openSos();
           break;
         case "close-sos":
-          state.screen = "action";
+          state.screen =
+            getScenario() && state.stepIndex <= getExpandedSteps(getScenario()).length - 1
+              ? "action"
+              : "home";
           render();
           break;
         case "get-location":
@@ -408,16 +859,60 @@ function bindCommonEvents() {
         case "toggle-low-power":
           state.lowPower = !state.lowPower;
           localStorage.setItem("survival_low_power", state.lowPower ? "1" : "0");
+          if (state.lowPower) {
+            showBanner("Режим экономии заряда: озвучка отключена.");
+          }
+          render();
+          break;
+        case "toggle-voice":
+          state.voiceEnabled = !state.voiceEnabled;
+          localStorage.setItem("survival_voice", state.voiceEnabled ? "1" : "0");
           render();
           break;
         case "install-app":
           await promptInstall();
+          break;
+        case "go-home":
+          goHome();
+          break;
+        case "retry-init":
+          init();
+          break;
+        case "dismiss-banner":
+          dismissBanner();
+          break;
+        case "start-place-dictation":
+          startPlaceDictation();
           break;
         default:
           break;
       }
     });
   });
+}
+
+function openScenario(placeId, problemId) {
+  state.placeId = placeId;
+  state.problemId = problemId;
+  state.stepIndex = 0;
+  state.screen = "action";
+  render();
+}
+
+function openSos() {
+  state.sosLoading = true;
+  state.sosError = "";
+  state.screen = "sos";
+  render();
+  loadLocation(true);
+}
+
+function goHome() {
+  state.screen = "home";
+  state.placeId = null;
+  state.problemId = null;
+  state.stepIndex = 0;
+  render();
 }
 
 function handleBack() {
@@ -428,16 +923,24 @@ function handleBack() {
   } else if (state.screen === "action") {
     state.screen = "problem";
   } else if (state.screen === "sos") {
-    state.screen = "action";
+    state.screen = getScenario() ? "action" : "home";
+  } else if (state.screen === "finish") {
+    state.screen = "home";
   }
   render();
 }
 
 function handleNextStep() {
   const scenario = getScenario();
-  if (state.stepIndex >= scenario.steps.length - 1) {
-    state.screen = "problem";
-    state.stepIndex = 0;
+  if (!scenario) {
+    state.screen = "home";
+    render();
+    return;
+  }
+
+  const expandedSteps = getExpandedSteps(scenario);
+  if (state.stepIndex >= expandedSteps.length - 1) {
+    state.screen = "finish";
     render();
     return;
   }
@@ -455,32 +958,46 @@ function handleBackStep() {
   render();
 }
 
-function speakCurrentStep() {
+function speakCurrentStep(options = {}) {
+  if (state.lowPower) {
+    return;
+  }
+  if (!state.voiceEnabled && !options.force) {
+    return;
+  }
   const scenario = getScenario();
-  const action = getAction(scenario.steps[state.stepIndex]);
+  if (!scenario) {
+    return;
+  }
+  const expandedSteps = getExpandedSteps(scenario);
+  const action = getAction(expandedSteps[state.stepIndex]);
   const voiceText = action.voice ? t(action.voice) : t(action.text);
-  speak(voiceText, { interrupt: true });
+  speak(voiceText, options);
 }
 
 function speak(text, options = {}) {
-  if (!("speechSynthesis" in window) || !text) {
+  if (!state.speechSupported || !state.speechReady || !text || state.lowPower) {
+    return;
+  }
+  if (!state.voiceEnabled && !options.force) {
     return;
   }
   if (options.interrupt) {
     window.speechSynthesis.cancel();
   }
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = state.lang === "ru"
-    ? "ru-RU"
-    : state.lang === "et"
-    ? "et-EE"
-    : state.lang === "fi"
-    ? "fi-FI"
-    : state.lang === "lv"
-    ? "lv-LV"
-    : state.lang === "lt"
-    ? "lt-LT"
-    : "en-US";
+  utterance.lang =
+    state.lang === "ru"
+      ? "ru-RU"
+      : state.lang === "et"
+      ? "et-EE"
+      : state.lang === "fi"
+      ? "fi-FI"
+      : state.lang === "lv"
+      ? "lv-LV"
+      : state.lang === "lt"
+      ? "lt-LT"
+      : "en-US";
   utterance.rate = 0.92;
   utterance.pitch = 1;
   window.speechSynthesis.speak(utterance);
@@ -511,57 +1028,106 @@ function updateTimerLabel() {
   if (!timerNode || state.timerLeft == null) {
     return;
   }
-  const ui = getUi();
-  timerNode.textContent = `${ui.timerLabel}: ${state.timerLeft}s`;
+  timerNode.textContent = `${u("timerLabel")}: ${state.timerLeft}s`;
 }
 
-async function loadLocation() {
-  const ui = getUi();
+function loadLocation(skipStartRender = false) {
   if (!navigator.geolocation) {
-    alert(ui.locationUnavailable);
+    state.sosLoading = false;
+    state.sosError = u("locationUnavailable");
+    render();
     return;
   }
+
   state.sosLoading = true;
-  render();
+  state.sosError = "";
+  if (!skipStartRender) {
+    render();
+  }
+
   navigator.geolocation.getCurrentPosition(
     (position) => {
       state.sosCoords = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+        timestamp: position.timestamp || Date.now(),
+        source: "live"
       };
+      saveCoords(state.sosCoords);
       state.sosLoading = false;
+      state.sosError = "";
       render();
     },
     () => {
       state.sosLoading = false;
-      alert(ui.locationDenied);
+      const cached = loadStoredCoords();
+      if (cached) {
+        state.sosCoords = cached;
+        state.sosError = `${u("locationDenied")} ${u("gpsMayBeOld")}`;
+      } else {
+        state.sosError = u("locationDenied");
+      }
       render();
     },
     {
       enableHighAccuracy: true,
       timeout: 10000,
-      maximumAge: 30000,
+      maximumAge: 30000
     }
   );
 }
 
-function buildSosMessage() {
-  const ui = getUi();
+function getCurrentCoords() {
   if (!state.sosCoords) {
-    return ui.sosMessageNoCoords;
+    return null;
   }
-  return `${ui.sosMessagePrefix} ${state.sosCoords.latitude.toFixed(
-    5
-  )}, ${state.sosCoords.longitude.toFixed(5)}.`;
+  const age = Date.now() - state.sosCoords.timestamp;
+  return {
+    ...state.sosCoords,
+    stale: age > MAX_FRESH_MS || state.sosCoords.source === "cached"
+  };
+}
+
+function buildSosMessage() {
+  const coords = getCurrentCoords();
+  const situation = getScenarioTitle();
+
+  if (!coords) {
+    const description = state.sosPlaceDescription || "";
+    return [
+      "SOS. Мне нужна помощь.",
+      `Ситуация: ${situation || "не указано"}`,
+      "Координаты недоступны.",
+      `Моё описание места: ${description}`
+    ].join("\n");
+  }
+
+  const parts = [
+    "SOS. Мне нужна помощь.",
+    `Ситуация: ${situation || "не указано"}`,
+    `Координаты: ${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}`,
+    `Точность: ±${Math.round(coords.accuracy || 0)} м`,
+    `Время: ${formatTimestamp(coords.timestamp)}`
+  ];
+
+  if (coords.stale) {
+    parts.push("Если координаты старые — это последняя известная позиция.");
+  }
+
+  if (state.sosPlaceDescription) {
+    parts.push(`Моё описание места: ${state.sosPlaceDescription}`);
+  }
+
+  return parts.join("\n");
 }
 
 async function copySos() {
-  const ui = getUi();
   try {
     await navigator.clipboard.writeText(buildSosMessage());
-    alert(ui.copyDone);
+    alert(u("copyDone"));
   } catch (_) {
-    alert(ui.copyFailed);
+    alert(u("copyFailed"));
   }
 }
 
@@ -569,11 +1135,10 @@ async function shareSos() {
   if (!navigator.share) {
     return;
   }
-  const ui = getUi();
   try {
     await navigator.share({
-      title: ui.sosTitle,
-      text: buildSosMessage(),
+      title: u("sosTitle"),
+      text: buildSosMessage()
     });
   } catch (_) {}
 }
@@ -588,6 +1153,105 @@ async function promptInstall() {
   render();
 }
 
+function startPlaceDictation() {
+  if (!state.placeRecognitionSupported || state.lowPower) {
+    return;
+  }
+
+  const recognition = new SpeechRecognitionApi();
+  state.sosRecognitionActive = true;
+  render();
+
+  recognition.lang = getSpeechLocale();
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = (event) => {
+    const transcript = event.results?.[0]?.[0]?.transcript?.trim();
+    if (!transcript) {
+      return;
+    }
+
+    state.sosPlaceDescription = state.sosPlaceDescription
+      ? `${state.sosPlaceDescription} ${transcript}`.trim()
+      : transcript;
+    localStorage.setItem(MANUAL_LOCATION_KEY, state.sosPlaceDescription);
+  };
+
+  recognition.onerror = () => {};
+
+  recognition.onend = () => {
+    state.sosRecognitionActive = false;
+    render();
+  };
+
+  recognition.start();
+}
+
+function saveCoords(coords) {
+  localStorage.setItem(
+    LAST_COORDS_KEY,
+    JSON.stringify({
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+      accuracy: coords.accuracy,
+      timestamp: coords.timestamp
+    })
+  );
+}
+
+function formatTimestamp(timestamp) {
+  if (!timestamp) {
+    return "—";
+  }
+  return new Date(timestamp).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+}
+
+function showBanner(message) {
+  state.bannerMessage = message;
+  if (state.bannerTimeoutId) {
+    clearTimeout(state.bannerTimeoutId);
+  }
+  state.bannerTimeoutId = setTimeout(() => {
+    dismissBanner();
+  }, 4000);
+}
+
+function dismissBanner() {
+  state.bannerMessage = "";
+  if (state.bannerTimeoutId) {
+    clearTimeout(state.bannerTimeoutId);
+    state.bannerTimeoutId = null;
+  }
+  render();
+}
+
 function updateLowPowerClass() {
   document.body.classList.toggle("low-power", state.lowPower);
+}
+
+function getSpeechLocale() {
+  return state.lang === "ru"
+    ? "ru-RU"
+    : state.lang === "et"
+    ? "et-EE"
+    : state.lang === "fi"
+    ? "fi-FI"
+    : state.lang === "lv"
+    ? "lv-LV"
+    : state.lang === "lt"
+    ? "lt-LT"
+    : "en-US";
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 }
