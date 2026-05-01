@@ -359,6 +359,13 @@ textarea {
   font-size: clamp(2rem, 8vw, 3.2rem);
 }
 
+.action-detail {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
 .timer {
   font-size: 1.4rem;
   font-weight: 700;
@@ -372,6 +379,11 @@ textarea {
 
 .action-toolbar {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.learn-more-button {
+  background: var(--surface-3);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer-actions {
@@ -426,6 +438,30 @@ textarea {
   color: var(--text);
   padding: 14px;
   resize: vertical;
+}
+
+.guide-panel {
+  gap: 20px;
+}
+
+.guide-list {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 10px;
+  color: var(--text);
+  font-size: 1.08rem;
+  line-height: 1.5;
+}
+
+.guide-warning {
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(235, 82, 52, 0.18);
+  border: 1px solid rgba(255, 112, 74, 0.45);
+  color: #fff1db;
+  font-weight: 800;
+  line-height: 1.45;
 }
 
 .status-warning {

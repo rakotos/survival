@@ -43,6 +43,16 @@ const HOME_SHORTCUTS = [
     placeId: "home",
     problemId: "evacuate_home",
     label: { ru: "Я дома / эвакуация", en: "Home / evacuate" }
+  },
+  {
+    icon: "🧒",
+    placeId: "kid",
+    problemId: "danger_kid",
+    label: { ru: "Я ребёнок", en: "I am a child" },
+    subtitle: {
+      ru: "Если ты один и страшно",
+      en: "If you are alone and scared"
+    }
   }
 ];
 const LAST_COORDS_KEY = "survival_last_coords";
@@ -108,6 +118,7 @@ const state = {
   screen: "home",
   placeId: null,
   problemId: null,
+  guideId: null,
   stepIndex: 0,
   langSearch: "",
   lowPower: localStorage.getItem("survival_low_power") === "1",
@@ -361,6 +372,10 @@ function getAction(actionId) {
   return state.data?.actions?.[actionId];
 }
 
+function getGuide(guideId = state.guideId) {
+  return state.data?.guides?.[guideId] || null;
+}
+
 function t(valueMap) {
   return valueMap?.[state.lang] || valueMap?.en || valueMap?.ru || "";
 }
@@ -396,6 +411,9 @@ function render() {
       break;
     case "action":
       screenHtml = renderActionScreen();
+      break;
+    case "guide":
+      screenHtml = renderGuideScreen();
       break;
     case "sos":
       screenHtml = renderSosScreen();
@@ -548,7 +566,7 @@ function renderQuickShortcut(shortcut) {
     >
       <div class="choice-card-icon">${shortcut.icon}</div>
       <h3 class="choice-title">${t(shortcut.label) || t(problem.title)}</h3>
-      <p class="choice-subtitle">${t(problem.hint)}</p>
+      <p class="choice-subtitle">${t(shortcut.subtitle) || t(problem.hint)}</p>
     </button>
   `;
 }
@@ -658,6 +676,7 @@ function renderActionScreen() {
   const currentText = t(action.text);
   const currentVoice = action.voice ? t(action.voice) : currentText;
   const actionDetail = action.detail ? t(action.detail) : "";
+  const hasGuide = Boolean(action.learnMoreId);
 
   return `
     <section class="screen-card action-screen">
@@ -692,6 +711,15 @@ function renderActionScreen() {
 
         <div class="action-toolbar">
           ${
+            hasGuide
+              ? `
+                <button class="secondary-button learn-more-button" data-action="open-guide">
+                  Как это сделать?
+                </button>
+              `
+              : ""
+          }
+          ${
             state.speechReady
               ? `
                 <button class="secondary-button" data-action="repeat-step">
@@ -711,6 +739,50 @@ function renderActionScreen() {
         <button class="action-button" data-action="step-next">
           ${state.stepIndex === expandedSteps.length - 1 ? u("finishButton") : u("nextButton")}
         </button>
+        <button class="danger-button" data-action="open-sos">${u("sosButton")}</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderGuideScreen() {
+  const guide = getGuide();
+  if (!guide) {
+    return `
+      <section class="screen-card guide-panel">
+        <h2 class="screen-title">Инструкция не найдена</h2>
+        <button class="main-button" data-action="close-guide">
+          <span class="button-label">Назад к шагу</span>
+        </button>
+      </section>
+    `;
+  }
+
+  const needs = t(guide.needs) || [];
+  const steps = t(guide.steps) || [];
+
+  return `
+    <section class="screen-card guide-panel">
+      <h2 class="screen-title">${t(guide.title)}</h2>
+
+      <div>
+        <p class="meta-text">${t(guide.needsTitle)}</p>
+        <ul class="guide-list">
+          ${needs.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+        </ul>
+      </div>
+
+      <div>
+        <p class="meta-text">${t(guide.stepsTitle)}</p>
+        <ol class="guide-list">
+          ${steps.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
+        </ol>
+      </div>
+
+      <div class="guide-warning">${escapeHtml(t(guide.warning))}</div>
+
+      <div class="footer-actions">
+        <button class="ghost-button" data-action="close-guide">Назад к шагу</button>
         <button class="danger-button" data-action="open-sos">${u("sosButton")}</button>
       </div>
     </section>
@@ -934,6 +1006,13 @@ function bindCommonEvents() {
         case "step-back":
           handleBackStep();
           break;
+        case "open-guide":
+          openGuide();
+          break;
+        case "close-guide":
+          state.screen = "action";
+          render();
+          break;
         case "repeat-step":
           speakCurrentStep({ interrupt: true, force: true });
           break;
@@ -997,8 +1076,24 @@ function bindCommonEvents() {
 function openScenario(placeId, problemId) {
   state.placeId = placeId;
   state.problemId = problemId;
+  state.guideId = null;
   state.stepIndex = 0;
   state.screen = "action";
+  render();
+}
+
+function openGuide() {
+  const scenario = getScenario();
+  if (!scenario) {
+    return;
+  }
+  const expandedSteps = getExpandedSteps(scenario);
+  const action = getAction(expandedSteps[state.stepIndex]);
+  if (!action?.learnMoreId) {
+    return;
+  }
+  state.guideId = action.learnMoreId;
+  state.screen = "guide";
   render();
 }
 
@@ -1014,6 +1109,7 @@ function goHome() {
   state.screen = "home";
   state.placeId = null;
   state.problemId = null;
+  state.guideId = null;
   state.stepIndex = 0;
   render();
 }
@@ -1021,6 +1117,8 @@ function goHome() {
 function handleBack() {
   if (state.screen === "language") {
     state.screen = "home";
+  } else if (state.screen === "guide") {
+    state.screen = "action";
   } else if (state.screen === "problem") {
     state.screen = "place";
   } else if (state.screen === "place") {

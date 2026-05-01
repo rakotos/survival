@@ -868,7 +868,8 @@
       "detail": {
         "ru": "Ищи место без ветра, дождя и открытого обзора.",
         "en": "Look for a place away from wind, rain, and open exposure."
-      }
+      },
+      "learnMoreId": "warmth_basics"
     },
     "prepare_night": {
       "icon": "🌙",
@@ -913,7 +914,8 @@
       "detail": {
         "ru": "Надень слои и закрой голову, шею и руки.",
         "en": "Add layers and cover your head, neck, and hands."
-      }
+      },
+      "learnMoreId": "warmth_basics"
     },
     "out_of_wind": {
       "icon": "🌬️",
@@ -958,7 +960,8 @@
       "detail": {
         "ru": "Ищи ручей, колонку, снег или дождевую воду.",
         "en": "Look for a stream, tap, snow, or rainwater."
-      }
+      },
+      "learnMoreId": "find_water_basics"
     },
     "rest_and_save_strength": {
       "icon": "🪫",
@@ -988,7 +991,8 @@
       "detail": {
         "ru": "Кипяти, фильтруй или дай воде отстояться.",
         "en": "Boil, filter, or let the water settle first."
-      }
+      },
+      "learnMoreId": "clean_water_basics"
     },
     "stay_in_car": {
       "icon": "🚗",
@@ -1048,7 +1052,8 @@
       "detail": {
         "ru": "Используй свет, клаксон или яркую ткань.",
         "en": "Use lights, the horn, or bright cloth."
-      }
+      },
+      "learnMoreId": "signal_help_basics"
     },
     "move_from_traffic": {
       "icon": "↘️",
@@ -1453,6 +1458,258 @@
       "detail": {
         "ru": "Не стой у входа и не оставайся у окна.",
         "en": "Do not stay near the entrance or by a window."
+      }
+    }
+  },
+  "guides": {
+    "warmth_basics": {
+      "title": {
+        "ru": "Как сохранить тепло",
+        "en": "How to keep warm",
+        "et": "Kuidas sooja hoida",
+        "fi": "Miten pysyä lämpimänä",
+        "lv": "Kā saglabāt siltumu",
+        "lt": "Kaip išlaikyti šilumą"
+      },
+      "needsTitle": {
+        "ru": "Что нужно",
+        "en": "What you need",
+        "et": "Mida vajad",
+        "fi": "Mitä tarvitset",
+        "lv": "Kas vajadzīgs",
+        "lt": "Ko reikia"
+      },
+      "needs": {
+        "ru": ["Сухое место", "Что-то под себя", "Одежда или ткань"],
+        "en": ["A dry place", "Something under you", "Clothes or cloth"],
+        "et": ["Kuiv koht", "Midagi enda alla", "Riided või kangas"],
+        "fi": ["Kuiva paikka", "Jotain alle", "Vaatteita tai kangasta"],
+        "lv": ["Sausa vieta", "Kaut kas zem sevis", "Drēbes vai audums"],
+        "lt": ["Sausa vieta", "Ką nors pasitiesti", "Drabužiai ar audinys"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do",
+        "et": "Mida teha",
+        "fi": "Mitä tehdä",
+        "lv": "Ko darīt",
+        "lt": "Ką daryti"
+      },
+      "steps": {
+        "ru": ["Найди сухое место.", "Изолируйся от земли.", "Закрой голову, шею и руки.", "Надень сухие слои.", "Двигайся осторожно и не потей."],
+        "en": ["Find a dry place.", "Insulate yourself from the ground.", "Cover your head, neck, and hands.", "Put on dry layers.", "Move carefully and do not sweat."],
+        "et": ["Leia kuiv koht.", "Isoleri end maapinnast.", "Kata pea, kael ja käed.", "Pane selga kuivad kihid.", "Liigu ettevaatlikult ja ära higista."],
+        "fi": ["Etsi kuiva paikka.", "Eristäydy maasta.", "Peitä pää, kaula ja kädet.", "Pue kuivat kerrokset.", "Liiku varovasti äläkä hikoile."],
+        "lv": ["Atrodi sausu vietu.", "Izolējies no zemes.", "Aizsedz galvu, kaklu un rokas.", "Uzvelc sausas kārtas.", "Kusties uzmanīgi un nesvīsti."],
+        "lt": ["Rask sausą vietą.", "Atsiskirk nuo žemės.", "Uždenk galvą, kaklą ir rankas.", "Apsirenk sausais sluoksniais.", "Judėk atsargiai ir neprakaituok."]
+      },
+      "warning": {
+        "ru": "Не ложись прямо на холодную землю и не оставайся в мокрой одежде.",
+        "en": "Do not lie directly on cold ground and do not stay in wet clothes.",
+        "et": "Ära lama otse külmal maal ja ära jää märgadesse riietesse.",
+        "fi": "Älä makaa suoraan kylmällä maalla äläkä jää märkiin vaatteisiin.",
+        "lv": "Neguli tieši uz aukstas zemes un nepaliec slapjās drēbēs.",
+        "lt": "Negulėk tiesiai ant šaltos žemės ir nelik su šlapiais drabužiais."
+      }
+    },
+    "find_water_basics": {
+      "title": {
+        "ru": "Как искать воду",
+        "en": "How to find water",
+        "et": "Kuidas vett leida",
+        "fi": "Miten löytää vettä",
+        "lv": "Kā atrast ūdeni",
+        "lt": "Kaip rasti vandens"
+      },
+      "needsTitle": {
+        "ru": "Что искать",
+        "en": "What to look for",
+        "et": "Mida otsida",
+        "fi": "Mitä etsiä",
+        "lv": "Ko meklēt",
+        "lt": "Ko ieškoti"
+      },
+      "needs": {
+        "ru": ["Ручей", "Низину", "Следы животных", "Снег или дождевую воду"],
+        "en": ["A stream", "Low ground", "Animal tracks", "Snow or rainwater"],
+        "et": ["Oja", "Madal koht", "Loomade jäljed", "Lumi või vihmavesi"],
+        "fi": ["Puro", "Painanne", "Eläinten jäljet", "Lumi tai sadevesi"],
+        "lv": ["Strautu", "Zemieni", "Dzīvnieku pēdas", "Sniegu vai lietus ūdeni"],
+        "lt": ["Upelį", "Žemumą", "Gyvūnų pėdsakus", "Sniegą ar lietaus vandenį"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do",
+        "et": "Mida teha",
+        "fi": "Mitä tehdä",
+        "lv": "Ko darīt",
+        "lt": "Ką daryti"
+      },
+      "steps": {
+        "ru": ["Смотри вниз по склону.", "Ищи воду утром после дождя.", "Проверь низкие места и тень.", "Собирай снег или дождевую воду в ёмкость.", "Очищай воду перед питьём."],
+        "en": ["Look downhill.", "Search after rain or in the morning.", "Check low places and shade.", "Collect snow or rainwater in a container.", "Clean the water before drinking."],
+        "et": ["Vaata nõlva alla.", "Otsi pärast vihma või hommikul.", "Kontrolli madalaid kohti ja varju.", "Kogu lumi või vihmavesi anumasse.", "Puhasta vesi enne joomist."],
+        "fi": ["Katso alamäkeen.", "Etsi sateen jälkeen tai aamulla.", "Tarkista matalat paikat ja varjo.", "Kerää lumi tai sadevesi astiaan.", "Puhdista vesi ennen juomista."],
+        "lv": ["Skaties lejup pa nogāzi.", "Meklē pēc lietus vai no rīta.", "Pārbaudi zemākas vietas un ēnu.", "Savāc sniegu vai lietus ūdeni traukā.", "Attīri ūdeni pirms dzeršanas."],
+        "lt": ["Žiūrėk žemyn nuo šlaito.", "Ieškok po lietaus arba ryte.", "Patikrink žemas vietas ir šešėlį.", "Surink sniegą ar lietaus vandenį į talpą.", "Išvalyk vandenį prieš gerdamas."]
+      },
+      "warning": {
+        "ru": "Не пей морскую воду и не пей воду с запахом химии.",
+        "en": "Do not drink seawater and do not drink water that smells like chemicals.",
+        "et": "Ära joo merevett ega keemialõhnalist vett.",
+        "fi": "Älä juo merivettä äläkä kemikaalilta haisevaa vett.",
+        "lv": "Nedzer jūras ūdeni un ūdeni ar ķīmijas smaku.",
+        "lt": "Negerk jūros vandens ir vandens, kuris kvepia chemikalais."
+      }
+    },
+    "clean_water_basics": {
+      "title": {
+        "ru": "Как очистить воду",
+        "en": "How to clean water",
+        "et": "Kuidas vett puhastada",
+        "fi": "Miten puhdistaa vettä",
+        "lv": "Kā attīrīt ūdeni",
+        "lt": "Kaip valyti vandenį"
+      },
+      "needsTitle": {
+        "ru": "Что нужно",
+        "en": "What you need",
+        "et": "Mida vajad",
+        "fi": "Mitä tarvitset",
+        "lv": "Kas vajadzīgs",
+        "lt": "Ko reikia"
+      },
+      "needs": {
+        "ru": ["Кастрюля или металл", "Огонь или горелка", "Ткань или фильтр", "Таблетки, если есть"],
+        "en": ["A pot or metal container", "Fire or burner", "Cloth or filter", "Purification tablets if available"],
+        "et": ["Pott või metallanum", "Tuli või põleti", "Riie või filter", "Puhastustabletid kui on"],
+        "fi": ["Kattila tai metalliastia", "Tuli tai poltin", "Kangas tai suodatin", "Puhdistustabletit jos on"],
+        "lv": ["Katls vai metāla trauks", "Uguns vai deglis", "Audums vai filtrs", "Attīrīšanas tabletes, ja ir"],
+        "lt": ["Puodas ar metalinis indas", "Ugnis ar degiklis", "Audinys ar filtras", "Valymo tabletės, jei yra"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do",
+        "et": "Mida teha",
+        "fi": "Mitä tehdä",
+        "lv": "Ko darīt",
+        "lt": "Ką daryti"
+      },
+      "steps": {
+        "ru": ["Если вода мутная, сначала отфильтруй через ткань.", "Кипяти воду минимум 3 минуты.", "Если есть таблетки, следуй инструкции на упаковке.", "Дай воде остыть в чистой ёмкости.", "Пей только после очистки."],
+        "en": ["If the water is cloudy, filter it through cloth first.", "Boil the water for at least 3 minutes.", "If you have tablets, follow the package instructions.", "Let the water cool in a clean container.", "Drink only after cleaning."],
+        "et": ["Kui vesi on sogane, filtreeri see esmalt läbi kanga.", "Keeda vett vähemalt 3 minutit.", "Kui sul on tabletid, järgi pakendi juhiseid.", "Lase veega puhtas anumas jahtuda.", "Joo alles pärast puhastamist."],
+        "fi": ["Jos vesi on sameaa, suodata se ensin kankaan läpi.", "Keitä vettä vähintään 3 minuuttia.", "Jos sinulla on tabletteja, noudata pakkauksen ohjeita.", "Anna veden jäähtyä puhtaassa astiassa.", "Juo vasta puhdistamisen jälkeen."],
+        "lv": ["Ja ūdens ir duļķains, vispirms izfiltrē to caur audumu.", "Vāri ūdeni vismaz 3 minūtes.", "Ja ir tabletes, ievēro norādījumus uz iepakojuma.", "Ļauj ūdenim atdzist tīrā traukā.", "Dzer tikai pēc attīrīšanas."],
+        "lt": ["Jei vanduo drumstas, pirmiausia perfiltruok per audinį.", "Virk vandenį bent 3 minutes.", "Jei turi tablečių, laikykis instrukcijos ant pakuotės.", "Leisk vandeniui atvėsti švarioje talpoje.", "Gerk tik išvalytą vandenį."]
+      },
+      "warning": {
+        "ru": "Не пей мутную или подозрительную воду без очистки.",
+        "en": "Do not drink cloudy or suspicious water without cleaning it.",
+        "et": "Ära joo sogast või kahtlast vett ilma puhastamata.",
+        "fi": "Älä juo sameaa tai epäilyttävää vettä puhdistamatta sitä.",
+        "lv": "Nedzer duļķainu vai aizdomīgu ūdeni bez attīrīšanas.",
+        "lt": "Negerk drumsto ar įtartino vandens jo neišvalęs."
+      }
+    },
+    "signal_help_basics": {
+      "title": {
+        "ru": "Как подать сигнал",
+        "en": "How to signal for help",
+        "et": "Kuidas abi märku anda",
+        "fi": "Miten antaa hätämerkki",
+        "lv": "Kā dot palīdzības signālu",
+        "lt": "Kaip duoti pagalbos signalą"
+      },
+      "needsTitle": {
+        "ru": "Что использовать",
+        "en": "What to use",
+        "et": "Mida kasutada",
+        "fi": "Mitä käyttää",
+        "lv": "Ko izmantot",
+        "lt": "Ką naudoti"
+      },
+      "needs": {
+        "ru": ["Яркую ткань", "Фонарик", "Телефон или свисток", "Открытое место"],
+        "en": ["Bright cloth", "A flashlight", "A phone or whistle", "An open place"],
+        "et": ["Heledat kangast", "Taskulampi", "Telefoni või vilet", "Avatud kohta"],
+        "fi": ["Kirkas kangas", "Taskulamppu", "Puhelin tai pilli", "Avoin paikka"],
+        "lv": ["Košu audumu", "Lukturīti", "Telefonu vai svilpi", "Atklātu vietu"],
+        "lt": ["Ryškų audinį", "Žibintuvėlį", "Telefoną ar švilpuką", "Atvirą vietą"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do",
+        "et": "Mida teha",
+        "fi": "Mitä tehdä",
+        "lv": "Ko darīt",
+        "lt": "Ką daryti"
+      },
+      "steps": {
+        "ru": ["Останься на видном месте.", "Подними яркую ткань выше.", "Используй фонарик в темноте.", "Подавай три сигнала подряд.", "Повторяй сигнал через паузу."],
+        "en": ["Stay in a visible place.", "Raise bright cloth high.", "Use a flashlight in the dark.", "Give three signals in a row.", "Repeat after a pause."],
+        "et": ["Püsi nähtavas kohas.", "Tõsta ere kangas kõrgele.", "Kasuta pimedas taskulampi.", "Anna kolm märki järjest.", "Korda pärast pausi."],
+        "fi": ["Pysy näkyvässä paikassa.", "Nosta kirkas kangas korkealle.", "Käytä pimeässä taskulamppua.", "Anna kolme merkkiä peräkkäin.", "Toista tauon jälkeen."],
+        "lv": ["Paliec redzamā vietā.", "Pacel košu audumu augstu.", "Tumsā izmanto lukturīti.", "Dod trīs signālus pēc kārtas.", "Atkārto pēc pauzes."],
+        "lt": ["Lik matomoje vietoje.", "Pakelk ryškų audinį aukštai.", "Tamsoje naudok žibintuvėlį.", "Duok tris signalus iš eilės.", "Pakartok po pauzės."]
+      },
+      "warning": {
+        "ru": "Не уходи далеко от укрытия и не трать все силы на сигнал.",
+        "en": "Do not go far from shelter and do not spend all your strength on signaling.",
+        "et": "Ära mine varjualusest kaugele ega raiska kogu jõudu märguandele.",
+        "fi": "Älä mene kauas suojasta äläkä käytä kaikkea voimaasi merkinantoon.",
+        "lv": "Neej tālu no patvēruma un netērē visus spēkus signāliem.",
+        "lt": "Nenutolk nuo prieglobsčio ir neišeikvok visų jėgų signalams."
+      }
+    },
+    "safe_fire_basics": {
+      "title": {
+        "ru": "Как безопасно развести огонь",
+        "en": "How to make a fire safely",
+        "et": "Kuidas ohutult tuld teha",
+        "fi": "Miten tehdä tuli turvallisesti",
+        "lv": "Kā droši iekurt uguni",
+        "lt": "Kaip saugiai užkurti ugnį"
+      },
+      "needsTitle": {
+        "ru": "Что нужно",
+        "en": "What you need",
+        "et": "Mida vajad",
+        "fi": "Mitä tarvitset",
+        "lv": "Kas vajadzīgs",
+        "lt": "Ko reikia"
+      },
+      "needs": {
+        "ru": ["Безопасное место", "Сухая растопка", "Спички или зажигалка", "Вода, снег или земля рядом"],
+        "en": ["A safe place", "Dry tinder", "Matches or a lighter", "Water, snow, or soil nearby"],
+        "et": ["Ohutu koht", "Kuiv süütematerjal", "Tikud või tulemasin", "Vesi, lumi või muld lähedal"],
+        "fi": ["Turvallinen paikka", "Kuiva sytykettä", "Tulitikut tai sytytin", "Vettä, lunta tai maata lähellä"],
+        "lv": ["Droša vieta", "Sausa iekura masa", "Sērkociņi vai šķiltavas", "Ūdens, sniegs vai zeme blakus"],
+        "lt": ["Saugi vieta", "Sausas įdegas", "Degtukai ar žiebtuvėlis", "Vanduo, sniegas ar žemė šalia"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do",
+        "et": "Mida teha",
+        "fi": "Mitä tehdä",
+        "lv": "Ko darīt",
+        "lt": "Ką daryti"
+      },
+      "steps": {
+        "ru": ["Найди безопасное открытое место.", "Убери сухую траву вокруг.", "Собери мелкую сухую растопку.", "Начни с маленького огня.", "Держи воду, снег или землю рядом, чтобы потушить."],
+        "en": ["Find a safe open place.", "Clear dry grass around it.", "Collect small dry tinder.", "Start with a small fire.", "Keep water, snow, or soil nearby to put it out."],
+        "et": ["Leia ohutu avatud koht.", "Eemalda ümbert kuiv rohi.", "Kogu väike kuiv süütematerjal.", "Alusta väikese tulega.", "Hoia kustutamiseks vett, lund või mulda lähedal."],
+        "fi": ["Etsi turvallinen avoin paikka.", "Poista kuiva ruoho ympäriltä.", "Kerää pientä kuivaa sytykettä.", "Aloita pienellä tulella.", "Pidä vettä, lunta tai maata lähellä sammuttamista varten."],
+        "lv": ["Atrodi drošu atklātu vietu.", "Novāc sauso zāli apkārt.", "Savāc smalku sausu iekuru.", "Sāc ar mazu uguni.", "Turi blakus ūdeni, sniegu vai zemi, lai nodzēstu."],
+        "lt": ["Rask saugią atvirą vietą.", "Pašalink sausą žolę aplinkui.", "Surink smulkų sausą įdegą.", "Pradėk nuo mažos ugnies.", "Laikyk šalia vandenį, sniegą ar žemę užgesinimui."]
+      },
+      "warning": {
+        "ru": "Разводи огонь только если это безопасно. Не разводи огонь в помещении, машине, под деревом или рядом с сухой травой.",
+        "en": "Make a fire only when it is safe. Do not make a fire indoors, in a car, under a tree, or near dry grass.",
+        "et": "Tee tuld ainult siis, kui see on ohutu. Ära tee tuld siseruumis, autos, puu all ega kuiva rohu kõrval.",
+        "fi": "Tee tuli vain jos se on turvallista. Älä tee tulta sisällä, autossa, puun alla tai kuivan ruohon lähellä.",
+        "lv": "Kur uguni tikai tad, ja tas ir droši. Nekur uguni telpā, mašīnā, zem koka vai blakus sausai zālei.",
+        "lt": "Kurk ugnį tik tada, kai tai saugu. Nekurk ugnies patalpoje, automobilyje, po medžiu ar prie sausos žolės."
       }
     }
   },
