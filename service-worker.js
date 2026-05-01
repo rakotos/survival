@@ -1,4 +1,4 @@
-const CACHE_NAME = "survival-mode-v2";
+const CACHE_NAME = "survival-mode-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,7 +7,9 @@ const APP_SHELL = [
   "./scenarios.json",
   "./manifest.json",
   "./icons/icon-192.svg",
-  "./icons/icon-512.svg"
+  "./icons/icon-512.svg",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 async function broadcast(message) {
@@ -64,8 +66,4 @@ self.addEventListener("fetch", (event) => {
           if (isNavigation) {
             return caches.match("./index.html");
           }
-          return caches.match(request);
-        });
-    })
-  );
-});
+          return ca

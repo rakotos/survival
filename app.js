@@ -2,9 +2,7 @@ const CACHE_NAME = "survival-mode-v2";
 const SUPPORTED_LANGUAGES = ["ru", "en", "et", "fi", "lv", "lt"];
 const STARTER_ACTION_IDS = [
   "universal_stop",
-  "universal_no_run",
   "universal_check_danger",
-  "universal_check_phone",
   "universal_use_sos"
 ];
 const HOME_SHORTCUTS = [
@@ -53,6 +51,57 @@ const HOME_SHORTCUTS = [
       ru: "Если ты один и страшно",
       en: "If you are alone and scared"
     }
+  },
+  {
+    icon: "🩸",
+    placeId: "city",
+    problemId: "injury",
+    label: { ru: "Травма / кровь", en: "Injury / bleeding" },
+    subtitle: { ru: "Остановить кровотечение", en: "Stop the bleeding" }
+  }
+];
+
+const SUPPLIES_CONFIG = [
+  {
+    id: "water",
+    icon: "💧",
+    label: { ru: "Вода", en: "Water" },
+    unit: { ru: "л", en: "L" },
+    perPersonPerDay: 3,
+    days: 3,
+    critical: 9,
+    good: 21
+  },
+  {
+    id: "food",
+    icon: "🍚",
+    label: { ru: "Еда", en: "Food" },
+    unit: { ru: "дн", en: "days" },
+    perPersonPerDay: 1,
+    days: 3,
+    critical: 3,
+    good: 7
+  },
+  {
+    id: "firstaid",
+    icon: "🏥",
+    label: { ru: "Аптечка", en: "First aid" },
+    unit: { ru: "уровень", en: "level" },
+    levels: [
+      { value: 0, label: { ru: "Нет", en: "None" } },
+      { value: 1, label: { ru: "Базовая", en: "Basic" } },
+      { value: 2, label: { ru: "Полная", en: "Full" } }
+    ],
+    critical: 0,
+    good: 2
+  },
+  {
+    id: "powerbank",
+    icon: "🔋",
+    label: { ru: "Power bank", en: "Power bank" },
+    unit: { ru: "шт", en: "pcs" },
+    critical: 0,
+    good: 1
   }
 ];
 const LAST_COORDS_KEY = "survival_last_coords";
@@ -421,6 +470,9 @@ function render() {
     case "finish":
       screenHtml = renderFinishScreen();
       break;
+    case "supplies":
+      screenHtml = renderSuppliesScreen();
+      break;
     default:
       screenHtml = renderHomeScreen();
       break;
@@ -519,11 +571,93 @@ function renderBanner() {
   `;
 }
 
-function renderOfflineStatus() {
-  const text = navigator.onLine ? "Online / ready to cache" : "Offline mode";
-  const statusClass = navigator.onLine ? "is-ready" : "is-warning";
+function loadSupplies() {
+  try {
+    const raw = localStorage.getItem("survival_supplies");
+    return raw ? JSON.parse(raw) : {};
+  } catch (_) { return {}; }
+}
+function saveSupply(id, value) {
+  const current = loadSupplies();
+  current[id] = value;
+  localStorage.setItem("survival_supplies", JSON.stringify(current));
+}
+function getReadinessLevel(supply, value) {
+  if (value === undefined || value === null) return "unknown";
+  if (value <= supply.critical) return "critical";
+  if (value >= supply.good) return "good";
+  return "weak";
+}
+function getReadinessLabel(level, lang) {
+  const labels = {
+    critical: { ru: "🔴 Критично", en: "🔴 Critical" },
+    weak:     { ru: "🟡 Слабо",    en: "🟡 Weak" },
+    good:     { ru: "🟢 Норма",    en: "🟢 Good" },
+    unknown:  { ru: "⚪ Не задано", en: "⚪ Not set" }
+  };
+  return labels[level]?.[lang] || labels[level]?.en || "";
+}
+function calculateTotalReadiness(supplies) {
+  const levels = SUPPLIES_CONFIG.map(s => getReadinessLevel(s, supplies[s.id]));
+  if (levels.includes("critical") || levels.includes("unknown")) return "critical";
+  if (levels.includes("weak")) return "weak";
+  return "good";
+}
+function renderSuppliesScreen() {
+  const supplies = loadSupplies();
+  const items = SUPPLIES_CONFIG.map(supply => {
+    const value = supplies[supply.id];
+    const level = getReadinessLevel(supply, value);
+    const readinessLabel = getReadinessLabel(level, state.lang);
+    const displayValue = value !== undefined ? value : "—";
+    const unitLabel = t(supply.unit) || "";
+    return `
+      <div class="screen-card" style="gap:12px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:1.8rem;">${supply.icon}</span>
+          <div style="flex:1;">
+            <p class="choice-title" style="font-size:1.1rem;">${t(supply.label)}</p>
+            <p class="screen-hint">${readinessLabel}</p>
+          </div>
+          <span style="font-size:1.1rem;font-weight:700;color:var(--text);">${displayValue}${value !== undefined ? " " + unitLabel : ""}</span>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="${supply.good * 2}"
+          step="1"
+          value="${value || 0}"
+          data-supply-id="${supply.id}"
+          style="width:100%"
+        />
+        <p class="screen-hint" style="font-size:0.85rem;">
+          Минимум: ${supply.critical} ${unitLabel} · Рекомендовано: ${supply.good} ${unitLabel}
+        </p>
+      </div>
+    `;
+  }).join("");
+  const totalLevel = calculateTotalReadiness(supplies);
+  return `
+    <section class="screen-card" style="gap:8px;">
+      <h2 class="screen-title">Мои запасы</h2>
+      <p class="screen-hint">Отметь что у тебя есть. Приложение покажет готовность.</p>
+      <p style="font-size:1.4rem;font-weight:800;">${getReadinessLabel(totalLevel, state.lang)}</p>
+    </section>
+    ${items}
+  `;
+}
 
-  return `<section class="offline-status ${statusClass}" aria-live="polite">${text}</section>`;
+function renderOfflineStatus() {
+  if (state.offline.isOnline && state.offline.phase !== "updating") {
+    return "";
+  }
+  if (state.offline.phase === "updating") {
+    return `<section class="offline-status is-updating" aria-live="polite">${u("offlineUpdating")}</section>`;
+  }
+  if (!state.offline.isOnline) {
+    return `<section class="offline-status ${state.offline.cached ? "is-ready" : "is-warning"}" aria-live="polite">${state.offline.cached ? u("offlineReady") : u("offlineNeedOnline")}</section>`;
+  }
+  return "";
 }
 
 function renderHomeScreen() {
@@ -546,6 +680,11 @@ function renderHomeScreen() {
       <button class="secondary-button" data-action="go-place">
         <span class="button-label">Выбрать вручную</span>
         <span class="button-note">${u("homeButtonNote")}</span>
+      </button>
+
+      <button class="secondary-button" data-action="go-supplies">
+        <span class="button-label">📦 Мои запасы</span>
+        <span class="button-note">Проверь готовность</span>
       </button>
 
       <button class="ghost-button" data-action="open-language">
@@ -984,6 +1123,13 @@ function bindCommonEvents() {
     });
   });
 
+  app.querySelectorAll("[data-supply-id]").forEach(input => {
+    input.addEventListener("input", () => {
+      saveSupply(input.dataset.supplyId, Number(input.value));
+      render();
+    });
+  });
+
   app.querySelectorAll("[data-action]").forEach((button) => {
     button.addEventListener("click", async () => {
       const action = button.dataset.action;
@@ -1068,6 +1214,10 @@ function bindCommonEvents() {
           break;
         case "start-place-dictation":
           startPlaceDictation();
+          break;
+        case "go-supplies":
+          state.screen = "supplies";
+          render();
           break;
         default:
           break;
@@ -1478,30 +1628,4 @@ function getLanguageEnglishName(languageId) {
 
 function getFilteredLanguages() {
   const query = state.langSearch.trim().toLowerCase();
-  const languages = state.data?.languages || [];
-  if (!query) {
-    return languages;
-  }
-
-  return languages.filter((language) => {
-    const meta = getLanguageMeta(language.id);
-    const haystack = [
-      language.id,
-      language.short,
-      meta.nativeName || language.short || language.id,
-      meta.englishName || language.short || language.id
-    ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-    return haystack.includes(query);
-  });
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
+  const languages = state.data?.lan

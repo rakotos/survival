@@ -1,11 +1,29 @@
 {
   "languages": [
-    { "id": "ru", "short": "RU" },
-    { "id": "en", "short": "EN" },
-    { "id": "et", "short": "ET" },
-    { "id": "fi", "short": "FI" },
-    { "id": "lv", "short": "LV" },
-    { "id": "lt", "short": "LT" }
+    {
+      "id": "ru",
+      "short": "RU"
+    },
+    {
+      "id": "en",
+      "short": "EN"
+    },
+    {
+      "id": "et",
+      "short": "ET"
+    },
+    {
+      "id": "fi",
+      "short": "FI"
+    },
+    {
+      "id": "lv",
+      "short": "LV"
+    },
+    {
+      "id": "lt",
+      "short": "LT"
+    }
   ],
   "ui": {
     "ru": {
@@ -283,7 +301,12 @@
     {
       "id": "forest",
       "icon": "🌲",
-      "problemIds": ["lost", "night", "cold_forest", "water_forest"],
+      "problemIds": [
+        "lost",
+        "night",
+        "cold_forest",
+        "water_forest"
+      ],
       "title": {
         "ru": "Я в лесу",
         "en": "I am in the forest",
@@ -304,7 +327,12 @@
     {
       "id": "car",
       "icon": "🚗",
-      "problemIds": ["stuck", "crash", "cold_car", "no_signal_car"],
+      "problemIds": [
+        "stuck",
+        "crash",
+        "cold_car",
+        "no_signal_car"
+      ],
       "title": {
         "ru": "Я в машине",
         "en": "I am in the car",
@@ -325,7 +353,12 @@
     {
       "id": "home",
       "icon": "🏠",
-      "problemIds": ["power_home", "water_home", "fire_home", "evacuate_home"],
+      "problemIds": [
+        "power_home",
+        "water_home",
+        "fire_home",
+        "evacuate_home"
+      ],
       "title": {
         "ru": "Я дома",
         "en": "I am at home",
@@ -346,7 +379,13 @@
     {
       "id": "city",
       "icon": "🏙️",
-      "problemIds": ["crowd_city", "no_signal_city", "danger_city", "shelter_city"],
+      "problemIds": [
+        "crowd_city",
+        "no_signal_city",
+        "danger_city",
+        "shelter_city",
+        "injury"
+      ],
       "title": {
         "ru": "Я в городе",
         "en": "I am in the city",
@@ -684,6 +723,26 @@
         "fi": "Etsi rakennus. Sulje ovet.",
         "lv": "Meklē ēku. Aizver durvis.",
         "lt": "Rask pastatą. Užverk duris."
+      }
+    },
+    {
+      "id": "injury",
+      "icon": "🩸",
+      "title": {
+        "ru": "Травма / кровотечение",
+        "en": "Injury / bleeding",
+        "et": "Vigastus / verejooks",
+        "fi": "Vamma / verenvuoto",
+        "lv": "Trauma / asiņošana",
+        "lt": "Trauma / kraujavimas"
+      },
+      "hint": {
+        "ru": "Останови кровь. Вызови помощь.",
+        "en": "Stop bleeding. Get help.",
+        "et": "Peata verejooks. Kutsu abi.",
+        "fi": "Pysäytä verenvuoto. Hae apua.",
+        "lv": "Aptur asiņošanu. Sauc palīdzību.",
+        "lt": "Sustabdyk kraujavimą. Kvieski pagalbą."
       }
     }
   ],
@@ -1466,6 +1525,56 @@
         "ru": "Не стой у входа и не оставайся у окна.",
         "en": "Do not stay near the entrance or by a window."
       }
+    },
+    "press_wound": {
+      "icon": "✋",
+      "text": {
+        "ru": "Нажми на рану",
+        "en": "Press the wound"
+      },
+      "voice": {
+        "ru": "Нажми крепко на рану обеими руками.",
+        "en": "Press firmly on the wound with both hands."
+      },
+      "detail": {
+        "ru": "Используй ткань, одежду или бинт. Не отпускай.",
+        "en": "Use cloth, clothing, or a bandage. Do not let go."
+      },
+      "timerSec": 300
+    },
+    "raise_limb": {
+      "icon": "⬆️",
+      "text": {
+        "ru": "Подними повреждённую часть",
+        "en": "Raise the injured part"
+      },
+      "detail": {
+        "ru": "Подними руку или ногу выше уровня сердца если можешь.",
+        "en": "Raise the arm or leg above heart level if possible."
+      }
+    },
+    "tourniquet_if_needed": {
+      "icon": "🩹",
+      "text": {
+        "ru": "Сильная кровь? Наложи жгут",
+        "en": "Heavy bleeding? Apply tourniquet"
+      },
+      "detail": {
+        "ru": "Перевяжи выше раны. Запомни время наложения.",
+        "en": "Tie above the wound. Note the time of application."
+      },
+      "learnMoreId": "first_aid_bleeding"
+    },
+    "do_not_remove_object": {
+      "icon": "🚫",
+      "text": {
+        "ru": "Не вынимай предмет из раны",
+        "en": "Do not remove object from wound"
+      },
+      "detail": {
+        "ru": "Если что-то торчит из раны — не трогай, зафиксируй вокруг.",
+        "en": "If something is stuck in the wound, leave it and stabilize around it."
+      }
     }
   },
   "guides": {
@@ -1487,12 +1596,36 @@
         "lt": "Ko reikia"
       },
       "needs": {
-        "ru": ["Сухое место", "Что-то под себя", "Одежда или ткань"],
-        "en": ["A dry place", "Something under you", "Clothes or cloth"],
-        "et": ["Kuiv koht", "Midagi enda alla", "Riided või kangas"],
-        "fi": ["Kuiva paikka", "Jotain alle", "Vaatteita tai kangasta"],
-        "lv": ["Sausa vieta", "Kaut kas zem sevis", "Drēbes vai audums"],
-        "lt": ["Sausa vieta", "Ką nors pasitiesti", "Drabužiai ar audinys"]
+        "ru": [
+          "Сухое место",
+          "Что-то под себя",
+          "Одежда или ткань"
+        ],
+        "en": [
+          "A dry place",
+          "Something under you",
+          "Clothes or cloth"
+        ],
+        "et": [
+          "Kuiv koht",
+          "Midagi enda alla",
+          "Riided või kangas"
+        ],
+        "fi": [
+          "Kuiva paikka",
+          "Jotain alle",
+          "Vaatteita tai kangasta"
+        ],
+        "lv": [
+          "Sausa vieta",
+          "Kaut kas zem sevis",
+          "Drēbes vai audums"
+        ],
+        "lt": [
+          "Sausa vieta",
+          "Ką nors pasitiesti",
+          "Drabužiai ar audinys"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
@@ -1503,12 +1636,48 @@
         "lt": "Ką daryti"
       },
       "steps": {
-        "ru": ["Найди сухое место.", "Изолируйся от земли.", "Закрой голову, шею и руки.", "Надень сухие слои.", "Двигайся осторожно и не потей."],
-        "en": ["Find a dry place.", "Insulate yourself from the ground.", "Cover your head, neck, and hands.", "Put on dry layers.", "Move carefully and do not sweat."],
-        "et": ["Leia kuiv koht.", "Isoleri end maapinnast.", "Kata pea, kael ja käed.", "Pane selga kuivad kihid.", "Liigu ettevaatlikult ja ära higista."],
-        "fi": ["Etsi kuiva paikka.", "Eristäydy maasta.", "Peitä pää, kaula ja kädet.", "Pue kuivat kerrokset.", "Liiku varovasti äläkä hikoile."],
-        "lv": ["Atrodi sausu vietu.", "Izolējies no zemes.", "Aizsedz galvu, kaklu un rokas.", "Uzvelc sausas kārtas.", "Kusties uzmanīgi un nesvīsti."],
-        "lt": ["Rask sausą vietą.", "Atsiskirk nuo žemės.", "Uždenk galvą, kaklą ir rankas.", "Apsirenk sausais sluoksniais.", "Judėk atsargiai ir neprakaituok."]
+        "ru": [
+          "Найди сухое место.",
+          "Изолируйся от земли.",
+          "Закрой голову, шею и руки.",
+          "Надень сухие слои.",
+          "Двигайся осторожно и не потей."
+        ],
+        "en": [
+          "Find a dry place.",
+          "Insulate yourself from the ground.",
+          "Cover your head, neck, and hands.",
+          "Put on dry layers.",
+          "Move carefully and do not sweat."
+        ],
+        "et": [
+          "Leia kuiv koht.",
+          "Isoleri end maapinnast.",
+          "Kata pea, kael ja käed.",
+          "Pane selga kuivad kihid.",
+          "Liigu ettevaatlikult ja ära higista."
+        ],
+        "fi": [
+          "Etsi kuiva paikka.",
+          "Eristäydy maasta.",
+          "Peitä pää, kaula ja kädet.",
+          "Pue kuivat kerrokset.",
+          "Liiku varovasti äläkä hikoile."
+        ],
+        "lv": [
+          "Atrodi sausu vietu.",
+          "Izolējies no zemes.",
+          "Aizsedz galvu, kaklu un rokas.",
+          "Uzvelc sausas kārtas.",
+          "Kusties uzmanīgi un nesvīsti."
+        ],
+        "lt": [
+          "Rask sausą vietą.",
+          "Atsiskirk nuo žemės.",
+          "Uždenk galvą, kaklą ir rankas.",
+          "Apsirenk sausais sluoksniais.",
+          "Judėk atsargiai ir neprakaituok."
+        ]
       },
       "warning": {
         "ru": "Не ложись прямо на холодную землю и не оставайся в мокрой одежде.",
@@ -1537,12 +1706,42 @@
         "lt": "Ko ieškoti"
       },
       "needs": {
-        "ru": ["Ручей", "Низину", "Следы животных", "Снег или дождевую воду"],
-        "en": ["A stream", "Low ground", "Animal tracks", "Snow or rainwater"],
-        "et": ["Oja", "Madal koht", "Loomade jäljed", "Lumi või vihmavesi"],
-        "fi": ["Puro", "Painanne", "Eläinten jäljet", "Lumi tai sadevesi"],
-        "lv": ["Strautu", "Zemieni", "Dzīvnieku pēdas", "Sniegu vai lietus ūdeni"],
-        "lt": ["Upelį", "Žemumą", "Gyvūnų pėdsakus", "Sniegą ar lietaus vandenį"]
+        "ru": [
+          "Ручей",
+          "Низину",
+          "Следы животных",
+          "Снег или дождевую воду"
+        ],
+        "en": [
+          "A stream",
+          "Low ground",
+          "Animal tracks",
+          "Snow or rainwater"
+        ],
+        "et": [
+          "Oja",
+          "Madal koht",
+          "Loomade jäljed",
+          "Lumi või vihmavesi"
+        ],
+        "fi": [
+          "Puro",
+          "Painanne",
+          "Eläinten jäljet",
+          "Lumi tai sadevesi"
+        ],
+        "lv": [
+          "Strautu",
+          "Zemieni",
+          "Dzīvnieku pēdas",
+          "Sniegu vai lietus ūdeni"
+        ],
+        "lt": [
+          "Upelį",
+          "Žemumą",
+          "Gyvūnų pėdsakus",
+          "Sniegą ar lietaus vandenį"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
@@ -1553,12 +1752,48 @@
         "lt": "Ką daryti"
       },
       "steps": {
-        "ru": ["Смотри вниз по склону.", "Ищи воду утром после дождя.", "Проверь низкие места и тень.", "Собирай снег или дождевую воду в ёмкость.", "Очищай воду перед питьём."],
-        "en": ["Look downhill.", "Search after rain or in the morning.", "Check low places and shade.", "Collect snow or rainwater in a container.", "Clean the water before drinking."],
-        "et": ["Vaata nõlva alla.", "Otsi pärast vihma või hommikul.", "Kontrolli madalaid kohti ja varju.", "Kogu lumi või vihmavesi anumasse.", "Puhasta vesi enne joomist."],
-        "fi": ["Katso alamäkeen.", "Etsi sateen jälkeen tai aamulla.", "Tarkista matalat paikat ja varjo.", "Kerää lumi tai sadevesi astiaan.", "Puhdista vesi ennen juomista."],
-        "lv": ["Skaties lejup pa nogāzi.", "Meklē pēc lietus vai no rīta.", "Pārbaudi zemākas vietas un ēnu.", "Savāc sniegu vai lietus ūdeni traukā.", "Attīri ūdeni pirms dzeršanas."],
-        "lt": ["Žiūrėk žemyn nuo šlaito.", "Ieškok po lietaus arba ryte.", "Patikrink žemas vietas ir šešėlį.", "Surink sniegą ar lietaus vandenį į talpą.", "Išvalyk vandenį prieš gerdamas."]
+        "ru": [
+          "Смотри вниз по склону.",
+          "Ищи воду утром после дождя.",
+          "Проверь низкие места и тень.",
+          "Собирай снег или дождевую воду в ёмкость.",
+          "Очищай воду перед питьём."
+        ],
+        "en": [
+          "Look downhill.",
+          "Search after rain or in the morning.",
+          "Check low places and shade.",
+          "Collect snow or rainwater in a container.",
+          "Clean the water before drinking."
+        ],
+        "et": [
+          "Vaata nõlva alla.",
+          "Otsi pärast vihma või hommikul.",
+          "Kontrolli madalaid kohti ja varju.",
+          "Kogu lumi või vihmavesi anumasse.",
+          "Puhasta vesi enne joomist."
+        ],
+        "fi": [
+          "Katso alamäkeen.",
+          "Etsi sateen jälkeen tai aamulla.",
+          "Tarkista matalat paikat ja varjo.",
+          "Kerää lumi tai sadevesi astiaan.",
+          "Puhdista vesi ennen juomista."
+        ],
+        "lv": [
+          "Skaties lejup pa nogāzi.",
+          "Meklē pēc lietus vai no rīta.",
+          "Pārbaudi zemākas vietas un ēnu.",
+          "Savāc sniegu vai lietus ūdeni traukā.",
+          "Attīri ūdeni pirms dzeršanas."
+        ],
+        "lt": [
+          "Žiūrėk žemyn nuo šlaito.",
+          "Ieškok po lietaus arba ryte.",
+          "Patikrink žemas vietas ir šešėlį.",
+          "Surink sniegą ar lietaus vandenį į talpą.",
+          "Išvalyk vandenį prieš gerdamas."
+        ]
       },
       "warning": {
         "ru": "Не пей морскую воду и не пей воду с запахом химии.",
@@ -1587,12 +1822,42 @@
         "lt": "Ko reikia"
       },
       "needs": {
-        "ru": ["Кастрюля или металл", "Огонь или горелка", "Ткань или фильтр", "Таблетки, если есть"],
-        "en": ["A pot or metal container", "Fire or burner", "Cloth or filter", "Purification tablets if available"],
-        "et": ["Pott või metallanum", "Tuli või põleti", "Riie või filter", "Puhastustabletid kui on"],
-        "fi": ["Kattila tai metalliastia", "Tuli tai poltin", "Kangas tai suodatin", "Puhdistustabletit jos on"],
-        "lv": ["Katls vai metāla trauks", "Uguns vai deglis", "Audums vai filtrs", "Attīrīšanas tabletes, ja ir"],
-        "lt": ["Puodas ar metalinis indas", "Ugnis ar degiklis", "Audinys ar filtras", "Valymo tabletės, jei yra"]
+        "ru": [
+          "Кастрюля или металл",
+          "Огонь или горелка",
+          "Ткань или фильтр",
+          "Таблетки, если есть"
+        ],
+        "en": [
+          "A pot or metal container",
+          "Fire or burner",
+          "Cloth or filter",
+          "Purification tablets if available"
+        ],
+        "et": [
+          "Pott või metallanum",
+          "Tuli või põleti",
+          "Riie või filter",
+          "Puhastustabletid kui on"
+        ],
+        "fi": [
+          "Kattila tai metalliastia",
+          "Tuli tai poltin",
+          "Kangas tai suodatin",
+          "Puhdistustabletit jos on"
+        ],
+        "lv": [
+          "Katls vai metāla trauks",
+          "Uguns vai deglis",
+          "Audums vai filtrs",
+          "Attīrīšanas tabletes, ja ir"
+        ],
+        "lt": [
+          "Puodas ar metalinis indas",
+          "Ugnis ar degiklis",
+          "Audinys ar filtras",
+          "Valymo tabletės, jei yra"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
@@ -1603,12 +1868,48 @@
         "lt": "Ką daryti"
       },
       "steps": {
-        "ru": ["Если вода мутная, сначала отфильтруй через ткань.", "Кипяти воду минимум 3 минуты.", "Если есть таблетки, следуй инструкции на упаковке.", "Дай воде остыть в чистой ёмкости.", "Пей только после очистки."],
-        "en": ["If the water is cloudy, filter it through cloth first.", "Boil the water for at least 3 minutes.", "If you have tablets, follow the package instructions.", "Let the water cool in a clean container.", "Drink only after cleaning."],
-        "et": ["Kui vesi on sogane, filtreeri see esmalt läbi kanga.", "Keeda vett vähemalt 3 minutit.", "Kui sul on tabletid, järgi pakendi juhiseid.", "Lase veega puhtas anumas jahtuda.", "Joo alles pärast puhastamist."],
-        "fi": ["Jos vesi on sameaa, suodata se ensin kankaan läpi.", "Keitä vettä vähintään 3 minuuttia.", "Jos sinulla on tabletteja, noudata pakkauksen ohjeita.", "Anna veden jäähtyä puhtaassa astiassa.", "Juo vasta puhdistamisen jälkeen."],
-        "lv": ["Ja ūdens ir duļķains, vispirms izfiltrē to caur audumu.", "Vāri ūdeni vismaz 3 minūtes.", "Ja ir tabletes, ievēro norādījumus uz iepakojuma.", "Ļauj ūdenim atdzist tīrā traukā.", "Dzer tikai pēc attīrīšanas."],
-        "lt": ["Jei vanduo drumstas, pirmiausia perfiltruok per audinį.", "Virk vandenį bent 3 minutes.", "Jei turi tablečių, laikykis instrukcijos ant pakuotės.", "Leisk vandeniui atvėsti švarioje talpoje.", "Gerk tik išvalytą vandenį."]
+        "ru": [
+          "Если вода мутная, сначала отфильтруй через ткань.",
+          "Кипяти воду минимум 3 минуты.",
+          "Если есть таблетки, следуй инструкции на упаковке.",
+          "Дай воде остыть в чистой ёмкости.",
+          "Пей только после очистки."
+        ],
+        "en": [
+          "If the water is cloudy, filter it through cloth first.",
+          "Boil the water for at least 3 minutes.",
+          "If you have tablets, follow the package instructions.",
+          "Let the water cool in a clean container.",
+          "Drink only after cleaning."
+        ],
+        "et": [
+          "Kui vesi on sogane, filtreeri see esmalt läbi kanga.",
+          "Keeda vett vähemalt 3 minutit.",
+          "Kui sul on tabletid, järgi pakendi juhiseid.",
+          "Lase veega puhtas anumas jahtuda.",
+          "Joo alles pärast puhastamist."
+        ],
+        "fi": [
+          "Jos vesi on sameaa, suodata se ensin kankaan läpi.",
+          "Keitä vettä vähintään 3 minuuttia.",
+          "Jos sinulla on tabletteja, noudata pakkauksen ohjeita.",
+          "Anna veden jäähtyä puhtaassa astiassa.",
+          "Juo vasta puhdistamisen jälkeen."
+        ],
+        "lv": [
+          "Ja ūdens ir duļķains, vispirms izfiltrē to caur audumu.",
+          "Vāri ūdeni vismaz 3 minūtes.",
+          "Ja ir tabletes, ievēro norādījumus uz iepakojuma.",
+          "Ļauj ūdenim atdzist tīrā traukā.",
+          "Dzer tikai pēc attīrīšanas."
+        ],
+        "lt": [
+          "Jei vanduo drumstas, pirmiausia perfiltruok per audinį.",
+          "Virk vandenį bent 3 minutes.",
+          "Jei turi tablečių, laikykis instrukcijos ant pakuotės.",
+          "Leisk vandeniui atvėsti švarioje talpoje.",
+          "Gerk tik išvalytą vandenį."
+        ]
       },
       "warning": {
         "ru": "Не пей мутную или подозрительную воду без очистки.",
@@ -1637,12 +1938,42 @@
         "lt": "Ką naudoti"
       },
       "needs": {
-        "ru": ["Яркую ткань", "Фонарик", "Телефон или свисток", "Открытое место"],
-        "en": ["Bright cloth", "A flashlight", "A phone or whistle", "An open place"],
-        "et": ["Heledat kangast", "Taskulampi", "Telefoni või vilet", "Avatud kohta"],
-        "fi": ["Kirkas kangas", "Taskulamppu", "Puhelin tai pilli", "Avoin paikka"],
-        "lv": ["Košu audumu", "Lukturīti", "Telefonu vai svilpi", "Atklātu vietu"],
-        "lt": ["Ryškų audinį", "Žibintuvėlį", "Telefoną ar švilpuką", "Atvirą vietą"]
+        "ru": [
+          "Яркую ткань",
+          "Фонарик",
+          "Телефон или свисток",
+          "Открытое место"
+        ],
+        "en": [
+          "Bright cloth",
+          "A flashlight",
+          "A phone or whistle",
+          "An open place"
+        ],
+        "et": [
+          "Heledat kangast",
+          "Taskulampi",
+          "Telefoni või vilet",
+          "Avatud kohta"
+        ],
+        "fi": [
+          "Kirkas kangas",
+          "Taskulamppu",
+          "Puhelin tai pilli",
+          "Avoin paikka"
+        ],
+        "lv": [
+          "Košu audumu",
+          "Lukturīti",
+          "Telefonu vai svilpi",
+          "Atklātu vietu"
+        ],
+        "lt": [
+          "Ryškų audinį",
+          "Žibintuvėlį",
+          "Telefoną ar švilpuką",
+          "Atvirą vietą"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
@@ -1653,12 +1984,48 @@
         "lt": "Ką daryti"
       },
       "steps": {
-        "ru": ["Останься на видном месте.", "Подними яркую ткань выше.", "Используй фонарик в темноте.", "Подавай три сигнала подряд.", "Повторяй сигнал через паузу."],
-        "en": ["Stay in a visible place.", "Raise bright cloth high.", "Use a flashlight in the dark.", "Give three signals in a row.", "Repeat after a pause."],
-        "et": ["Püsi nähtavas kohas.", "Tõsta ere kangas kõrgele.", "Kasuta pimedas taskulampi.", "Anna kolm märki järjest.", "Korda pärast pausi."],
-        "fi": ["Pysy näkyvässä paikassa.", "Nosta kirkas kangas korkealle.", "Käytä pimeässä taskulamppua.", "Anna kolme merkkiä peräkkäin.", "Toista tauon jälkeen."],
-        "lv": ["Paliec redzamā vietā.", "Pacel košu audumu augstu.", "Tumsā izmanto lukturīti.", "Dod trīs signālus pēc kārtas.", "Atkārto pēc pauzes."],
-        "lt": ["Lik matomoje vietoje.", "Pakelk ryškų audinį aukštai.", "Tamsoje naudok žibintuvėlį.", "Duok tris signalus iš eilės.", "Pakartok po pauzės."]
+        "ru": [
+          "Останься на видном месте.",
+          "Подними яркую ткань выше.",
+          "Используй фонарик в темноте.",
+          "Подавай три сигнала подряд.",
+          "Повторяй сигнал через паузу."
+        ],
+        "en": [
+          "Stay in a visible place.",
+          "Raise bright cloth high.",
+          "Use a flashlight in the dark.",
+          "Give three signals in a row.",
+          "Repeat after a pause."
+        ],
+        "et": [
+          "Püsi nähtavas kohas.",
+          "Tõsta ere kangas kõrgele.",
+          "Kasuta pimedas taskulampi.",
+          "Anna kolm märki järjest.",
+          "Korda pärast pausi."
+        ],
+        "fi": [
+          "Pysy näkyvässä paikassa.",
+          "Nosta kirkas kangas korkealle.",
+          "Käytä pimeässä taskulamppua.",
+          "Anna kolme merkkiä peräkkäin.",
+          "Toista tauon jälkeen."
+        ],
+        "lv": [
+          "Paliec redzamā vietā.",
+          "Pacel košu audumu augstu.",
+          "Tumsā izmanto lukturīti.",
+          "Dod trīs signālus pēc kārtas.",
+          "Atkārto pēc pauzes."
+        ],
+        "lt": [
+          "Lik matomoje vietoje.",
+          "Pakelk ryškų audinį aukštai.",
+          "Tamsoje naudok žibintuvėlį.",
+          "Duok tris signalus iš eilės.",
+          "Pakartok po pauzės."
+        ]
       },
       "warning": {
         "ru": "Не уходи далеко от укрытия и не трать все силы на сигнал.",
@@ -1687,12 +2054,42 @@
         "lt": "Ko reikia"
       },
       "needs": {
-        "ru": ["Безопасное место", "Сухая растопка", "Спички или зажигалка", "Вода, снег или земля рядом"],
-        "en": ["A safe place", "Dry tinder", "Matches or a lighter", "Water, snow, or soil nearby"],
-        "et": ["Ohutu koht", "Kuiv süütematerjal", "Tikud või tulemasin", "Vesi, lumi või muld lähedal"],
-        "fi": ["Turvallinen paikka", "Kuiva sytykettä", "Tulitikut tai sytytin", "Vettä, lunta tai maata lähellä"],
-        "lv": ["Droša vieta", "Sausa iekura masa", "Sērkociņi vai šķiltavas", "Ūdens, sniegs vai zeme blakus"],
-        "lt": ["Saugi vieta", "Sausas įdegas", "Degtukai ar žiebtuvėlis", "Vanduo, sniegas ar žemė šalia"]
+        "ru": [
+          "Безопасное место",
+          "Сухая растопка",
+          "Спички или зажигалка",
+          "Вода, снег или земля рядом"
+        ],
+        "en": [
+          "A safe place",
+          "Dry tinder",
+          "Matches or a lighter",
+          "Water, snow, or soil nearby"
+        ],
+        "et": [
+          "Ohutu koht",
+          "Kuiv süütematerjal",
+          "Tikud või tulemasin",
+          "Vesi, lumi või muld lähedal"
+        ],
+        "fi": [
+          "Turvallinen paikka",
+          "Kuiva sytykettä",
+          "Tulitikut tai sytytin",
+          "Vettä, lunta tai maata lähellä"
+        ],
+        "lv": [
+          "Droša vieta",
+          "Sausa iekura masa",
+          "Sērkociņi vai šķiltavas",
+          "Ūdens, sniegs vai zeme blakus"
+        ],
+        "lt": [
+          "Saugi vieta",
+          "Sausas įdegas",
+          "Degtukai ar žiebtuvėlis",
+          "Vanduo, sniegas ar žemė šalia"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
@@ -1703,12 +2100,48 @@
         "lt": "Ką daryti"
       },
       "steps": {
-        "ru": ["Найди безопасное открытое место.", "Убери сухую траву вокруг.", "Собери мелкую сухую растопку.", "Начни с маленького огня.", "Держи воду, снег или землю рядом, чтобы потушить."],
-        "en": ["Find a safe open place.", "Clear dry grass around it.", "Collect small dry tinder.", "Start with a small fire.", "Keep water, snow, or soil nearby to put it out."],
-        "et": ["Leia ohutu avatud koht.", "Eemalda ümbert kuiv rohi.", "Kogu väike kuiv süütematerjal.", "Alusta väikese tulega.", "Hoia kustutamiseks vett, lund või mulda lähedal."],
-        "fi": ["Etsi turvallinen avoin paikka.", "Poista kuiva ruoho ympäriltä.", "Kerää pientä kuivaa sytykettä.", "Aloita pienellä tulella.", "Pidä vettä, lunta tai maata lähellä sammuttamista varten."],
-        "lv": ["Atrodi drošu atklātu vietu.", "Novāc sauso zāli apkārt.", "Savāc smalku sausu iekuru.", "Sāc ar mazu uguni.", "Turi blakus ūdeni, sniegu vai zemi, lai nodzēstu."],
-        "lt": ["Rask saugią atvirą vietą.", "Pašalink sausą žolę aplinkui.", "Surink smulkų sausą įdegą.", "Pradėk nuo mažos ugnies.", "Laikyk šalia vandenį, sniegą ar žemę užgesinimui."]
+        "ru": [
+          "Найди безопасное открытое место.",
+          "Убери сухую траву вокруг.",
+          "Собери мелкую сухую растопку.",
+          "Начни с маленького огня.",
+          "Держи воду, снег или землю рядом, чтобы потушить."
+        ],
+        "en": [
+          "Find a safe open place.",
+          "Clear dry grass around it.",
+          "Collect small dry tinder.",
+          "Start with a small fire.",
+          "Keep water, snow, or soil nearby to put it out."
+        ],
+        "et": [
+          "Leia ohutu avatud koht.",
+          "Eemalda ümbert kuiv rohi.",
+          "Kogu väike kuiv süütematerjal.",
+          "Alusta väikese tulega.",
+          "Hoia kustutamiseks vett, lund või mulda lähedal."
+        ],
+        "fi": [
+          "Etsi turvallinen avoin paikka.",
+          "Poista kuiva ruoho ympäriltä.",
+          "Kerää pientä kuivaa sytykettä.",
+          "Aloita pienellä tulella.",
+          "Pidä vettä, lunta tai maata lähellä sammuttamista varten."
+        ],
+        "lv": [
+          "Atrodi drošu atklātu vietu.",
+          "Novāc sauso zāli apkārt.",
+          "Savāc smalku sausu iekuru.",
+          "Sāc ar mazu uguni.",
+          "Turi blakus ūdeni, sniegu vai zemi, lai nodzēstu."
+        ],
+        "lt": [
+          "Rask saugią atvirą vietą.",
+          "Pašalink sausą žolę aplinkui.",
+          "Surink smulkų sausą įdegą.",
+          "Pradėk nuo mažos ugnies.",
+          "Laikyk šalia vandenį, sniegą ar žemę užgesinimui."
+        ]
       },
       "warning": {
         "ru": "Разводи огонь только если это безопасно. Не разводи огонь в помещении, машине, под деревом или рядом с сухой травой.",
@@ -1729,16 +2162,44 @@
         "en": "What helps"
       },
       "needs": {
-        "ru": ["Фонарик или телефон", "Рюкзак", "Длинный предмет, если уже есть рядом", "Громкий голос", "Путь отхода", "Прочный инструмент, если он уже рядом"],
-        "en": ["A flashlight or phone", "A backpack", "A long object if one is already nearby", "A loud voice", "A way out", "A sturdy tool if one is already nearby"]
+        "ru": [
+          "Фонарик или телефон",
+          "Рюкзак",
+          "Длинный предмет, если уже есть рядом",
+          "Громкий голос",
+          "Путь отхода",
+          "Прочный инструмент, если он уже рядом"
+        ],
+        "en": [
+          "A flashlight or phone",
+          "A backpack",
+          "A long object if one is already nearby",
+          "A loud voice",
+          "A way out",
+          "A sturdy tool if one is already nearby"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
         "en": "What to do"
       },
       "steps": {
-        "ru": ["Сразу увеличь дистанцию.", "Не подходи ближе и не спорь.", "Держи между собой и угрозой рюкзак, палку или другой предмет.", "Громко скажи: «Стой! Не подходи!»", "Отходи к людям, свету, дороге или открытому месту.", "Если угроза идёт за тобой — открывай SOS или звони 112."],
-        "en": ["Increase distance right away.", "Do not move closer and do not argue.", "Keep a backpack, stick, or another object between you and the threat.", "Say loudly: “Stop! Do not come closer!”", "Move toward people, light, a road, or an open place.", "If the threat follows you, open SOS or call 112."]
+        "ru": [
+          "Сразу увеличь дистанцию.",
+          "Не подходи ближе и не спорь.",
+          "Держи между собой и угрозой рюкзак, палку или другой предмет.",
+          "Громко скажи: «Стой! Не подходи!»",
+          "Отходи к людям, свету, дороге или открытому месту.",
+          "Если угроза идёт за тобой — открывай SOS или звони 112."
+        ],
+        "en": [
+          "Increase distance right away.",
+          "Do not move closer and do not argue.",
+          "Keep a backpack, stick, or another object between you and the threat.",
+          "Say loudly: “Stop! Do not come closer!”",
+          "Move toward people, light, a road, or an open place.",
+          "If the threat follows you, open SOS or call 112."
+        ]
       },
       "warning": {
         "ru": "Не пытайся драться, если можно уйти. Цель — выбраться, а не победить. Молоток, палка или другой инструмент — не для нападения. Используй только как барьер, чтобы держать дистанцию и выиграть время для ухода.",
@@ -1755,16 +2216,38 @@
         "en": "What matters"
       },
       "needs": {
-        "ru": ["Спокойствие", "Открытый путь отхода", "Рюкзак или куртка"],
-        "en": ["Calm behavior", "An open way out", "A backpack or jacket"]
+        "ru": [
+          "Спокойствие",
+          "Открытый путь отхода",
+          "Рюкзак или куртка"
+        ],
+        "en": [
+          "Calm behavior",
+          "An open way out",
+          "A backpack or jacket"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
         "en": "What to do"
       },
       "steps": {
-        "ru": ["Не беги резко.", "Отходи медленно, не поворачиваясь спиной.", "Не смотри агрессивно в глаза.", "Сделай себя больше: подними руки, куртку или рюкзак.", "Говори спокойно и громко.", "Не подходи к детёнышам и еде животного."],
-        "en": ["Do not run suddenly.", "Back away slowly without turning your back.", "Do not stare aggressively into its eyes.", "Make yourself look bigger with your arms, jacket, or backpack.", "Speak calmly and loudly.", "Do not go near young animals or their food."]
+        "ru": [
+          "Не беги резко.",
+          "Отходи медленно, не поворачиваясь спиной.",
+          "Не смотри агрессивно в глаза.",
+          "Сделай себя больше: подними руки, куртку или рюкзак.",
+          "Говори спокойно и громко.",
+          "Не подходи к детёнышам и еде животного."
+        ],
+        "en": [
+          "Do not run suddenly.",
+          "Back away slowly without turning your back.",
+          "Do not stare aggressively into its eyes.",
+          "Make yourself look bigger with your arms, jacket, or backpack.",
+          "Speak calmly and loudly.",
+          "Do not go near young animals or their food."
+        ]
       },
       "warning": {
         "ru": "Не пытайся атаковать дикое животное. Это может резко ухудшить ситуацию.",
@@ -1781,16 +2264,36 @@
         "en": "What helps"
       },
       "needs": {
-        "ru": ["Рюкзак, сумка или куртка", "Дверь, машина, забор или люди рядом"],
-        "en": ["A backpack, bag, or jacket", "A door, car, fence, or people nearby"]
+        "ru": [
+          "Рюкзак, сумка или куртка",
+          "Дверь, машина, забор или люди рядом"
+        ],
+        "en": [
+          "A backpack, bag, or jacket",
+          "A door, car, fence, or people nearby"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
         "en": "What to do"
       },
       "steps": {
-        "ru": ["Не беги.", "Не кричи резко и не махай руками.", "Встань боком, не нависай над собакой.", "Держи между собой и собакой рюкзак, сумку или куртку.", "Медленно отходи к двери, машине, забору или людям.", "Если собака напала — закрывай лицо, шею и руки вещами."],
-        "en": ["Do not run.", "Do not scream suddenly or wave your arms.", "Turn sideways and do not loom over the dog.", "Keep a backpack, bag, or jacket between you and the dog.", "Move slowly toward a door, car, fence, or other people.", "If the dog attacks, protect your face, neck, and hands with your bag or clothing."]
+        "ru": [
+          "Не беги.",
+          "Не кричи резко и не махай руками.",
+          "Встань боком, не нависай над собакой.",
+          "Держи между собой и собакой рюкзак, сумку или куртку.",
+          "Медленно отходи к двери, машине, забору или людям.",
+          "Если собака напала — закрывай лицо, шею и руки вещами."
+        ],
+        "en": [
+          "Do not run.",
+          "Do not scream suddenly or wave your arms.",
+          "Turn sideways and do not loom over the dog.",
+          "Keep a backpack, bag, or jacket between you and the dog.",
+          "Move slowly toward a door, car, fence, or other people.",
+          "If the dog attacks, protect your face, neck, and hands with your bag or clothing."
+        ]
       },
       "warning": {
         "ru": "Не поворачивайся спиной и не провоцируй собаку.",
@@ -1807,16 +2310,38 @@
         "en": "What helps"
       },
       "needs": {
-        "ru": ["Свободные руки", "Путь к людям или свету", "Телефон"],
-        "en": ["Free hands", "A path toward people or light", "A phone"]
+        "ru": [
+          "Свободные руки",
+          "Путь к людям или свету",
+          "Телефон"
+        ],
+        "en": [
+          "Free hands",
+          "A path toward people or light",
+          "A phone"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
         "en": "What to do"
       },
       "steps": {
-        "ru": ["Не спорь и не доказывай.", "Не подходи ближе.", "Говори коротко: «Я ухожу.»", "Держи руки свободными и видимыми.", "Отходи к людям, охране, продавцу или освещённому месту.", "Если человек идёт за тобой — звони 112 или открывай SOS."],
-        "en": ["Do not argue or try to prove anything.", "Do not move closer.", "Say briefly: “I am leaving.”", "Keep your hands free and visible.", "Move toward people, security, a shop worker, or a well-lit place.", "If the person follows you, call 112 or open SOS."]
+        "ru": [
+          "Не спорь и не доказывай.",
+          "Не подходи ближе.",
+          "Говори коротко: «Я ухожу.»",
+          "Держи руки свободными и видимыми.",
+          "Отходи к людям, охране, продавцу или освещённому месту.",
+          "Если человек идёт за тобой — звони 112 или открывай SOS."
+        ],
+        "en": [
+          "Do not argue or try to prove anything.",
+          "Do not move closer.",
+          "Say briefly: “I am leaving.”",
+          "Keep your hands free and visible.",
+          "Move toward people, security, a shop worker, or a well-lit place.",
+          "If the person follows you, call 112 or open SOS."
+        ]
       },
       "warning": {
         "ru": "Не пытайся успокоить агрессивного человека в одиночку.",
@@ -1833,16 +2358,38 @@
         "en": "What matters"
       },
       "needs": {
-        "ru": ["Люди рядом", "Магазин, школа или кафе", "Телефон, если есть"],
-        "en": ["People nearby", "A shop, school, or cafe", "A phone if available"]
+        "ru": [
+          "Люди рядом",
+          "Магазин, школа или кафе",
+          "Телефон, если есть"
+        ],
+        "en": [
+          "People nearby",
+          "A shop, school, or cafe",
+          "A phone if available"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
         "en": "What to do"
       },
       "steps": {
-        "ru": ["Если страшно — сразу уходи.", "Не садись в машину и не иди в подъезд.", "Кричи: «Я не знаю этого человека!»", "Беги к людям, в магазин, школу, кафе или к охраннику.", "Подойди к взрослому с детьми, продавцу или полицейскому.", "Если опасность рядом — звони 112."],
-        "en": ["If you feel scared, leave right away.", "Do not get into a car and do not go into a stairwell.", "Shout: “I do not know this person!”", "Run toward people, a shop, school, a cafe, or a guard.", "Go to an adult with children, a shop worker, or a police officer.", "If the danger is close, call 112."]
+        "ru": [
+          "Если страшно — сразу уходи.",
+          "Не садись в машину и не иди в подъезд.",
+          "Кричи: «Я не знаю этого человека!»",
+          "Беги к людям, в магазин, школу, кафе или к охраннику.",
+          "Подойди к взрослому с детьми, продавцу или полицейскому.",
+          "Если опасность рядом — звони 112."
+        ],
+        "en": [
+          "If you feel scared, leave right away.",
+          "Do not get into a car and do not go into a stairwell.",
+          "Shout: “I do not know this person!”",
+          "Run toward people, a shop, school, a cafe, or a guard.",
+          "Go to an adult with children, a shop worker, or a police officer.",
+          "If the danger is close, call 112."
+        ]
       },
       "warning": {
         "ru": "Ребёнок не обязан быть вежливым с человеком, который пугает.",
@@ -1859,39 +2406,244 @@
         "en": "What matters"
       },
       "needs": {
-        "ru": ["Закрытая дверь", "Телефон", "Комната, где можно закрыться"],
-        "en": ["A locked door", "A phone", "A room you can lock"]
+        "ru": [
+          "Закрытая дверь",
+          "Телефон",
+          "Комната, где можно закрыться"
+        ],
+        "en": [
+          "A locked door",
+          "A phone",
+          "A room you can lock"
+        ]
       },
       "stepsTitle": {
         "ru": "Что делать",
         "en": "What to do"
       },
       "steps": {
-        "ru": ["Не открывай дверь.", "Отойди от двери.", "Закройся в комнате, если можешь.", "Позвони 112.", "Говори тихо, но чётко: адрес, кто дома, что происходит.", "Не выходи проверять, пока не безопасно."],
-        "en": ["Do not open the door.", "Move away from the door.", "Lock yourself in a room if you can.", "Call 112.", "Speak quietly but clearly: your address, who is home, and what is happening.", "Do not come out to check until it is safe."]
+        "ru": [
+          "Не открывай дверь.",
+          "Отойди от двери.",
+          "Закройся в комнате, если можешь.",
+          "Позвони 112.",
+          "Говори тихо, но чётко: адрес, кто дома, что происходит.",
+          "Не выходи проверять, пока не безопасно."
+        ],
+        "en": [
+          "Do not open the door.",
+          "Move away from the door.",
+          "Lock yourself in a room if you can.",
+          "Call 112.",
+          "Speak quietly but clearly: your address, who is home, and what is happening.",
+          "Do not come out to check until it is safe."
+        ]
       },
       "warning": {
         "ru": "Не вступай в контакт через дверь, если человек угрожает или ломится.",
         "en": "Do not engage through the door if the person is threatening or trying to force entry."
       }
+    },
+    "first_aid_bleeding": {
+      "title": {
+        "ru": "Как наложить жгут",
+        "en": "How to apply a tourniquet"
+      },
+      "needsTitle": {
+        "ru": "Что использовать",
+        "en": "What to use"
+      },
+      "needs": {
+        "ru": [
+          "Жгут или ремень",
+          "Палка или карандаш для закрутки",
+          "Ткань для прокладки"
+        ],
+        "en": [
+          "A tourniquet or belt",
+          "A stick or pen for twisting",
+          "Cloth for padding"
+        ]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": [
+          "Наложи выше раны на 5–7 см.",
+          "Сделай 2 оборота вокруг конечности.",
+          "Затяни до остановки крови.",
+          "Зафиксируй и запомни точное время.",
+          "Не снимай жгут самостоятельно."
+        ],
+        "en": [
+          "Apply 5–7 cm above the wound.",
+          "Wrap twice around the limb.",
+          "Tighten until bleeding stops.",
+          "Secure and note the exact time.",
+          "Do not remove the tourniquet yourself."
+        ]
+      },
+      "warning": {
+        "ru": "Жгут нельзя держать более 2 часов. Сразу вызывай помощь.",
+        "en": "Do not keep a tourniquet on for more than 2 hours. Call for help immediately."
+      }
     }
   },
   "scenarios": {
-    "forest.lost": { "steps": ["stop", "listen_60", "save_battery", "mark_place", "send_coords"] },
-    "forest.night": { "steps": ["stop", "find_shelter", "prepare_night", "collect_dry", "keep_warm"] },
-    "forest.cold_forest": { "steps": ["stop", "out_of_wind", "keep_warm", "insulate_ground", "find_shelter"] },
-    "forest.water_forest": { "steps": ["stop", "rest_and_save_strength", "find_water_source", "clean_water", "send_coords"] },
-    "car.stuck": { "steps": ["stay_in_car", "turn_on_hazard", "dig_clear_path", "signal_help", "save_battery"] },
-    "car.crash": { "steps": ["move_from_traffic", "check_injuries", "call_help", "turn_on_hazard", "send_coords"] },
-    "car.cold_car": { "steps": ["stay_in_car", "use_blankets", "save_battery", "signal_help", "call_help"] },
-    "car.no_signal_car": { "steps": ["save_battery", "try_sms", "send_coords", "stay_in_car", "signal_help"] },
-    "home.power_home": { "steps": ["find_flashlight", "close_fridge", "unplug_devices", "save_battery", "check_neighbors"] },
-    "home.water_home": { "steps": ["collect_home_water", "close_taps", "prepare_containers", "clean_water", "save_battery"] },
-    "home.fire_home": { "steps": ["leave_now", "stay_low", "do_not_use_lift", "call_help", "send_coords"] },
-    "home.evacuate_home": { "steps": ["take_documents", "take_go_bag", "leave_now", "leave_safe_route", "send_coords"] },
-    "city.crowd_city": { "steps": ["move_aside", "do_not_push", "find_exit", "breathe_slow", "enter_safe_building"] },
-    "city.no_signal_city": { "steps": ["save_battery", "try_sms", "find_exit", "enter_safe_building", "send_coords"] },
-    "city.danger_city": { "steps": ["leave_street", "enter_safe_building", "watch_surroundings", "lock_door", "call_help"] },
-    "city.shelter_city": { "steps": ["find_shelter", "enter_safe_building", "move_inside", "lock_door", "send_coords"] }
+    "forest.lost": {
+      "steps": [
+        "stop",
+        "listen_60",
+        "save_battery",
+        "mark_place",
+        "send_coords"
+      ]
+    },
+    "forest.night": {
+      "steps": [
+        "stop",
+        "find_shelter",
+        "prepare_night",
+        "collect_dry",
+        "keep_warm"
+      ]
+    },
+    "forest.cold_forest": {
+      "steps": [
+        "stop",
+        "out_of_wind",
+        "keep_warm",
+        "insulate_ground",
+        "find_shelter"
+      ]
+    },
+    "forest.water_forest": {
+      "steps": [
+        "stop",
+        "rest_and_save_strength",
+        "find_water_source",
+        "clean_water",
+        "send_coords"
+      ]
+    },
+    "car.stuck": {
+      "steps": [
+        "stay_in_car",
+        "turn_on_hazard",
+        "dig_clear_path",
+        "signal_help",
+        "save_battery"
+      ]
+    },
+    "car.crash": {
+      "steps": [
+        "move_from_traffic",
+        "check_injuries",
+        "call_help",
+        "turn_on_hazard",
+        "send_coords"
+      ]
+    },
+    "car.cold_car": {
+      "steps": [
+        "stay_in_car",
+        "use_blankets",
+        "save_battery",
+        "signal_help",
+        "call_help"
+      ]
+    },
+    "car.no_signal_car": {
+      "steps": [
+        "save_battery",
+        "try_sms",
+        "send_coords",
+        "stay_in_car",
+        "signal_help"
+      ]
+    },
+    "home.power_home": {
+      "steps": [
+        "find_flashlight",
+        "close_fridge",
+        "unplug_devices",
+        "save_battery",
+        "check_neighbors"
+      ]
+    },
+    "home.water_home": {
+      "steps": [
+        "collect_home_water",
+        "close_taps",
+        "prepare_containers",
+        "clean_water",
+        "save_battery"
+      ]
+    },
+    "home.fire_home": {
+      "steps": [
+        "leave_now",
+        "stay_low",
+        "do_not_use_lift",
+        "call_help",
+        "send_coords"
+      ]
+    },
+    "home.evacuate_home": {
+      "steps": [
+        "take_documents",
+        "take_go_bag",
+        "leave_now",
+        "leave_safe_route",
+        "send_coords"
+      ]
+    },
+    "city.crowd_city": {
+      "steps": [
+        "move_aside",
+        "do_not_push",
+        "find_exit",
+        "breathe_slow",
+        "enter_safe_building"
+      ]
+    },
+    "city.no_signal_city": {
+      "steps": [
+        "save_battery",
+        "try_sms",
+        "find_exit",
+        "enter_safe_building",
+        "send_coords"
+      ]
+    },
+    "city.danger_city": {
+      "steps": [
+        "leave_street",
+        "enter_safe_building",
+        "watch_surroundings",
+        "lock_door",
+        "call_help"
+      ]
+    },
+    "city.shelter_city": {
+      "steps": [
+        "find_shelter",
+        "enter_safe_building",
+        "move_inside",
+        "lock_door",
+        "send_coords"
+      ]
+    },
+    "city.injury": {
+      "steps": [
+        "press_wound",
+        "raise_limb",
+        "tourniquet_if_needed",
+        "do_not_remove_object",
+        "call_help"
+      ]
+    }
   }
 }
