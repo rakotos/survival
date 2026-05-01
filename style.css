@@ -3,6 +3,7 @@
   --bg: #0a0a0b;
   --surface: #15161a;
   --surface-2: #1d1f25;
+  --surface-3: #242731;
   --text: #f4f7fb;
   --muted: #b3bcc8;
   --accent: #f25c5c;
@@ -27,6 +28,10 @@ body {
   font-family: var(--font-main);
 }
 
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
 body.low-power {
   background: #000;
   --surface: #050505;
@@ -36,7 +41,8 @@ body.low-power {
 }
 
 button,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -44,7 +50,7 @@ select {
   width: min(100%, 520px);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 18px 18px calc(26px + env(safe-area-inset-bottom));
+  padding: 18px 18px calc(118px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -118,6 +124,29 @@ select {
   gap: 12px;
 }
 
+.offline-status {
+  border-radius: 18px;
+  padding: 12px 16px;
+  font-weight: 700;
+  line-height: 1.35;
+  border: 1px solid var(--border);
+}
+
+.offline-status.is-ready {
+  background: rgba(50, 196, 158, 0.14);
+  color: #88f0d2;
+}
+
+.offline-status.is-warning {
+  background: rgba(255, 204, 88, 0.14);
+  color: #ffe48d;
+}
+
+.offline-status.is-updating {
+  background: rgba(80, 144, 255, 0.14);
+  color: #b5ccff;
+}
+
 .hero-title,
 .screen-title,
 .action-text,
@@ -161,6 +190,7 @@ select {
   text-align: left;
   color: var(--text);
   transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
+  cursor: pointer;
 }
 
 .main-button,
@@ -186,9 +216,14 @@ select {
 }
 
 .danger-button {
-  background: #7d1010;
+  background: linear-gradient(135deg, #be1818, #eb5234);
   font-size: 1.05rem;
   font-weight: 800;
+}
+
+.emergency-hero {
+  min-height: 96px;
+  box-shadow: 0 16px 40px rgba(242, 92, 92, 0.28);
 }
 
 .main-button:active,
@@ -221,7 +256,8 @@ select {
 .choice-grid,
 .action-toolbar,
 .footer-actions,
-.sos-actions {
+.sos-actions,
+.quick-grid {
   display: grid;
   gap: 12px;
 }
@@ -251,6 +287,10 @@ select {
   grid-template-columns: 1fr;
 }
 
+.quick-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .choice-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
@@ -263,6 +303,10 @@ select {
 .choice-card-icon,
 .action-icon {
   font-size: clamp(2.1rem, 8vw, 3rem);
+}
+
+.quick-card {
+  min-height: 158px;
 }
 
 .choice-title {
@@ -321,6 +365,11 @@ select {
   color: var(--warning);
 }
 
+.voice-note {
+  color: var(--warning);
+  font-weight: 700;
+}
+
 .action-toolbar {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -346,7 +395,7 @@ select {
 
 .sos-box {
   background: var(--surface-2);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 16px;
 }
@@ -358,6 +407,66 @@ select {
 
 .sos-actions {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sos-message {
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.manual-location {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: #0d0f12;
+  color: var(--text);
+  padding: 14px;
+  resize: vertical;
+}
+
+.status-warning {
+  color: #ffe48d;
+  font-weight: 700;
+}
+
+.sos-sticky {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 18px calc(12px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(10, 10, 11, 0.98), rgba(10, 10, 11, 0.72), transparent);
+  pointer-events: none;
+}
+
+.sos-sticky-button {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 78px;
+  border: 0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #d61f1f, #ff704a);
+  color: #fff;
+  font-size: 1.25rem;
+  font-weight: 900;
+  box-shadow: 0 18px 42px rgba(214, 31, 31, 0.34);
+  pointer-events: auto;
+}
+
+.sos-sticky-button.active {
+  background: linear-gradient(135deg, #7d1010, #d61f1f);
+}
+
+.sos-sticky-icon {
+  font-size: 1.6rem;
 }
 
 .state-row {
@@ -376,6 +485,12 @@ select {
 
 .hidden {
   display: none !important;
+}
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #ffe48d;
+  outline-offset: 3px;
 }
 
 .sr-only {

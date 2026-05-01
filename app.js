@@ -8,11 +8,42 @@ const STARTER_ACTION_IDS = [
   "universal_use_sos"
 ];
 const HOME_SHORTCUTS = [
-  { icon: "🧭", placeId: "forest", problemId: "lost" },
-  { icon: "🥶", placeId: "forest", problemId: "cold_forest" },
-  { icon: "💧", placeId: "home", problemId: "water_home" },
-  { icon: "📡", placeId: "city", problemId: "no_signal_city" },
-  { icon: "⚠️", placeId: "city", problemId: "danger_city" }
+  {
+    icon: "🧭",
+    placeId: "forest",
+    problemId: "lost",
+    label: { ru: "Я потерялся", en: "I am lost" }
+  },
+  {
+    icon: "🥶",
+    placeId: "forest",
+    problemId: "cold_forest",
+    label: { ru: "Мне холодно", en: "I am cold" }
+  },
+  {
+    icon: "💧",
+    placeId: "forest",
+    problemId: "water_forest",
+    label: { ru: "Нет воды", en: "No water" }
+  },
+  {
+    icon: "📡",
+    placeId: "car",
+    problemId: "no_signal_car",
+    label: { ru: "Нет связи", en: "No signal" }
+  },
+  {
+    icon: "⚠️",
+    placeId: "city",
+    problemId: "danger_city",
+    label: { ru: "Опасность рядом", en: "Danger nearby" }
+  },
+  {
+    icon: "🏠",
+    placeId: "home",
+    problemId: "evacuate_home",
+    label: { ru: "Я дома / эвакуация", en: "Home / evacuate" }
+  }
 ];
 const LAST_COORDS_KEY = "survival_last_coords";
 const MANUAL_LOCATION_KEY = "survival_manual_location";
@@ -471,18 +502,8 @@ function renderBanner() {
 }
 
 function renderOfflineStatus() {
-  const text =
-    state.offline.phase === "ready"
-      ? u("offlineReady")
-      : state.offline.phase === "updating"
-      ? u("offlineUpdating")
-      : u("offlineNeedOnline");
-  const statusClass =
-    state.offline.phase === "ready"
-      ? "is-ready"
-      : state.offline.phase === "updating"
-      ? "is-updating"
-      : "is-warning";
+  const text = navigator.onLine ? "Online / ready to cache" : "Offline mode";
+  const statusClass = navigator.onLine ? "is-ready" : "is-warning";
 
   return `<section class="offline-status ${statusClass}" aria-live="polite">${text}</section>`;
 }
@@ -490,8 +511,7 @@ function renderOfflineStatus() {
 function renderHomeScreen() {
   return `
     <section class="screen-card hero">
-      <p class="screen-hint">${u("homeTagline")}</p>
-      <h2 class="hero-title">${u("homeTitle")}</h2>
+      <h2 class="hero-title">Что случилось?</h2>
       <p class="hero-text">${u("homeText")}</p>
 
       <button class="danger-button emergency-hero" data-action="open-sos" aria-label="${u(
@@ -506,7 +526,7 @@ function renderHomeScreen() {
       </div>
 
       <button class="secondary-button" data-action="go-place">
-        <span class="button-label">${u("homeButton")}</span>
+        <span class="button-label">Выбрать вручную</span>
         <span class="button-note">${u("homeButtonNote")}</span>
       </button>
 
@@ -527,7 +547,7 @@ function renderQuickShortcut(shortcut) {
       aria-label="${t(problem.title)}"
     >
       <div class="choice-card-icon">${shortcut.icon}</div>
-      <h3 class="choice-title">${t(problem.title)}</h3>
+      <h3 class="choice-title">${t(shortcut.label) || t(problem.title)}</h3>
       <p class="choice-subtitle">${t(problem.hint)}</p>
     </button>
   `;

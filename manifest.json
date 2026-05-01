@@ -2,12 +2,15 @@
   "name": "Survival Mode / Выживальщик",
   "short_name": "Survival",
   "description": "Offline survival PWA with short actions for critical situations.",
-  "start_url": "./index.html",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
   "display": "standalone",
   "background_color": "#0a0a0b",
   "theme_color": "#0a0a0b",
   "lang": "ru",
   "orientation": "portrait-primary",
+  "categories": ["safety", "utilities", "productivity"],
   "icons": [
     {
       "src": "./icons/icon-192.svg",

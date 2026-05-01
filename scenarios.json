@@ -45,7 +45,25 @@
       "locationDenied": "Не удалось получить координаты.",
       "timerLabel": "Слушай",
       "lowPowerButton": "Режим низкого заряда",
-      "installButton": "Установить приложение"
+      "installButton": "Установить приложение",
+      "offlineReady": "✅ Приложение сохранено офлайн",
+      "offlineNeedOnline": "⚠️ Открой приложение онлайн один раз для полной загрузки",
+      "offlineUpdating": "🔄 Обновление офлайн-данных...",
+      "voiceOn": "Голос: вкл",
+      "voiceOff": "Голос: выкл",
+      "voiceUnavailable": "Озвучка недоступна на этом устройстве",
+      "prepareSos": "Подготовить SOS",
+      "accuracyLabel": "Точность",
+      "timeLabel": "Время",
+      "sourceLabel": "Статус GPS",
+      "gpsLive": "Текущая позиция",
+      "gpsLastKnown": "Последняя известная позиция",
+      "gpsMayBeOld": "Координаты могут быть старыми",
+      "manualLocationLabel": "Опиши место вручную",
+      "manualLocationPlaceholder": "Например: у дороги, рядом красная машина, лесная тропа",
+      "situationLabel": "Ситуация",
+      "situationUnknown": "не указано",
+      "repeatStepButton": "Повторить шаг"
     },
     "en": {
       "appName": "Survival Mode",
@@ -84,7 +102,25 @@
       "locationDenied": "Could not get your location.",
       "timerLabel": "Listen",
       "lowPowerButton": "Low power mode",
-      "installButton": "Install app"
+      "installButton": "Install app",
+      "offlineReady": "✅ App saved for offline use",
+      "offlineNeedOnline": "⚠️ Open the app online once for full download",
+      "offlineUpdating": "🔄 Updating offline data...",
+      "voiceOn": "Voice: on",
+      "voiceOff": "Voice: off",
+      "voiceUnavailable": "Voice playback is not available on this device",
+      "prepareSos": "Prepare SOS",
+      "accuracyLabel": "Accuracy",
+      "timeLabel": "Time",
+      "sourceLabel": "GPS status",
+      "gpsLive": "Current position",
+      "gpsLastKnown": "Last known position",
+      "gpsMayBeOld": "Coordinates may be old",
+      "manualLocationLabel": "Describe the place manually",
+      "manualLocationPlaceholder": "For example: near a road, red car nearby, forest trail",
+      "situationLabel": "Situation",
+      "situationUnknown": "not specified",
+      "repeatStepButton": "Repeat step"
     },
     "et": {
       "appName": "Ellujäämisrežiim",
@@ -652,6 +688,61 @@
     }
   ],
   "actions": {
+    "universal_stop": {
+      "icon": "🛑",
+      "text": {
+        "ru": "СТОП",
+        "en": "STOP"
+      },
+      "voice": {
+        "ru": "Стоп. Остановись.",
+        "en": "Stop. Do not rush."
+      }
+    },
+    "universal_no_run": {
+      "icon": "✋",
+      "text": {
+        "ru": "Не беги",
+        "en": "Do not run"
+      },
+      "voice": {
+        "ru": "Не беги. Сначала остановись.",
+        "en": "Do not run. Stop first."
+      }
+    },
+    "universal_check_danger": {
+      "icon": "⚠️",
+      "text": {
+        "ru": "Оцени опасность",
+        "en": "Check danger"
+      },
+      "voice": {
+        "ru": "Посмотри вокруг. Есть ли риск для жизни прямо сейчас?",
+        "en": "Look around. Is there immediate danger?"
+      }
+    },
+    "universal_check_phone": {
+      "icon": "📱",
+      "text": {
+        "ru": "Проверь связь и заряд",
+        "en": "Check signal and battery"
+      },
+      "voice": {
+        "ru": "Проверь связь и заряд батареи.",
+        "en": "Check phone signal and battery."
+      }
+    },
+    "universal_use_sos": {
+      "icon": "🆘",
+      "text": {
+        "ru": "Есть риск жизни? Жми SOS",
+        "en": "Risk to life? Use SOS"
+      },
+      "voice": {
+        "ru": "Если есть риск жизни, сразу используй SOS.",
+        "en": "If there is danger to life, use SOS now."
+      }
+    },
     "stop": {
       "icon": "🛑",
       "text": {
