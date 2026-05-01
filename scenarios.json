@@ -1098,7 +1098,8 @@
       "detail": {
         "ru": "Позвони 112 или открой SOS, если говорить трудно.",
         "en": "Call 112 or open SOS if speaking is hard."
-      }
+      },
+      "learnMoreId": "drunk_or_aggressive_person_basics"
     },
     "use_blankets": {
       "icon": "🧣",
@@ -1338,7 +1339,8 @@
       "detail": {
         "ru": "Уходи к стене или краю потока людей.",
         "en": "Move toward a wall or the edge of the crowd."
-      }
+      },
+      "learnMoreId": "self_protection_basics"
     },
     "do_not_push": {
       "icon": "✋",
@@ -1353,7 +1355,8 @@
       "detail": {
         "ru": "Сохраняй равновесие и держи руки перед грудью.",
         "en": "Keep your balance and hold your hands in front of your chest."
-      }
+      },
+      "learnMoreId": "self_protection_basics"
     },
     "find_exit": {
       "icon": "🚩",
@@ -1398,7 +1401,8 @@
       "detail": {
         "ru": "Уходи в подъезд, магазин или за угол здания.",
         "en": "Move into an entryway, shop, or behind a building."
-      }
+      },
+      "learnMoreId": "drunk_or_aggressive_person_basics"
     },
     "enter_safe_building": {
       "icon": "🏢",
@@ -1413,7 +1417,8 @@
       "detail": {
         "ru": "Выбирай место с людьми, дверью и возможностью закрыться.",
         "en": "Choose a place with people, a door, and a way to lock it."
-      }
+      },
+      "learnMoreId": "self_protection_basics"
     },
     "watch_surroundings": {
       "icon": "👀",
@@ -1428,7 +1433,8 @@
       "detail": {
         "ru": "Смотри на входы, окна, людей и пути отхода.",
         "en": "Watch entrances, windows, people, and exit routes."
-      }
+      },
+      "learnMoreId": "drunk_or_aggressive_person_basics"
     },
     "lock_door": {
       "icon": "🔒",
@@ -1443,7 +1449,8 @@
       "detail": {
         "ru": "Если замка нет, подопрись мебелью или держи дверь.",
         "en": "If there is no lock, brace it with furniture or hold it closed."
-      }
+      },
+      "learnMoreId": "home_intruder_basics"
     },
     "move_inside": {
       "icon": "🧱",
@@ -1710,6 +1717,162 @@
         "fi": "Tee tuli vain jos se on turvallista. Älä tee tulta sisällä, autossa, puun alla tai kuivan ruohon lähellä.",
         "lv": "Kur uguni tikai tad, ja tas ir droši. Nekur uguni telpā, mašīnā, zem koka vai blakus sausai zālei.",
         "lt": "Kurk ugnį tik tada, kai tai saugu. Nekurk ugnies patalpoje, automobilyje, po medžiu ar prie sausos žolės."
+      }
+    },
+    "self_protection_basics": {
+      "title": {
+        "ru": "Как защититься без драки",
+        "en": "How to protect yourself without fighting"
+      },
+      "needsTitle": {
+        "ru": "Что поможет",
+        "en": "What helps"
+      },
+      "needs": {
+        "ru": ["Фонарик или телефон", "Рюкзак", "Длинный предмет, если уже есть рядом", "Громкий голос", "Путь отхода", "Прочный инструмент, если он уже рядом"],
+        "en": ["A flashlight or phone", "A backpack", "A long object if one is already nearby", "A loud voice", "A way out", "A sturdy tool if one is already nearby"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": ["Сразу увеличь дистанцию.", "Не подходи ближе и не спорь.", "Держи между собой и угрозой рюкзак, палку или другой предмет.", "Громко скажи: «Стой! Не подходи!»", "Отходи к людям, свету, дороге или открытому месту.", "Если угроза идёт за тобой — открывай SOS или звони 112."],
+        "en": ["Increase distance right away.", "Do not move closer and do not argue.", "Keep a backpack, stick, or another object between you and the threat.", "Say loudly: “Stop! Do not come closer!”", "Move toward people, light, a road, or an open place.", "If the threat follows you, open SOS or call 112."]
+      },
+      "warning": {
+        "ru": "Не пытайся драться, если можно уйти. Цель — выбраться, а не победить. Молоток, палка или другой инструмент — не для нападения. Используй только как барьер, чтобы держать дистанцию и выиграть время для ухода.",
+        "en": "Do not try to fight if you can leave. The goal is to get out, not to win. A hammer, stick, or other tool is not for attacking. Use it only as a barrier to keep distance and buy time to leave."
+      }
+    },
+    "animal_safety_basics": {
+      "title": {
+        "ru": "Если рядом дикое животное",
+        "en": "If a wild animal is nearby"
+      },
+      "needsTitle": {
+        "ru": "Что важно",
+        "en": "What matters"
+      },
+      "needs": {
+        "ru": ["Спокойствие", "Открытый путь отхода", "Рюкзак или куртка"],
+        "en": ["Calm behavior", "An open way out", "A backpack or jacket"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": ["Не беги резко.", "Отходи медленно, не поворачиваясь спиной.", "Не смотри агрессивно в глаза.", "Сделай себя больше: подними руки, куртку или рюкзак.", "Говори спокойно и громко.", "Не подходи к детёнышам и еде животного."],
+        "en": ["Do not run suddenly.", "Back away slowly without turning your back.", "Do not stare aggressively into its eyes.", "Make yourself look bigger with your arms, jacket, or backpack.", "Speak calmly and loudly.", "Do not go near young animals or their food."]
+      },
+      "warning": {
+        "ru": "Не пытайся атаковать дикое животное. Это может резко ухудшить ситуацию.",
+        "en": "Do not try to attack a wild animal. That can make the situation much worse."
+      }
+    },
+    "dog_safety_basics": {
+      "title": {
+        "ru": "Если рядом агрессивная собака",
+        "en": "If an aggressive dog is nearby"
+      },
+      "needsTitle": {
+        "ru": "Что поможет",
+        "en": "What helps"
+      },
+      "needs": {
+        "ru": ["Рюкзак, сумка или куртка", "Дверь, машина, забор или люди рядом"],
+        "en": ["A backpack, bag, or jacket", "A door, car, fence, or people nearby"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": ["Не беги.", "Не кричи резко и не махай руками.", "Встань боком, не нависай над собакой.", "Держи между собой и собакой рюкзак, сумку или куртку.", "Медленно отходи к двери, машине, забору или людям.", "Если собака напала — закрывай лицо, шею и руки вещами."],
+        "en": ["Do not run.", "Do not scream suddenly or wave your arms.", "Turn sideways and do not loom over the dog.", "Keep a backpack, bag, or jacket between you and the dog.", "Move slowly toward a door, car, fence, or other people.", "If the dog attacks, protect your face, neck, and hands with your bag or clothing."]
+      },
+      "warning": {
+        "ru": "Не поворачивайся спиной и не провоцируй собаку.",
+        "en": "Do not turn your back and do not provoke the dog."
+      }
+    },
+    "drunk_or_aggressive_person_basics": {
+      "title": {
+        "ru": "Пьяный или агрессивный человек",
+        "en": "A drunk or aggressive person"
+      },
+      "needsTitle": {
+        "ru": "Что поможет",
+        "en": "What helps"
+      },
+      "needs": {
+        "ru": ["Свободные руки", "Путь к людям или свету", "Телефон"],
+        "en": ["Free hands", "A path toward people or light", "A phone"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": ["Не спорь и не доказывай.", "Не подходи ближе.", "Говори коротко: «Я ухожу.»", "Держи руки свободными и видимыми.", "Отходи к людям, охране, продавцу или освещённому месту.", "Если человек идёт за тобой — звони 112 или открывай SOS."],
+        "en": ["Do not argue or try to prove anything.", "Do not move closer.", "Say briefly: “I am leaving.”", "Keep your hands free and visible.", "Move toward people, security, a shop worker, or a well-lit place.", "If the person follows you, call 112 or open SOS."]
+      },
+      "warning": {
+        "ru": "Не пытайся успокоить агрессивного человека в одиночку.",
+        "en": "Do not try to calm an aggressive person on your own."
+      }
+    },
+    "child_stranger_danger_basics": {
+      "title": {
+        "ru": "Ребёнок: если взрослый пугает",
+        "en": "Child: if an adult feels scary"
+      },
+      "needsTitle": {
+        "ru": "Что важно",
+        "en": "What matters"
+      },
+      "needs": {
+        "ru": ["Люди рядом", "Магазин, школа или кафе", "Телефон, если есть"],
+        "en": ["People nearby", "A shop, school, or cafe", "A phone if available"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": ["Если страшно — сразу уходи.", "Не садись в машину и не иди в подъезд.", "Кричи: «Я не знаю этого человека!»", "Беги к людям, в магазин, школу, кафе или к охраннику.", "Подойди к взрослому с детьми, продавцу или полицейскому.", "Если опасность рядом — звони 112."],
+        "en": ["If you feel scared, leave right away.", "Do not get into a car and do not go into a stairwell.", "Shout: “I do not know this person!”", "Run toward people, a shop, school, a cafe, or a guard.", "Go to an adult with children, a shop worker, or a police officer.", "If the danger is close, call 112."]
+      },
+      "warning": {
+        "ru": "Ребёнок не обязан быть вежливым с человеком, который пугает.",
+        "en": "A child does not have to be polite to someone who feels frightening."
+      }
+    },
+    "home_intruder_basics": {
+      "title": {
+        "ru": "Если кто-то пытается войти домой",
+        "en": "If someone is trying to get into your home"
+      },
+      "needsTitle": {
+        "ru": "Что важно",
+        "en": "What matters"
+      },
+      "needs": {
+        "ru": ["Закрытая дверь", "Телефон", "Комната, где можно закрыться"],
+        "en": ["A locked door", "A phone", "A room you can lock"]
+      },
+      "stepsTitle": {
+        "ru": "Что делать",
+        "en": "What to do"
+      },
+      "steps": {
+        "ru": ["Не открывай дверь.", "Отойди от двери.", "Закройся в комнате, если можешь.", "Позвони 112.", "Говори тихо, но чётко: адрес, кто дома, что происходит.", "Не выходи проверять, пока не безопасно."],
+        "en": ["Do not open the door.", "Move away from the door.", "Lock yourself in a room if you can.", "Call 112.", "Speak quietly but clearly: your address, who is home, and what is happening.", "Do not come out to check until it is safe."]
+      },
+      "warning": {
+        "ru": "Не вступай в контакт через дверь, если человек угрожает или ломится.",
+        "en": "Do not engage through the door if the person is threatening or trying to force entry."
       }
     }
   },
