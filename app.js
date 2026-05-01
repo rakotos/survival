@@ -557,6 +557,9 @@ function renderHomeScreen() {
 
 function renderQuickShortcut(shortcut) {
   const problem = getProblem(shortcut.problemId);
+  if (!problem) {
+    return "";
+  }
   return `
     <button
       class="choice-card quick-card"
