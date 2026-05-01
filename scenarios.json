@@ -697,6 +697,10 @@
       "voice": {
         "ru": "Стоп. Остановись.",
         "en": "Stop. Do not rush."
+      },
+      "detail": {
+        "ru": "Замри на месте на несколько секунд.",
+        "en": "Freeze where you are for a few seconds."
       }
     },
     "universal_no_run": {
@@ -708,6 +712,10 @@
       "voice": {
         "ru": "Не беги. Сначала остановись.",
         "en": "Do not run. Stop first."
+      },
+      "detail": {
+        "ru": "Резкие движения часто делают ситуацию хуже.",
+        "en": "Sudden movement often makes the situation worse."
       }
     },
     "universal_check_danger": {
@@ -719,6 +727,10 @@
       "voice": {
         "ru": "Посмотри вокруг. Есть ли риск для жизни прямо сейчас?",
         "en": "Look around. Is there immediate danger?"
+      },
+      "detail": {
+        "ru": "Сначала увидь огонь, машины, воду, холод или людей рядом.",
+        "en": "First check for fire, traffic, water, cold, or people nearby."
       }
     },
     "universal_check_phone": {
@@ -730,6 +742,10 @@
       "voice": {
         "ru": "Проверь связь и заряд батареи.",
         "en": "Check phone signal and battery."
+      },
+      "detail": {
+        "ru": "Включи энергосбережение и не трать заряд зря.",
+        "en": "Turn on power saving and do not waste battery."
       }
     },
     "universal_use_sos": {
@@ -741,6 +757,10 @@
       "voice": {
         "ru": "Если есть риск жизни, сразу используй SOS.",
         "en": "If there is danger to life, use SOS now."
+      },
+      "detail": {
+        "ru": "Используй SOS при травме, огне, холоде или прямой угрозе.",
+        "en": "Use SOS for injury, fire, cold, or immediate danger."
       }
     },
     "stop": {
@@ -760,6 +780,10 @@
         "fi": "Pysähdy. Älä mene pidemmälle.",
         "lv": "Apstājies. Neej tālāk.",
         "lt": "Sustok. Neik toliau."
+      },
+      "detail": {
+        "ru": "Сначала остановись, потом решай, куда двигаться.",
+        "en": "Stop first, then decide where to move."
       }
     },
     "listen_60": {
@@ -780,6 +804,10 @@
         "lv": "Paliec uz vietas un klausies apkārtni.",
         "lt": "Lik vietoje ir klausykis aplinkos."
       },
+      "detail": {
+        "ru": "Слушай дорогу, воду, людей или технику.",
+        "en": "Listen for roads, water, people, or machines."
+      },
       "timerSec": 60
     },
     "save_battery": {
@@ -791,6 +819,10 @@
         "fi": "Säästä akkua",
         "lv": "Taupi akumulatoru",
         "lt": "Taupyk bateriją"
+      },
+      "detail": {
+        "ru": "Убавь яркость и выключи лишнее.",
+        "en": "Lower brightness and turn off anything unnecessary."
       }
     },
     "mark_place": {
@@ -802,6 +834,10 @@
         "fi": "Merkitse paikka",
         "lv": "Iegaumē vietu",
         "lt": "Įsimink vietą"
+      },
+      "detail": {
+        "ru": "Запомни ориентир или отметь точку на карте.",
+        "en": "Remember a landmark or mark the point on a map."
       }
     },
     "send_coords": {
@@ -813,6 +849,10 @@
         "fi": "Lähetä koordinaatit",
         "lv": "Nosūti koordinātas",
         "lt": "Siųsk koordinates"
+      },
+      "detail": {
+        "ru": "Отправь их близким или в SOS-сообщении.",
+        "en": "Send them to family or inside the SOS message."
       }
     },
     "find_shelter": {
@@ -824,6 +864,10 @@
         "fi": "Etsi suoja",
         "lv": "Meklē patvērumu",
         "lt": "Rask prieglobstį"
+      },
+      "detail": {
+        "ru": "Ищи место без ветра, дождя и открытого обзора.",
+        "en": "Look for a place away from wind, rain, and open exposure."
       }
     },
     "prepare_night": {
@@ -835,6 +879,10 @@
         "fi": "Valmistaudu yöhön",
         "lv": "Gatavojies naktij",
         "lt": "Ruoškis nakčiai"
+      },
+      "detail": {
+        "ru": "До темноты собери укрытие и сухие вещи.",
+        "en": "Before dark, prepare shelter and dry materials."
       }
     },
     "collect_dry": {
@@ -846,6 +894,10 @@
         "fi": "Kerää kuivaa materiaalia",
         "lv": "Savāc sausu materiālu",
         "lt": "Surink sausą medžiagą"
+      },
+      "detail": {
+        "ru": "Собери сухие ветки, листья или картон.",
+        "en": "Collect dry branches, leaves, or cardboard."
       }
     },
     "keep_warm": {
@@ -857,6 +909,10 @@
         "fi": "Säilytä lämpö",
         "lv": "Saglabā siltumu",
         "lt": "Saugok šilumą"
+      },
+      "detail": {
+        "ru": "Надень слои и закрой голову, шею и руки.",
+        "en": "Add layers and cover your head, neck, and hands."
       }
     },
     "out_of_wind": {
@@ -868,6 +924,10 @@
         "fi": "Mene pois tuulesta",
         "lv": "Ej prom no vēja",
         "lt": "Eik nuo vėjo"
+      },
+      "detail": {
+        "ru": "Спрячься за деревом, стеной или машиной.",
+        "en": "Get behind a tree, wall, or vehicle."
       }
     },
     "insulate_ground": {
@@ -879,6 +939,10 @@
         "fi": "Älä istu maassa",
         "lv": "Nesēdi uz zemes",
         "lt": "Nesėdėk ant žemės"
+      },
+      "detail": {
+        "ru": "Подложи ветки, одежду или рюкзак под себя.",
+        "en": "Put branches, clothing, or a bag under yourself."
       }
     },
     "find_water_source": {
@@ -890,6 +954,10 @@
         "fi": "Etsi vesilähde",
         "lv": "Meklē ūdens avotu",
         "lt": "Ieškok vandens šaltinio"
+      },
+      "detail": {
+        "ru": "Ищи ручей, колонку, снег или дождевую воду.",
+        "en": "Look for a stream, tap, snow, or rainwater."
       }
     },
     "rest_and_save_strength": {
@@ -901,6 +969,10 @@
         "fi": "Säästä voimia",
         "lv": "Taupi spēkus",
         "lt": "Taupyk jėgas"
+      },
+      "detail": {
+        "ru": "Иди медленно и не потей без необходимости.",
+        "en": "Move slowly and avoid sweating unless needed."
       }
     },
     "clean_water": {
@@ -912,6 +984,10 @@
         "fi": "Puhdista vesi",
         "lv": "Attīri ūdeni",
         "lt": "Valyk vandenį"
+      },
+      "detail": {
+        "ru": "Кипяти, фильтруй или дай воде отстояться.",
+        "en": "Boil, filter, or let the water settle first."
       }
     },
     "stay_in_car": {
@@ -923,6 +999,10 @@
         "fi": "Pysy autossa",
         "lv": "Paliec mašīnā",
         "lt": "Lik automobilyje"
+      },
+      "detail": {
+        "ru": "Машина лучше заметна и защищает от ветра.",
+        "en": "The car is easier to spot and protects from wind."
       }
     },
     "turn_on_hazard": {
@@ -934,6 +1014,10 @@
         "fi": "Laita hätävilkut päälle",
         "lv": "Ieslēdz avārijas gaismas",
         "lt": "Įjunk avarines šviesas"
+      },
+      "detail": {
+        "ru": "Сделай машину заметной для других.",
+        "en": "Make the vehicle visible to other people."
       }
     },
     "dig_clear_path": {
@@ -945,6 +1029,10 @@
         "fi": "Puhdista renkaat",
         "lv": "Atbrīvo riteņus",
         "lt": "Išvalyk ratus"
+      },
+      "detail": {
+        "ru": "Убери снег, грязь или песок у ведущих колёс.",
+        "en": "Clear snow, mud, or sand from the drive wheels."
       }
     },
     "signal_help": {
@@ -956,6 +1044,10 @@
         "fi": "Anna merkki",
         "lv": "Dod signālu",
         "lt": "Duok signalą"
+      },
+      "detail": {
+        "ru": "Используй свет, клаксон или яркую ткань.",
+        "en": "Use lights, the horn, or bright cloth."
       }
     },
     "move_from_traffic": {
@@ -967,6 +1059,10 @@
         "fi": "Siirry pois tieltä",
         "lv": "Ej nost no ceļa",
         "lt": "Pasitrauk nuo kelio"
+      },
+      "detail": {
+        "ru": "Если можешь, уйди за отбойник или на обочину.",
+        "en": "If you can, move behind a barrier or onto the shoulder."
       }
     },
     "check_injuries": {
@@ -978,6 +1074,10 @@
         "fi": "Tarkista vammat",
         "lv": "Pārbaudi traumas",
         "lt": "Patikrink sužalojimus"
+      },
+      "detail": {
+        "ru": "Смотри кровь, боль, дыхание и возможность двигаться.",
+        "en": "Check for bleeding, pain, breathing, and movement."
       }
     },
     "call_help": {
@@ -989,6 +1089,10 @@
         "fi": "Soita apua",
         "lv": "Sauc palīdzību",
         "lt": "Kviesk pagalbą"
+      },
+      "detail": {
+        "ru": "Позвони 112 или открой SOS, если говорить трудно.",
+        "en": "Call 112 or open SOS if speaking is hard."
       }
     },
     "use_blankets": {
@@ -1000,6 +1104,10 @@
         "fi": "Peitä itsesi",
         "lv": "Apsedzies",
         "lt": "Užsidenk"
+      },
+      "detail": {
+        "ru": "Накрой ноги, грудь и голову в первую очередь.",
+        "en": "Cover your legs, chest, and head first."
       }
     },
     "try_sms": {
@@ -1011,6 +1119,10 @@
         "fi": "Kokeile tekstiviestiä",
         "lv": "Mēģini SMS",
         "lt": "Bandyk SMS"
+      },
+      "detail": {
+        "ru": "Короткое SMS часто проходит лучше звонка.",
+        "en": "A short SMS often works better than a call."
       }
     },
     "find_flashlight": {
@@ -1022,6 +1134,10 @@
         "fi": "Etsi taskulamppu",
         "lv": "Atrodi lukturīti",
         "lt": "Rask žibintuvėlį"
+      },
+      "detail": {
+        "ru": "Фонарик безопаснее свечи и экономит заряд телефона.",
+        "en": "A flashlight is safer than candles and saves phone battery."
       }
     },
     "close_fridge": {
@@ -1033,6 +1149,10 @@
         "fi": "Pidä jääkaappi kiinni",
         "lv": "Neatver ledusskapi",
         "lt": "Neatidaryk šaldytuvo"
+      },
+      "detail": {
+        "ru": "Так холод дольше останется внутри.",
+        "en": "This keeps the cold inside for longer."
       }
     },
     "unplug_devices": {
@@ -1044,6 +1164,10 @@
         "fi": "Irrota laitteet",
         "lv": "Atvieno ierīces",
         "lt": "Atjunk prietaisus"
+      },
+      "detail": {
+        "ru": "Это снизит риск скачка после возврата питания.",
+        "en": "This lowers the risk of a surge when power returns."
       }
     },
     "check_neighbors": {
@@ -1055,6 +1179,10 @@
         "fi": "Katso onko naapureilla sähköä",
         "lv": "Pārbaudi, vai kaimiņiem ir elektrība",
         "lt": "Patikrink, ar kaimynai turi elektrą"
+      },
+      "detail": {
+        "ru": "Так ты поймёшь, проблема локальная или общая.",
+        "en": "This shows whether the outage is local or widespread."
       }
     },
     "collect_home_water": {
@@ -1066,6 +1194,10 @@
         "fi": "Kerää kaikki vesi kotona",
         "lv": "Savāc visu ūdeni mājās",
         "lt": "Surink visą vandenį namuose"
+      },
+      "detail": {
+        "ru": "Проверь бутылки, кастрюли, бойлер и бачок унитаза.",
+        "en": "Check bottles, pots, the boiler, and the toilet tank."
       }
     },
     "close_taps": {
@@ -1077,6 +1209,10 @@
         "fi": "Sulje hanat",
         "lv": "Aizgriez krānus",
         "lt": "Užsuk čiaupus"
+      },
+      "detail": {
+        "ru": "Это поможет не потерять воду при возврате подачи.",
+        "en": "This helps avoid wasting water when supply returns."
       }
     },
     "prepare_containers": {
@@ -1088,6 +1224,10 @@
         "fi": "Valmistele astiat",
         "lv": "Sagatavo traukus",
         "lt": "Paruošk talpas"
+      },
+      "detail": {
+        "ru": "Подготовь чистые бутылки, канистры и ведро.",
+        "en": "Prepare clean bottles, jugs, and a bucket."
       }
     },
     "leave_now": {
@@ -1099,6 +1239,10 @@
         "fi": "Poistu nyt",
         "lv": "Ej ārā tagad",
         "lt": "Išeik dabar"
+      },
+      "detail": {
+        "ru": "Не возвращайся за вещами, если внутри огонь или дым.",
+        "en": "Do not go back for items if there is fire or smoke inside."
       }
     },
     "stay_low": {
@@ -1110,6 +1254,10 @@
         "fi": "Pysy savun alapuolella",
         "lv": "Turies zem dūmiem",
         "lt": "Lik žemiau dūmų"
+      },
+      "detail": {
+        "ru": "Пригнись или ползи, если дыма много.",
+        "en": "Crouch or crawl if the smoke is thick."
       }
     },
     "do_not_use_lift": {
@@ -1121,6 +1269,10 @@
         "fi": "Älä käytä hissiä",
         "lv": "Nelieto liftu",
         "lt": "Nesinaudok liftu"
+      },
+      "detail": {
+        "ru": "Лифт может остановиться или открыться в дым.",
+        "en": "The elevator can stop or open into smoke."
       }
     },
     "take_documents": {
@@ -1132,6 +1284,10 @@
         "fi": "Ota asiakirjat",
         "lv": "Paņem dokumentus",
         "lt": "Pasiimk dokumentus"
+      },
+      "detail": {
+        "ru": "Возьми паспорт, права и важные бумаги.",
+        "en": "Take ID, driving licence, and key papers."
       }
     },
     "take_go_bag": {
@@ -1143,6 +1299,10 @@
         "fi": "Ota reppu",
         "lv": "Paņem somu",
         "lt": "Pasiimk kuprinę"
+      },
+      "detail": {
+        "ru": "Если рюкзак рядом, возьми его без задержки.",
+        "en": "If the bag is nearby, take it without delay."
       }
     },
     "leave_safe_route": {
@@ -1154,6 +1314,10 @@
         "fi": "Käytä turvallista reittiä",
         "lv": "Ej pa drošu maršrutu",
         "lt": "Eik saugiu keliu"
+      },
+      "detail": {
+        "ru": "Избегай дыма, толпы, стекла и закрытых проходов.",
+        "en": "Avoid smoke, crowds, glass, and blocked passages."
       }
     },
     "move_aside": {
@@ -1165,6 +1329,10 @@
         "fi": "Siirry sivuun",
         "lv": "Virzies malā",
         "lt": "Traukis į šoną"
+      },
+      "detail": {
+        "ru": "Уходи к стене или краю потока людей.",
+        "en": "Move toward a wall or the edge of the crowd."
       }
     },
     "do_not_push": {
@@ -1176,6 +1344,10 @@
         "fi": "Älä työnnä",
         "lv": "Nestumies",
         "lt": "Nestumdyk"
+      },
+      "detail": {
+        "ru": "Сохраняй равновесие и держи руки перед грудью.",
+        "en": "Keep your balance and hold your hands in front of your chest."
       }
     },
     "find_exit": {
@@ -1187,6 +1359,10 @@
         "fi": "Etsi uloskäynti",
         "lv": "Meklē izeju",
         "lt": "Ieškok išėjimo"
+      },
+      "detail": {
+        "ru": "Ищи дверь, лестницу или открытый проход.",
+        "en": "Look for a door, stairs, or an open passage."
       }
     },
     "breathe_slow": {
@@ -1198,6 +1374,10 @@
         "fi": "Hengitä hitaasti",
         "lv": "Elpo lēni",
         "lt": "Kvėpuok lėtai"
+      },
+      "detail": {
+        "ru": "Сделай длинный выдох, чтобы не сорваться в панику.",
+        "en": "Make a long exhale to keep panic under control."
       }
     },
     "leave_street": {
@@ -1209,6 +1389,10 @@
         "fi": "Poistu kadulta",
         "lv": "Ej prom no ielas",
         "lt": "Palik gatvę"
+      },
+      "detail": {
+        "ru": "Уходи в подъезд, магазин или за угол здания.",
+        "en": "Move into an entryway, shop, or behind a building."
       }
     },
     "enter_safe_building": {
@@ -1220,6 +1404,10 @@
         "fi": "Mene turvalliseen rakennukseen",
         "lv": "Ieej drošā ēkā",
         "lt": "Eik į saugų pastatą"
+      },
+      "detail": {
+        "ru": "Выбирай место с людьми, дверью и возможностью закрыться.",
+        "en": "Choose a place with people, a door, and a way to lock it."
       }
     },
     "watch_surroundings": {
@@ -1231,6 +1419,10 @@
         "fi": "Katso ympärillesi",
         "lv": "Skaties apkārt",
         "lt": "Apsižvalgyk"
+      },
+      "detail": {
+        "ru": "Смотри на входы, окна, людей и пути отхода.",
+        "en": "Watch entrances, windows, people, and exit routes."
       }
     },
     "lock_door": {
@@ -1242,6 +1434,10 @@
         "fi": "Lukitse ovi",
         "lv": "Aizslēdz durvis",
         "lt": "Užrakink duris"
+      },
+      "detail": {
+        "ru": "Если замка нет, подопрись мебелью или держи дверь.",
+        "en": "If there is no lock, brace it with furniture or hold it closed."
       }
     },
     "move_inside": {
@@ -1253,6 +1449,10 @@
         "fi": "Siirry syvemmälle sisään",
         "lv": "Ej dziļāk iekšā",
         "lt": "Eik giliau į vidų"
+      },
+      "detail": {
+        "ru": "Не стой у входа и не оставайся у окна.",
+        "en": "Do not stay near the entrance or by a window."
       }
     }
   },
