@@ -1628,4 +1628,30 @@ function getLanguageEnglishName(languageId) {
 
 function getFilteredLanguages() {
   const query = state.langSearch.trim().toLowerCase();
-  const languages = state.data?.lan
+  const languages = state.data?.languages || [];
+  if (!query) {
+    return languages;
+  }
+
+  return languages.filter((language) => {
+    const meta = getLanguageMeta(language.id);
+    const haystack = [
+      language.id,
+      language.short,
+      meta.nativeName || language.short || language.id,
+      meta.englishName || language.short || language.id
+    ]
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase();
+    return haystack.includes(query);
+  });
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
