@@ -106,6 +106,8 @@ const SUPPLIES_CONFIG = [
 ];
 const LAST_COORDS_KEY = "survival_last_coords";
 const MANUAL_LOCATION_KEY = "survival_manual_location";
+const EMERGENCY_PROFILE_KEY = "survival_emergency_profile";
+const EMERGENCY_PIN_KEY = "survival_emergency_pin";
 const MAX_FRESH_MS = 10 * 60 * 1000;
 const SpeechRecognitionApi =
   window.SpeechRecognition || window.webkitSpeechRecognition || null;
@@ -160,6 +162,43 @@ function loadStoredCoords() {
   }
 }
 
+function createEmptyEmergencyProfile() {
+  return {
+    personName: "",
+    homeAddress: "",
+    primaryContactName: "",
+    primaryContactPhone: "",
+    primaryContactRelation: "",
+    secondaryContactName: "",
+    secondaryContactPhone: "",
+    secondaryContactRelation: "",
+    medicalNotes: "",
+    communicationLanguage: "",
+    helperInstruction:
+      "Я могу быть дезориентирован. Пожалуйста, позвоните моему emergency-контакту."
+  };
+}
+
+function loadEmergencyProfile() {
+  try {
+    const raw = localStorage.getItem(EMERGENCY_PROFILE_KEY);
+    if (!raw) {
+      return createEmptyEmergencyProfile();
+    }
+    return { ...createEmptyEmergencyProfile(), ...JSON.parse(raw) };
+  } catch (_) {
+    return createEmptyEmergencyProfile();
+  }
+}
+
+function saveEmergencyProfile(profile) {
+  localStorage.setItem(EMERGENCY_PROFILE_KEY, JSON.stringify(profile));
+}
+
+function loadEmergencyPin() {
+  return localStorage.getItem(EMERGENCY_PIN_KEY) || "";
+}
+
 const state = {
   data: null,
   initError: false,
@@ -168,6 +207,14 @@ const state = {
   placeId: null,
   problemId: null,
   guideId: null,
+  emergencyProfile: loadEmergencyProfile(),
+  emergencyDraft: null,
+  emergencyPinDraft: "",
+  emergencyPinConfirm: "",
+  emergencyPinEntry: "",
+  emergencyPinError: "",
+  emergencyHelpLoading: false,
+  emergencyHelpError: "",
   stepIndex: 0,
   langSearch: "",
   lowPower: localStorage.getItem("survival_low_power") === "1",
@@ -464,6 +511,21 @@ function render() {
     case "guide":
       screenHtml = renderGuideScreen();
       break;
+    case "settings":
+      screenHtml = renderSettingsScreen();
+      break;
+    case "emergency-profile":
+      screenHtml = renderEmergencyProfileScreen();
+      break;
+    case "emergency-pin":
+      screenHtml = renderEmergencyPinScreen();
+      break;
+    case "emergency-edit":
+      screenHtml = renderEmergencyEditScreen();
+      break;
+    case "emergency-help":
+      screenHtml = renderEmergencyHelpScreen();
+      break;
     case "sos":
       screenHtml = renderSosScreen();
       break;
@@ -546,6 +608,9 @@ function renderTopbar() {
           state.lowPower ? "active" : ""
         }" data-action="toggle-low-power" aria-label="${u("lowPowerButton")}">
           🔋
+        </button>
+        <button class="icon-button" data-action="open-settings" aria-label="Settings">
+          ⚙️
         </button>
         ${
           state.deferredPrompt
@@ -673,6 +738,11 @@ function renderHomeScreen() {
         <span class="button-note">${u("sosHint")}</span>
       </button>
 
+      <button class="main-button help-hero" data-action="open-emergency-help" aria-label="Мне нужна помощь">
+        <span class="button-label">Мне нужна помощь</span>
+        <span class="button-note">Показать мои контакты и помощь</span>
+      </button>
+
       <div class="quick-grid">
         ${HOME_SHORTCUTS.map((item) => renderQuickShortcut(item)).join("")}
       </div>
@@ -710,6 +780,216 @@ function renderQuickShortcut(shortcut) {
       <h3 class="choice-title">${t(shortcut.label) || t(problem.title)}</h3>
       <p class="choice-subtitle">${t(shortcut.subtitle) || t(problem.hint)}</p>
     </button>
+  `;
+}
+
+function renderSettingsScreen() {
+  return `
+    <section class="screen-card">
+      <h2 class="screen-title">Настройки</h2>
+      <p class="screen-hint">Простые настройки и экстренный профиль.</p>
+
+      <button class="secondary-button" data-action="open-emergency-profile">
+        <span class="button-label">Режим заботы</span>
+        <span class="button-note">Emergency Profile для пожилых и родственников</span>
+      </button>
+
+      <button class="ghost-button" data-action="open-language">
+        <span class="button-label">Language: ${getLanguageDisplayName(state.lang)} ▾</span>
+      </button>
+    </section>
+  `;
+}
+
+function renderProfileInfoLine(label, value) {
+  return `
+    <div class="profile-line">
+      <p class="meta-text">${label}</p>
+      <p class="profile-value">${escapeHtml(value || "—")}</p>
+    </div>
+  `;
+}
+
+function renderEmergencyProfileScreen() {
+  const profile = state.emergencyProfile;
+  const hasPrimary = profile.primaryContactName || profile.primaryContactPhone;
+
+  return `
+    <section class="screen-card care-card">
+      <h2 class="screen-title">Режим заботы</h2>
+      <p class="screen-hint">Карточка для экстренной помощи и связи с родственниками.</p>
+
+      ${renderProfileInfoLine("Имя", profile.personName)}
+      ${renderProfileInfoLine("Домашний адрес", profile.homeAddress)}
+      ${renderProfileInfoLine(
+        "Основной контакт",
+        hasPrimary
+          ? `${profile.primaryContactName} · ${profile.primaryContactPhone} · ${profile.primaryContactRelation}`
+          : ""
+      )}
+      ${renderProfileInfoLine(
+        "Дополнительный контакт",
+        profile.secondaryContactName || profile.secondaryContactPhone
+          ? `${profile.secondaryContactName} · ${profile.secondaryContactPhone} · ${profile.secondaryContactRelation}`
+          : ""
+      )}
+      ${renderProfileInfoLine("Медицинские заметки", profile.medicalNotes)}
+      ${renderProfileInfoLine("Язык общения", profile.communicationLanguage)}
+      ${renderProfileInfoLine("Текст для окружающих", profile.helperInstruction)}
+
+      <button class="main-button" data-action="open-emergency-help">
+        <span class="button-label">Мне нужна помощь</span>
+        <span class="button-note">Показать данные без PIN</span>
+      </button>
+
+      <button class="secondary-button" data-action="edit-emergency-profile">
+        <span class="button-label">Изменить профиль</span>
+        <span class="button-note">Контакты и медицинские заметки</span>
+      </button>
+    </section>
+  `;
+}
+
+function renderEmergencyPinScreen() {
+  return `
+    <section class="screen-card care-card">
+      <h2 class="screen-title">Подтверждение</h2>
+      <p class="screen-hint">Введите PIN, чтобы изменить emergency-контакты и профиль.</p>
+      ${state.emergencyPinError ? `<p class="guide-warning">${escapeHtml(state.emergencyPinError)}</p>` : ""}
+      <label class="form-field">
+        <span class="meta-text">PIN-код</span>
+        <input id="emergency-pin-entry" class="manual-location" type="password" inputmode="numeric" maxlength="12" value="${escapeHtml(state.emergencyPinEntry)}" />
+      </label>
+      <button class="main-button" data-action="confirm-emergency-pin">
+        <span class="button-label">Продолжить</span>
+      </button>
+    </section>
+  `;
+}
+
+function renderEmergencyEditScreen() {
+  const profile = state.emergencyDraft || state.emergencyProfile;
+  const hasPin = Boolean(loadEmergencyPin());
+  return `
+    <section class="screen-card care-card">
+      <h2 class="screen-title">Редактирование профиля</h2>
+      <p class="screen-hint">Данные сохраняются только на этом устройстве.</p>
+      <form id="emergency-profile-form" class="form-grid">
+        <label class="form-field">
+          <span class="meta-text">Имя человека</span>
+          <input name="personName" class="manual-location" value="${escapeHtml(profile.personName)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Домашний адрес</span>
+          <textarea name="homeAddress" class="manual-location" rows="2">${escapeHtml(profile.homeAddress)}</textarea>
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Основной контакт: имя</span>
+          <input name="primaryContactName" class="manual-location" value="${escapeHtml(profile.primaryContactName)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Основной контакт: телефон</span>
+          <input name="primaryContactPhone" class="manual-location" type="tel" value="${escapeHtml(profile.primaryContactPhone)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Связь с человеком</span>
+          <input name="primaryContactRelation" class="manual-location" value="${escapeHtml(profile.primaryContactRelation)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Доп. контакт: имя</span>
+          <input name="secondaryContactName" class="manual-location" value="${escapeHtml(profile.secondaryContactName)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Доп. контакт: телефон</span>
+          <input name="secondaryContactPhone" class="manual-location" type="tel" value="${escapeHtml(profile.secondaryContactPhone)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Доп. связь</span>
+          <input name="secondaryContactRelation" class="manual-location" value="${escapeHtml(profile.secondaryContactRelation)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Медицинские заметки</span>
+          <textarea name="medicalNotes" class="manual-location" rows="4">${escapeHtml(profile.medicalNotes)}</textarea>
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Язык общения</span>
+          <input name="communicationLanguage" class="manual-location" value="${escapeHtml(profile.communicationLanguage)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">Инструкция для посторонних</span>
+          <textarea name="helperInstruction" class="manual-location" rows="3">${escapeHtml(profile.helperInstruction)}</textarea>
+        </label>
+        <label class="form-field">
+          <span class="meta-text">${hasPin ? "Новый PIN (необязательно)" : "PIN для защиты редактирования"}</span>
+          <input name="newPin" class="manual-location" type="password" inputmode="numeric" maxlength="12" value="${escapeHtml(state.emergencyPinDraft)}" />
+        </label>
+        <label class="form-field">
+          <span class="meta-text">${hasPin ? "Повтор нового PIN" : "Повторите PIN"}</span>
+          <input name="confirmPin" class="manual-location" type="password" inputmode="numeric" maxlength="12" value="${escapeHtml(state.emergencyPinConfirm)}" />
+        </label>
+        <button class="main-button" type="submit">
+          <span class="button-label">Сохранить</span>
+        </button>
+      </form>
+    </section>
+  `;
+}
+
+function renderEmergencyHelpScreen() {
+  const profile = state.emergencyProfile;
+  const coords = getCurrentCoords();
+  const hasPrimaryPhone = Boolean(profile.primaryContactPhone);
+  const emergencyMessage = buildEmergencyProfileMessage();
+
+  return `
+    <section class="screen-card care-card">
+      <h2 class="screen-title">Мне нужна помощь</h2>
+      <p class="help-banner">Пожалуйста, помогите мне связаться с моим родственником.</p>
+
+      ${renderProfileInfoLine("Имя", profile.personName)}
+      ${renderProfileInfoLine("Адрес", profile.homeAddress)}
+      ${renderProfileInfoLine(
+        "Основной контакт",
+        profile.primaryContactName || profile.primaryContactPhone
+          ? `${profile.primaryContactName} · ${profile.primaryContactPhone} · ${profile.primaryContactRelation}`
+          : ""
+      )}
+      ${renderProfileInfoLine("Язык общения", profile.communicationLanguage)}
+      ${renderProfileInfoLine("Медицинские заметки", profile.medicalNotes)}
+      ${renderProfileInfoLine("Инструкция", profile.helperInstruction)}
+      ${renderProfileInfoLine(
+        "Геолокация",
+        coords ? `${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}` : "Не получена"
+      )}
+      ${
+        state.emergencyHelpError
+          ? `<p class="guide-warning">${escapeHtml(state.emergencyHelpError)}</p>`
+          : ""
+      }
+      ${
+        !hasPrimaryPhone
+          ? `<p class="guide-warning">Emergency-контакт не указан. Добавьте номер в Режиме заботы.</p>`
+          : ""
+      }
+
+      <div class="footer-actions">
+        <button class="main-button" data-action="call-emergency-contact" ${hasPrimaryPhone ? "" : "disabled"}>
+          <span class="button-label">Позвонить контакту</span>
+        </button>
+        <button class="secondary-button" data-action="send-emergency-message" ${hasPrimaryPhone ? "" : "disabled"}>
+          <span class="button-label">Отправить сообщение</span>
+        </button>
+      </div>
+
+      <div class="sos-box">
+        <p class="meta-text">Текст сообщения</p>
+        <pre class="sos-message">${escapeHtml(emergencyMessage)}</pre>
+      </div>
+
+      <button class="ghost-button" data-action="refresh-emergency-location">
+        ${state.emergencyHelpLoading ? "Определяю местоположение..." : "Обновить местоположение"}
+      </button>
+    </section>
   `;
 }
 
@@ -1056,6 +1336,21 @@ function renderPersistentSos() {
 }
 
 function bindCommonEvents() {
+  const emergencyPinEntry = app.querySelector("#emergency-pin-entry");
+  if (emergencyPinEntry) {
+    emergencyPinEntry.addEventListener("input", (event) => {
+      state.emergencyPinEntry = event.target.value;
+    });
+  }
+
+  const emergencyForm = app.querySelector("#emergency-profile-form");
+  if (emergencyForm) {
+    emergencyForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      saveEmergencyProfileFromForm(emergencyForm);
+    });
+  }
+
   const languageSearch = app.querySelector("#language-search");
   if (languageSearch) {
     languageSearch.addEventListener("input", (event) => {
@@ -1134,6 +1429,32 @@ function bindCommonEvents() {
     button.addEventListener("click", async () => {
       const action = button.dataset.action;
       switch (action) {
+        case "open-settings":
+          state.screen = "settings";
+          render();
+          break;
+        case "open-emergency-profile":
+          state.screen = "emergency-profile";
+          render();
+          break;
+        case "edit-emergency-profile":
+          openEmergencyEditor();
+          break;
+        case "confirm-emergency-pin":
+          confirmEmergencyPin();
+          break;
+        case "open-emergency-help":
+          openEmergencyHelp();
+          break;
+        case "call-emergency-contact":
+          callEmergencyContact();
+          break;
+        case "send-emergency-message":
+          sendEmergencyMessage();
+          break;
+        case "refresh-emergency-location":
+          loadEmergencyHelpLocation();
+          break;
         case "go-place":
           state.screen = "place";
           render();
@@ -1235,6 +1556,165 @@ function openScenario(placeId, problemId) {
   render();
 }
 
+function openEmergencyEditor() {
+  state.emergencyPinError = "";
+  state.emergencyPinEntry = "";
+  state.emergencyPinDraft = "";
+  state.emergencyPinConfirm = "";
+  state.emergencyDraft = { ...state.emergencyProfile };
+  if (loadEmergencyPin()) {
+    state.screen = "emergency-pin";
+  } else {
+    state.screen = "emergency-edit";
+  }
+  render();
+}
+
+function confirmEmergencyPin() {
+  if (state.emergencyPinEntry !== loadEmergencyPin()) {
+    state.emergencyPinError = "Неверный PIN-код.";
+    render();
+    return;
+  }
+  state.emergencyPinError = "";
+  state.screen = "emergency-edit";
+  render();
+}
+
+function saveEmergencyProfileFromForm(form) {
+  const formData = new FormData(form);
+  const nextProfile = {
+    personName: String(formData.get("personName") || "").trim(),
+    homeAddress: String(formData.get("homeAddress") || "").trim(),
+    primaryContactName: String(formData.get("primaryContactName") || "").trim(),
+    primaryContactPhone: String(formData.get("primaryContactPhone") || "").trim(),
+    primaryContactRelation: String(formData.get("primaryContactRelation") || "").trim(),
+    secondaryContactName: String(formData.get("secondaryContactName") || "").trim(),
+    secondaryContactPhone: String(formData.get("secondaryContactPhone") || "").trim(),
+    secondaryContactRelation: String(formData.get("secondaryContactRelation") || "").trim(),
+    medicalNotes: String(formData.get("medicalNotes") || "").trim(),
+    communicationLanguage: String(formData.get("communicationLanguage") || "").trim(),
+    helperInstruction:
+      String(formData.get("helperInstruction") || "").trim() ||
+      createEmptyEmergencyProfile().helperInstruction
+  };
+
+  const newPin = String(formData.get("newPin") || "").trim();
+  const confirmPin = String(formData.get("confirmPin") || "").trim();
+  const existingPin = loadEmergencyPin();
+
+  if ((newPin || confirmPin) && newPin !== confirmPin) {
+    showBanner("PIN-коды не совпадают.");
+    return;
+  }
+
+  if (!existingPin && !newPin) {
+    showBanner("Добавьте PIN, чтобы защитить редактирование профиля.");
+    return;
+  }
+
+  // Emergency profile is viewable without a PIN, but editing stays protected locally.
+  state.emergencyProfile = nextProfile;
+  state.emergencyDraft = { ...nextProfile };
+  saveEmergencyProfile(nextProfile);
+
+  if (newPin) {
+    localStorage.setItem(EMERGENCY_PIN_KEY, newPin);
+  }
+
+  state.screen = "emergency-profile";
+  showBanner("Профиль сохранён локально.");
+  render();
+}
+
+function openEmergencyHelp() {
+  state.emergencyHelpLoading = true;
+  state.emergencyHelpError = "";
+  state.screen = "emergency-help";
+  render();
+  loadEmergencyHelpLocation(true);
+}
+
+function loadEmergencyHelpLocation(skipRender = false) {
+  if (!navigator.geolocation) {
+    state.emergencyHelpLoading = false;
+    state.emergencyHelpError = "Геолокация недоступна. Сообщение будет отправлено без текущих координат.";
+    if (!skipRender) {
+      render();
+    } else {
+      render();
+    }
+    return;
+  }
+
+  if (!skipRender) {
+    state.emergencyHelpLoading = true;
+    render();
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      state.sosCoords = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+        timestamp: position.timestamp || Date.now(),
+        source: "live"
+      };
+      saveCoords(state.sosCoords);
+      state.emergencyHelpLoading = false;
+      state.emergencyHelpError = "";
+      render();
+    },
+    () => {
+      state.emergencyHelpLoading = false;
+      state.emergencyHelpError = "Геолокация недоступна. Сообщение будет отправлено только с адресом.";
+      render();
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 30000
+    }
+  );
+}
+
+function buildEmergencyProfileMessage() {
+  const profile = state.emergencyProfile;
+  const coords = getCurrentCoords();
+  const lines = [
+    "Мне нужна помощь.",
+    profile.personName ? `Имя: ${profile.personName}` : "",
+    profile.homeAddress ? `Адрес: ${profile.homeAddress}` : "",
+    profile.helperInstruction || "Пожалуйста, помогите мне связаться с моим родственником."
+  ].filter(Boolean);
+
+  if (coords) {
+    lines.push(`Координаты: ${coords.latitude.toFixed(5)}, ${coords.longitude.toFixed(5)}`);
+  }
+
+  return lines.join("\n");
+}
+
+function callEmergencyContact() {
+  const phone = state.emergencyProfile.primaryContactPhone;
+  if (!phone) {
+    showBanner("Основной emergency-контакт не указан.");
+    return;
+  }
+  window.location.href = `tel:${phone}`;
+}
+
+function sendEmergencyMessage() {
+  const phone = state.emergencyProfile.primaryContactPhone;
+  if (!phone) {
+    showBanner("Основной emergency-контакт не указан.");
+    return;
+  }
+  const body = encodeURIComponent(buildEmergencyProfileMessage());
+  window.location.href = `sms:${phone}?body=${body}`;
+}
+
 function openGuide() {
   const scenario = getScenario();
   if (!scenario) {
@@ -1263,12 +1743,24 @@ function goHome() {
   state.placeId = null;
   state.problemId = null;
   state.guideId = null;
+  state.emergencyPinError = "";
+  state.emergencyPinEntry = "";
   state.stepIndex = 0;
   render();
 }
 
 function handleBack() {
   if (state.screen === "language") {
+    state.screen = "home";
+  } else if (state.screen === "settings") {
+    state.screen = "home";
+  } else if (state.screen === "emergency-profile") {
+    state.screen = "settings";
+  } else if (state.screen === "emergency-pin") {
+    state.screen = "emergency-profile";
+  } else if (state.screen === "emergency-edit") {
+    state.screen = "emergency-profile";
+  } else if (state.screen === "emergency-help") {
     state.screen = "home";
   } else if (state.screen === "guide") {
     state.screen = "action";

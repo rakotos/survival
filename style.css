@@ -226,6 +226,10 @@ textarea {
   box-shadow: 0 16px 40px rgba(242, 92, 92, 0.28);
 }
 
+.help-hero {
+  min-height: 92px;
+}
+
 .main-button:active,
 .action-button:active,
 .secondary-button:active,
@@ -307,6 +311,49 @@ textarea {
 
 .quick-card {
   min-height: 158px;
+}
+
+.care-card {
+  gap: 16px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.profile-line {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.profile-value {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.06rem;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.help-banner {
+  margin: 0;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(255, 112, 74, 0.18);
+  border: 1px solid rgba(255, 112, 74, 0.45);
+  color: #fff4e7;
+  font-size: 1.18rem;
+  line-height: 1.5;
+  font-weight: 800;
 }
 
 .choice-title {
