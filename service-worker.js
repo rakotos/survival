@@ -66,4 +66,8 @@ self.addEventListener("fetch", (event) => {
           if (isNavigation) {
             return caches.match("./index.html");
           }
-          return ca
+          return caches.match(request);
+        });
+    })
+  );
+});
