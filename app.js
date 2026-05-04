@@ -67,6 +67,10 @@ const SUPPLIES_CONFIG = [
     icon: "💧",
     label: { ru: "Вода", en: "Water" },
     unit: { ru: "л", en: "L" },
+    helpText: {
+      ru: "Рекомендуется хранить воду в пластиковых бутылках или канистрах. Лучше выбирать негазированную воду. Часть запаса можно сделать газированной, но основная часть должна быть простой питьевой водой. Проверяйте срок годности и храните воду в прохладном тёмном месте.",
+      en: "Store water in plastic bottles or canisters. Plain still water is best. You can keep a small part sparkling, but most should be regular drinking water. Check expiry dates and keep water in a cool dark place."
+    },
     perPersonPerDay: 3,
     days: 3,
     critical: 9,
@@ -77,6 +81,10 @@ const SUPPLIES_CONFIG = [
     icon: "🍚",
     label: { ru: "Еда", en: "Food" },
     unit: { ru: "дн", en: "days" },
+    helpText: {
+      ru: "Минимальный набор еды — это продукты длительного хранения, которые не требуют холодильника. Подойдут консервы, крупы, макароны, сухари, орехи, энергетические батончики, детское питание, если нужно. Лучше выбирать еду, которую человек уже привык есть. Проверяйте срок годности и обновляйте запас.",
+      en: "Keep long-life food that does not need a fridge. Canned food, grains, pasta, crackers, nuts, energy bars, and baby food if needed are good options. Choose food the person already eats. Check expiry dates and rotate the stock."
+    },
     perPersonPerDay: 1,
     days: 3,
     critical: 3,
@@ -87,6 +95,10 @@ const SUPPLIES_CONFIG = [
     icon: "🏥",
     label: { ru: "Аптечка", en: "First aid" },
     unit: { ru: "уровень", en: "level" },
+    helpText: {
+      ru: "В аптечке должны быть личные лекарства, обезболивающее, жаропонижающее, средства от аллергии, пластыри, бинт, антисептик, термометр, перчатки и список важных медицинских данных. Обязательно проверяйте сроки годности лекарств и заменяйте просроченные.",
+      en: "Include personal medicines, pain relief, fever medicine, allergy medicine, plasters, bandages, antiseptic, a thermometer, gloves, and a list of important medical information. Check medicine expiry dates and replace expired items."
+    },
     levels: [
       { value: 0, label: { ru: "Нет", en: "None" } },
       { value: 1, label: { ru: "Базовая", en: "Basic" } },
@@ -100,6 +112,10 @@ const SUPPLIES_CONFIG = [
     icon: "🔋",
     label: { ru: "Power bank", en: "Power bank" },
     unit: { ru: "шт", en: "pcs" },
+    helpText: {
+      ru: "Power bank нужен, чтобы зарядить телефон при отключении электричества или вне дома. Рекомендуется держать его заряженным. Проверяйте заряд хотя бы раз в месяц. Лучше иметь кабель, который подходит к телефону человека.",
+      en: "A power bank helps charge a phone during outages or away from home. Keep it charged. Check the charge at least once a month. It is best to keep a cable that fits the person's phone."
+    },
     critical: 0,
     good: 1
   }
@@ -217,6 +233,7 @@ const state = {
   emergencyHelpError: "",
   stepIndex: 0,
   langSearch: "",
+  expandedSupplyId: null,
   lowPower: localStorage.getItem("survival_low_power") === "1",
   voiceEnabled: localStorage.getItem("survival_voice") !== "0",
   speechSupported:
@@ -676,8 +693,10 @@ function renderSuppliesScreen() {
     const readinessLabel = getReadinessLabel(level, state.lang);
     const displayValue = value !== undefined ? value : "—";
     const unitLabel = t(supply.unit) || "";
+    const isExpanded = state.expandedSupplyId === supply.id;
+    const helpText = t(supply.helpText) || "";
     return `
-      <div class="screen-card" style="gap:12px;">
+      <div class="screen-card supply-card${isExpanded ? " is-expanded" : ""}" style="gap:12px;">
         <div style="display:flex;align-items:center;gap:10px;">
           <span style="font-size:1.8rem;">${supply.icon}</span>
           <div style="flex:1;">
@@ -698,6 +717,17 @@ function renderSuppliesScreen() {
         <p class="screen-hint" style="font-size:0.85rem;">
           Минимум: ${supply.critical} ${unitLabel} · Рекомендовано: ${supply.good} ${unitLabel}
         </p>
+        <button
+          class="ghost-button supply-help-toggle"
+          data-action="toggle-supply-help"
+          data-supply-help-id="${supply.id}"
+          aria-expanded="${isExpanded ? "true" : "false"}"
+        >
+          <span class="button-label">Пояснение</span>
+        </button>
+        <div class="supply-help-panel${isExpanded ? " is-open" : ""}" aria-hidden="${isExpanded ? "false" : "true"}">
+          <p class="supply-help-text">${escapeHtml(helpText)}</p>
+        </div>
       </div>
     `;
   }).join("");
@@ -731,12 +761,14 @@ function renderHomeScreen() {
       <h2 class="hero-title">Что случилось?</h2>
       <p class="hero-text">${u("homeText")}</p>
 
-      <button class="danger-button emergency-hero" data-action="open-sos" aria-label="${u(
-        "sosButton"
-      )}">
-        <span class="button-label">${u("sosButton")}</span>
-        <span class="button-note">${u("sosHint")}</span>
-      </button>
+      <div class="hero-sos-wrap">
+        <button class="sos-hero-button" data-action="open-sos" aria-label="${u(
+          "sosButton"
+        )}">
+          SOS
+        </button>
+        <p class="button-note hero-sos-note">${u("sosHint")}</p>
+      </div>
 
       <button class="main-button help-hero" data-action="open-emergency-help" aria-label="Мне нужна помощь">
         <span class="button-label">Мне нужна помощь</span>
@@ -1456,6 +1488,13 @@ function bindCommonEvents() {
           break;
         case "go-place":
           state.screen = "place";
+          render();
+          break;
+        case "toggle-supply-help":
+          state.expandedSupplyId =
+            state.expandedSupplyId === button.dataset.supplyHelpId
+              ? null
+              : button.dataset.supplyHelpId;
           render();
           break;
         case "open-language":
