@@ -402,6 +402,29 @@
         "lv": "Pūlis, nav sakaru, briesmas, patvērums",
         "lt": "Minia, nėra ryšio, pavojus, prieglobstis"
       }
+    },
+    {
+      "id": "kid",
+      "icon": "🧒",
+      "problemIds": [
+        "danger_kid"
+      ],
+      "title": {
+        "ru": "Я ребёнок",
+        "en": "I am a child",
+        "et": "Ma olen laps",
+        "fi": "Olen lapsi",
+        "lv": "Es esmu bērns",
+        "lt": "Aš esu vaikas"
+      },
+      "hint": {
+        "ru": "Если страшно или кто-то странный",
+        "en": "If you are scared or someone seems strange",
+        "et": "Kui sul on hirm või keegi tundub imelik",
+        "fi": "Jos sinua pelottaa tai joku tuntuu oudolta",
+        "lv": "Ja tev ir bail vai kāds šķiet dīvains",
+        "lt": "Jei tau baisu arba kažkas atrodo keistas"
+      }
     }
   ],
   "problems": [
@@ -743,6 +766,26 @@
         "fi": "Pysäytä verenvuoto. Hae apua.",
         "lv": "Aptur asiņošanu. Sauc palīdzību.",
         "lt": "Sustabdyk kraujavimą. Kvieski pagalbą."
+      }
+    },
+    {
+      "id": "danger_kid",
+      "icon": "⚠️",
+      "title": {
+        "ru": "Опасный человек",
+        "en": "Dangerous person",
+        "et": "Ohtlik inimene",
+        "fi": "Vaarallinen henkilö",
+        "lv": "Bīstams cilvēks",
+        "lt": "Pavojingas žmogus"
+      },
+      "hint": {
+        "ru": "Странный взрослый, пьяный человек или кто-то пугает",
+        "en": "A strange adult, drunk person, or someone scary",
+        "et": "Võõras täiskasvanu, purjus inimene või keegi hirmutav",
+        "fi": "Outo aikuinen, humalainen henkilö tai joku pelottava",
+        "lv": "Svešs pieaugušais, piedzēries cilvēks vai kāds biedējošs",
+        "lt": "Keistas suaugęs, girtas žmogus arba kažkas baisus"
       }
     }
   ],
@@ -1525,6 +1568,146 @@
         "ru": "Не стой у входа и не оставайся у окна.",
         "en": "Do not stay near the entrance or by a window."
       }
+    },
+    "kid_trust_feeling": {
+      "icon": "⚠️",
+      "text": {
+        "ru": "Если страшно — это важно",
+        "en": "If you feel scared, it matters",
+        "et": "Kui sul on hirm, on see tähtis",
+        "fi": "Jos sinua pelottaa, se on tärkeää",
+        "lv": "Ja tev ir bail, tas ir svarīgi",
+        "lt": "Jei tau baisu, tai svarbu"
+      },
+      "detail": {
+        "ru": "Если человек кажется странным — сразу уходи. Не жди.",
+        "en": "If someone feels strange, move away now. Do not wait.",
+        "et": "Kui keegi tundub imelik, mine kohe eemale. Ära oota.",
+        "fi": "Jos joku tuntuu oudolta, mene heti pois. Älä odota.",
+        "lv": "Ja kāds šķiet dīvains, ej prom uzreiz. Negaidi.",
+        "lt": "Jei kažkas atrodo keistas, iškart pasitrauk. Nelauk."
+      },
+      "learnMoreId": "child_stranger_danger_basics"
+    },
+    "kid_move_away": {
+      "icon": "🏃",
+      "text": {
+        "ru": "Уйди быстро",
+        "en": "Move away fast",
+        "et": "Mine kiiresti eemale",
+        "fi": "Mene nopeasti pois",
+        "lv": "Ātri ej prom",
+        "lt": "Greitai pasitrauk"
+      },
+      "detail": {
+        "ru": "Иди к людям, в магазин, школу, кафе или на освещённую улицу.",
+        "en": "Go to people, a shop, school, cafe, or a bright street.",
+        "et": "Mine inimeste juurde, poodi, kooli, kohvikusse või valgustatud tänavale.",
+        "fi": "Mene ihmisten luo, kauppaan, kouluun, kahvilaan tai valaistulle kadulle.",
+        "lv": "Ej pie cilvēkiem, uz veikalu, skolu, kafejnīcu vai apgaismotu ielu.",
+        "lt": "Eik prie žmonių, į parduotuvę, mokyklą, kavinę arba apšviestą gatvę."
+      },
+      "learnMoreId": "child_stranger_danger_basics"
+    },
+    "kid_say_no": {
+      "icon": "✋",
+      "text": {
+        "ru": "Скажи НЕТ громко",
+        "en": "Say NO loudly",
+        "et": "Ütle kõvasti EI",
+        "fi": "Sano kovaa EI",
+        "lv": "Saki skaļi NĒ",
+        "lt": "Garsiai sakyk NE"
+      },
+      "detail": {
+        "ru": "Скажи: «Я вас не знаю! Уйдите!»",
+        "en": "Say: “I do not know you! Go away!”",
+        "et": "Ütle: „Ma ei tunne sind! Mine ära!”",
+        "fi": "Sano: ”En tunne sinua! Mene pois!”",
+        "lv": "Saki: “Es jūs nepazīstu! Ejiet prom!”",
+        "lt": "Sakyk: „Aš jūsų nepažįstu! Eikite šalin!“"
+      },
+      "learnMoreId": "child_stranger_danger_basics"
+    },
+    "kid_call_help": {
+      "icon": "📢",
+      "text": {
+        "ru": "Кричи о помощи",
+        "en": "Shout for help",
+        "et": "Karju appi",
+        "fi": "Huuda apua",
+        "lv": "Kliedz pēc palīdzības",
+        "lt": "Šaukis pagalbos"
+      },
+      "detail": {
+        "ru": "Кричи: «Помогите! Я не знаю этого человека!»",
+        "en": "Shout: “Help! I do not know this person!”",
+        "et": "Karju: „Appi! Ma ei tunne seda inimest!”",
+        "fi": "Huuda: ”Apua! En tunne tätä ihmistä!”",
+        "lv": "Kliedz: “Palīgā! Es nepazīstu šo cilvēku!”",
+        "lt": "Šauk: „Padėkite! Aš nepažįstu šio žmogaus!“"
+      },
+      "learnMoreId": "child_stranger_danger_basics"
+    },
+    "kid_find_safe_adult": {
+      "icon": "👮",
+      "text": {
+        "ru": "Найди безопасного взрослого",
+        "en": "Find a safe adult",
+        "et": "Leia turvaline täiskasvanu",
+        "fi": "Etsi turvallinen aikuinen",
+        "lv": "Atrodi drošu pieaugušo",
+        "lt": "Rask saugų suaugusį"
+      },
+      "detail": {
+        "ru": "Подойди к полицейскому, продавцу, охраннику или взрослому с детьми.",
+        "en": "Go to a police officer, shop worker, guard, or an adult with children.",
+        "et": "Mine politseiniku, müüja, turvatöötaja või lastega täiskasvanu juurde.",
+        "fi": "Mene poliisin, myyjän, vartijan tai lasten kanssa olevan aikuisen luo.",
+        "lv": "Ej pie policista, pārdevēja, apsarga vai pieaugušā ar bērniem.",
+        "lt": "Eik pas policininką, pardavėją, apsaugininką arba suaugusį su vaikais."
+      },
+      "learnMoreId": "child_stranger_danger_basics"
+    },
+    "kid_stay_visible": {
+      "icon": "👁️",
+      "text": {
+        "ru": "Будь на виду",
+        "en": "Stay visible",
+        "et": "Ole nähtaval",
+        "fi": "Pysy näkyvillä",
+        "lv": "Paliec redzamā vietā",
+        "lt": "Lik matomoje vietoje"
+      },
+      "detail": {
+        "ru": "Не иди в подъезд, машину, двор без людей или тёмное место.",
+        "en": "Do not go into a stairwell, car, empty yard, or dark place.",
+        "et": "Ära mine trepikotta, autosse, tühja hoovi ega pimedasse kohta.",
+        "fi": "Älä mene rappukäytävään, autoon, tyhjälle pihalle tai pimeään paikkaan.",
+        "lv": "Neej kāpņu telpā, mašīnā, tukšā pagalmā vai tumšā vietā.",
+        "lt": "Neik į laiptinę, automobilį, tuščią kiemą ar tamsią vietą."
+      },
+      "learnMoreId": "child_stranger_danger_basics"
+    },
+    "kid_call_112": {
+      "icon": "📞",
+      "text": {
+        "ru": "Если опасность рядом — звони 112",
+        "en": "If danger is near, call 112",
+        "et": "Kui oht on lähedal, helista 112",
+        "fi": "Jos vaara on lähellä, soita 112",
+        "lv": "Ja briesmas ir blakus, zvani 112",
+        "lt": "Jei pavojus šalia, skambink 112"
+      },
+      "detail": {
+        "ru": "Скажи: «Я ребёнок. Мне страшно. Я не знаю этого человека.»",
+        "en": "Say: “I am a child. I am scared. I do not know this person.”",
+        "et": "Ütle: „Ma olen laps. Mul on hirm. Ma ei tunne seda inimest.”",
+        "fi": "Sano: ”Olen lapsi. Minua pelottaa. En tunne tätä ihmistä.”",
+        "lv": "Saki: “Es esmu bērns. Man ir bail. Es nepazīstu šo cilvēku.”",
+        "lt": "Sakyk: „Aš esu vaikas. Man baisu. Aš nepažįstu šio žmogaus.“"
+      },
+      "learnMoreId": "child_stranger_danger_basics"
     },
     "press_wound": {
       "icon": "✋",
@@ -2643,6 +2826,17 @@
         "tourniquet_if_needed",
         "do_not_remove_object",
         "call_help"
+      ]
+    },
+    "kid.danger_kid": {
+      "steps": [
+        "kid_trust_feeling",
+        "kid_move_away",
+        "kid_say_no",
+        "kid_call_help",
+        "kid_find_safe_adult",
+        "kid_stay_visible",
+        "kid_call_112"
       ]
     }
   }
