@@ -1328,8 +1328,7 @@ function renderPersistentSos() {
         data-action="open-sos"
         aria-label="${u("sosButton")}"
       >
-        <span class="sos-sticky-icon">🆘</span>
-        <span>${u("sosButton")}</span>
+        SOS
       </button>
     </div>
   `;
